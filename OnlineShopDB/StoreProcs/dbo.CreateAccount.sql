@@ -7,9 +7,7 @@ CREATE PROCEDURE dbo.CreateAccount (
 	@name varchar(25),
 	@email varchar(50),
 	@password varchar(32),
-	@status bit,
-	@createdDate datetime2(7),
-	@updatedDate datetime2(7)
+	@createdDate datetime2(7)
 )
 AS
 BEGIN
@@ -25,18 +23,14 @@ BEGIN
 			Name,
 			Email,
 			Password,
-			Status,
-			CreatedDate,
-			UpdatedDate
+			CreatedDate
 		)
 		VALUES
 		(
 			@name,
 			@email,
 			@password,
-			@status,
-			@createdDate,
-			@updatedDate
+			@createdDate
 		);
 	END
 END

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Account.Infrastructure.Repositories
 {
-    public class AccountRepository
+    public class UserAccountRepository : IUserAccountRepository
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
-        public AccountRepository(IConfiguration configuration)
+        public UserAccountRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             _connectionString = configuration.GetConnectionString("DbConnectionString");
@@ -21,7 +21,7 @@ namespace Account.Infrastructure.Repositories
         public async Task<UserAccount> GetAccountById(long accountId)
         {
             using (var connection = new SqlConnection(_connectionString))
-            {             
+            {
                 connection.Open();
 
                 var param = new DynamicParameters();
@@ -44,7 +44,7 @@ namespace Account.Infrastructure.Repositories
             }
         }
 
-        public async Task AddAccount(string name, string email, string password, bool status)
+        public async Task AddAccount(string name, string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -54,9 +54,7 @@ namespace Account.Infrastructure.Repositories
                 param.Add("@name", name);
                 param.Add("@email", email);
                 param.Add("@password", password);
-                param.Add("@status", status);
                 param.Add("@createdDate", DateTime.Now);
-                param.Add("@updatedDate", DBNull.Value);
 
                 await connection.ExecuteAsync("dbo.CreateAccount", param);
             }
@@ -79,14 +77,13 @@ namespace Account.Infrastructure.Repositories
             }
         }
 
-        public async Task UpdateStatus(long accountId, string email, string password, bool status)
+        public async Task UpdateStatus(string email, string password, bool status)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
                 var param = new DynamicParameters();
-                param.Add("@accountId", accountId);
                 param.Add("@email", email);
                 param.Add("@password", password);
                 param.Add("@status", status);
