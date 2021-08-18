@@ -5,7 +5,6 @@
 -- =============================================
 CREATE PROCEDURE dbo.UpdateStatus
 (
-	@accountId bigint,
 	@email varchar(50),
 	@password varchar(32),
 	@status bit
@@ -17,13 +16,10 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	IF EXISTS (select 1 from dbo.Account where AccountId = @accountId)
-	BEGIN
-		Update dbo.Account
-		Set Status = @status
-		Where AccountId = @accountId
-		and Email = @email
-		and Password = @password
-	END	
+	Update dbo.Account
+	Set Status = @status
+	Where Email = @email
+	and Password = @password
+
 END
 GO
