@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Account.Domain.Mappers;
 using Account.Domain.Services;
 using Account.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,6 +31,8 @@ namespace Account.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddSingleton<IUserAccountRepository, UserAccountRepository>();
             services.AddTransient<IUserAccountService, UserAccountService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

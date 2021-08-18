@@ -1,9 +1,7 @@
-﻿using Account.Domain.Mappers;
-using Account.Domain.Models;
+﻿using Account.Domain.Models;
 using Account.Infrastructure.Repositories;
+using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Account.Domain.Services
@@ -11,10 +9,12 @@ namespace Account.Domain.Services
     public class UserAccountService : IUserAccountService
     {
         private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IMapper _mapper;
 
-        public UserAccountService(IUserAccountRepository userAccountRepository)
+        public UserAccountService(IUserAccountRepository userAccountRepository, IMapper mapper)
         {
             _userAccountRepository = userAccountRepository;
+            _mapper = mapper;
         }
 
         public async Task<UserAccount> GetAccountById(long accountId)
@@ -25,8 +25,8 @@ namespace Account.Domain.Services
             {
                 throw new ArgumentException("Account does not exist.");
             }
-
-            return UserAccountMapper.DbAccountToCoreAccount(account);
+            
+            return _mapper.Map<UserAccount>(account);            
         }
 
         public async Task<UserAccount> GetAccountByEmail(string email)
@@ -38,7 +38,7 @@ namespace Account.Domain.Services
                 throw new ArgumentException("Account does not exist.");
             }
 
-            return UserAccountMapper.DbAccountToCoreAccount(account);
+            return _mapper.Map<UserAccount>(account);
         }
 
         public async Task AddAccount(string name, string email, string password)
@@ -93,7 +93,7 @@ namespace Account.Domain.Services
             await _userAccountRepository.UpdateAccount(account.AccountId, newName, newEmail, newPassword);
         }
 
-        public async Task LogIn(string email, string password, bool status)
+        public async Task<long> LogIn(string email, string password)
         {
             var account = await _userAccountRepository.GetAccountByEmail(email);
 
@@ -103,6 +103,8 @@ namespace Account.Domain.Services
             }
 
             await _userAccountRepository.UpdateStatus(email, password, true);
+
+            return account.AccountId;
         }
 
         public async Task LogOut(long accountId)

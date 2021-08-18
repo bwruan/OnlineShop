@@ -15,7 +15,7 @@ namespace Account.Infrastructure.Repositories
         public UserAccountRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connectionString = configuration.GetConnectionString("DbConnectionString");
+            _connectionString = configuration.GetConnectionString("OnlineShopConnection");
         }
 
         public async Task<UserAccount> GetAccountById(long accountId)
