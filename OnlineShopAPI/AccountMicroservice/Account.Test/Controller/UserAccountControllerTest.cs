@@ -47,11 +47,11 @@ namespace Account.Test.Controller
             });
 
             Assert.NotNull(response);
-            Assert.AreEqual(response.GetType(), typeof(OkResult));
+            Assert.AreEqual(response.GetType(), typeof(StatusCodeResult));
 
-            var ok = (OkResult)response;
+            var result = (StatusCodeResult)response;
 
-            Assert.AreEqual(ok.StatusCode, 200);
+            Assert.AreEqual(result.StatusCode, 201);
         }
 
         [Test]

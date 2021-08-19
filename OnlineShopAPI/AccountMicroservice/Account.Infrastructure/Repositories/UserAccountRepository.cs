@@ -2,6 +2,7 @@
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace Account.Infrastructure.Repositories
                 var param = new DynamicParameters();
                 param.Add("@accountId", accountId);
 
-                return await connection.QueryFirstOrDefaultAsync<UserAccount>("dbo.GetAccountById", param);
+                return await connection.QueryFirstOrDefaultAsync<UserAccount>("dbo.GetAccountById", param, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -40,7 +41,7 @@ namespace Account.Infrastructure.Repositories
                 var param = new DynamicParameters();
                 param.Add("@email", email);
 
-                return await connection.QueryFirstOrDefaultAsync<UserAccount>("dbo.GetAccountByEmail", param);
+                return await connection.QueryFirstOrDefaultAsync<UserAccount>("dbo.GetAccountByEmail", param, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -56,7 +57,7 @@ namespace Account.Infrastructure.Repositories
                 param.Add("@password", password);
                 param.Add("@createdDate", DateTime.Now);
 
-                await connection.ExecuteAsync("dbo.CreateAccount", param);
+                await connection.ExecuteAsync("dbo.CreateAccount", param, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -73,7 +74,7 @@ namespace Account.Infrastructure.Repositories
                 param.Add("@newPassword", newPassword);
                 param.Add("@newUpdatedDate", DateTime.Now);
 
-                await connection.ExecuteAsync("dbo.UpdateAccount", param);
+                await connection.ExecuteAsync("dbo.UpdateAccount", param, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -88,7 +89,7 @@ namespace Account.Infrastructure.Repositories
                 param.Add("@password", password);
                 param.Add("@status", status);
 
-                await connection.ExecuteAsync("dbo.UpdateStatus", param);
+                await connection.ExecuteAsync("dbo.UpdateStatus", param, commandType: CommandType.StoredProcedure);
             }
         }
     }

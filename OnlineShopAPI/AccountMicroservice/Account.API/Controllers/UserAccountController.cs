@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Account.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/userAccount")]
     [ApiController]
     public class UserAccountController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace Account.API.Controllers
             {
                 await _userAccountService.AddAccount(request.Name, request.Email, request.Password);
 
-                return Ok();
+                return StatusCode(201);
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace Account.API.Controllers
             }
         }
 
-        [HttpPost("updateAccount")]
+        [HttpPut("updateAccount")]
         public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountRequest request)
         {
             try
