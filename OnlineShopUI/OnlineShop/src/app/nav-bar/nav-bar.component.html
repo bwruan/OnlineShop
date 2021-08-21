@@ -1,14 +1,24 @@
 <header class="py-1 px-5">
     <div class="d-flex">
-        <a class="nav-link col-2" style="color: lightslategray; padding-left: 100px; font-family: 'Papyrus', fantasy;" href="#" id="home">Short Slogan</a>
+        <a class="nav-link col-2" style="font-size: small; color: lightslategray; padding-left: 100px; font-family: 'Papyrus', fantasy;" href="#" id="home">Short Slogan</a>
         <p class="col-8"></p>
-        <a class="nav-link col-2" style="text-align: end; color: lightslategray; padding-right: 100px;" href="#" id="login" (click)="openSignInModal()">
+        <a class="nav-link col-2" style="font-size: small; text-align: end; color: lightslategray; padding-right: 100px;" href="#" id="login" *ngIf="!isLoggedIn()" (click)="openSignInModal()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
             </svg>
             Sign In / Sign Up
         </a>
+        <div class="row" *ngIf="isLoggedIn()">
+            <a class="nav-link col-7" href="#" id="accountSettings" style="font-size: small; text-align: end; color: lightslategray;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+              </svg>
+              Account
+            </a>
+            <a class="nav-link col-5" href="#" id="logOut" style="font-size: small; text-align: end; color: lightslategray;" (click)="logout()">Sign Out</a>
+        </div>
     </div>
     <div class="d-flex justify-content-center">
         <a class="nav-link h2" style="color: black; font-family:'Courier New', Courier, monospace" href="#" id="home">MY ONLINE SHOP</a>
@@ -68,25 +78,25 @@
                         <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Sign In</h2>
                         <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
                         <div class="form-group">
-                            <label for="inputEmail" class="col-form-label">Email</label>
+                            <label for="loginEmail" class="col-form-label">Email</label>
                             <div>
-                                <input type="email" class="form-control" id="inputEmail" name="signInEmail" required>
+                                <input type="email" class="form-control" id="loginEmail" name="signInEmail" [(ngModel)]="loginObj.email" required>
                                 <span [ngStyle]="errorMsgStyle" *ngIf="signInForm.controls['signInEmail'] !== undefined && signInForm.controls['signInEmail'].invalid && (signInForm.controls['signInEmail'].dirty || signInForm.controls['signInEmail'].touched) && signInForm.controls['signInEmail'].errors" class="alert">
                                 Please enter an email address.
                                 </span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword" class="col-form-label">Password</label>
+                            <label for="loginPassword" class="col-form-label">Password</label>
                             <div>
-                                <input type="password" class="form-control" id="inputPassword" name="signInPassword"required>
+                                <input type="password" class="form-control" id="loginPassword" name="signInPassword" [(ngModel)]="loginObj.password" required>
                                 <span [ngStyle]="errorMsgStyle" *ngIf="signInForm.controls['signInPassword'] !== undefined && signInForm.controls['signInPassword'].invalid && (signInForm.controls['signInPassword'].dirty || signInForm.controls['signInPassword'].touched) && signInForm.controls['signInPassword'].errors" class="alert">
                                 Please enter a password.
                                 </span>
                             </div>
                         </div>
                         <br>
-                        <button type="button" class="btn btn-secondary" style="font-size: small;">SUBMIT</button>
+                        <button type="button" class="btn btn-secondary" style="font-size: small;" (click)="login()">SUBMIT</button>
                     </div>
                 </div>
                   <hr>
@@ -114,26 +124,46 @@
                         <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Sign Up</h2>
                         <p class="text-center" style="font-size: small; color: grey;">Create an account and become a member!</p>
                         <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="firstName" class="col-form-label">First Name</label>
+                                <div>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="signUpObj.firstName" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="signUpForm.controls['firstName'] !== undefined && signUpForm.controls['firstName'].invalid && (signUpForm.controls['firstName'].dirty || signUpForm.controls['firstName'].touched) && signUpForm.controls['firstName'].errors" class="alert">
+                                        First name needed.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="lastName" class="col-form-label">Last Name</label>
+                                <div>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="signUpObj.lastName" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="signUpForm.controls['lastName'] !== undefined && signUpForm.controls['lastName'].invalid && (signUpForm.controls['lastName'].dirty || signUpForm.controls['lastName'].touched) && signUpForm.controls['lastName'].errors" class="alert">
+                                        Last name needed.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label for="inputEmail" class="col-form-label">Email</label>
+                            <label for="createAccEmail" class="col-form-label">Email</label>
                             <div>
-                                <input type="email" class="form-control" id="inputEmail" name="signUpEmail" required>
+                                <input type="email" class="form-control" id="createAccEmail" name="signUpEmail" [(ngModel)]="signUpObj.email" required>
                                 <span [ngStyle]="errorMsgStyle" *ngIf="signUpForm.controls['signUpEmail'] !== undefined && signUpForm.controls['signUpEmail'].invalid && (signUpForm.controls['signUpEmail'].dirty || signUpForm.controls['signUpEmail'].touched) && signUpForm.controls['signUpEmail'].errors" class="alert">
                                 Please enter an email address.
                                 </span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword" class="col-form-label">Password</label>
+                            <label for="createAccPassword" class="col-form-label">Password</label>
                             <div>
-                                <input type="password" class="form-control" id="inputPassword" name="signUpPassword"required>
+                                <input type="password" class="form-control" id="createAccPassword" name="signUpPassword" [(ngModel)]="signUpObj.password" required>
                                 <span [ngStyle]="errorMsgStyle" *ngIf="signUpForm.controls['signUpPassword'] !== undefined && signUpForm.controls['signUpPassword'].invalid && (signUpForm.controls['signUpPassword'].dirty || signUpForm.controls['signUpPassword'].touched) && signUpForm.controls['signUpPassword'].errors" class="alert">
                                 Please enter a password.
                                 </span>
                             </div>
                         </div>
                         <br>
-                        <button type="button" class="btn btn-secondary" style="font-size: small;">CREATE AN ACCOUNT</button>
+                        <button type="button" class="btn btn-secondary" style="font-size: small;" (click)="signUp()">CREATE AN ACCOUNT</button>
                     </div>
                 </div>
                   <hr>
