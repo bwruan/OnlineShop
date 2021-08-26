@@ -75,7 +75,6 @@ namespace Account.API.Controllers
         {
             try
             {
-
                 await _userAccountService.UpdateAccount(request.AccountId, request.NewName, request.NewEmail, request.NewPassword);
 
                 return Ok();
