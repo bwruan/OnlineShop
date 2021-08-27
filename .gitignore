@@ -22,3 +22,15 @@ OnlineShopAPI/AddressMicroservice/.vs/
 OnlineShopAPI/AddressMicroservice/Address.Infrastructure/bin/
 
 OnlineShopAPI/AddressMicroservice/Address.Infrastructure/obj/
+
+OnlineShopAPI/AddressMicroservice/Address.Api/bin/
+
+OnlineShopAPI/AddressMicroservice/Address.Api/obj/
+
+OnlineShopAPI/AddressMicroservice/Address.Domain/bin/
+
+OnlineShopAPI/AddressMicroservice/Address.Domain/obj/
+
+OnlineShopAPI/AddressMicroservice/Address.Test/bin/
+
+OnlineShopAPI/AddressMicroservice/Address.Test/obj/
