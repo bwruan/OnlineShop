@@ -1,0 +1,22 @@
+<div class="d-flex jumbotron jumbotron-fluid">
+    <nav class="col-3 list-group list-group-flush" id="sidebar">
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a routerLink="/accountsetting/loginSecurity">Login & Security</a>
+            </li>
+            <li>
+                <a routerLink="/accountsetting/yourAddress">Your Address</a>
+            </li>
+            <li>
+                <a routerLink="/accountsetting/yourPayment">Your Payment</a>
+            </li>
+            <li>
+                <a routerLink="/accountsetting/yourOrders">Your Orders</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="col-1"></div>
+    <div class="col-8 py-2">
+        <router-outlet></router-outlet>
+    </div>
+</div>

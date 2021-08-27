@@ -1,0 +1,183 @@
+<header class="py-1 px-5">
+    <div class="d-flex">
+        <a class="nav-link col-1" style="font-size: small; color: lightslategray; text-align: end; font-family: 'Papyrus', fantasy;" href="#" id="home">Short Slogan</a>
+        <p class="col-8"></p>
+        <a class="nav-link col-1" style="font-size: small; text-align: end; color: lightslategray;" href="#" id="cart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+          </svg>
+        </a>
+        <a class="nav-link col-2" style="font-size: small; color: lightslategray;" href="#" id="login" *ngIf="!isLoggedIn()" (click)="openSignInModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+            </svg>
+            Sign In / Sign Up
+        </a>
+        <div class="row" *ngIf="isLoggedIn()">
+            <a class="nav-link col-7" routerLink="/accountsetting" id="accountSettings" style="font-size: small; text-align: end; color: lightslategray;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+              </svg>
+              Account
+            </a>
+            <a class="nav-link col-5" href="#" id="logOut" style="font-size: small; color: lightslategray;" (click)="logout()">Sign Out</a>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a class="nav-link h2" style="color: black; font-family:'Courier New', Courier, monospace" href="#" id="home">MY ONLINE SHOP</a>
+    </div>
+</header>
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+              </ul>
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-secondary" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+              </form>
+          </div>
+        </div>
+      </nav>
+</div>
+<div class="border-bottom"></div>
+
+<form #signInForm = "ngForm" (ngSubmit)="login()">
+    <div [style.display] = "signInModalState ? 'block': 'none'" style="opacity: 1;" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="col-11"></p>
+                        <button type="button" class="btn-close col-1" (click)="closeSignInModal(); signInForm.reset()"></button>
+                    </div>
+                    <div class="d-grid gap-2 col-8 mx-auto">
+                        <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Sign In</h2>
+                        <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
+                        <div class="form-group">
+                            <label for="loginEmail" class="col-form-label">Email</label>
+                            <div>
+                                <input type="email" class="form-control" id="loginEmail" name="signInEmail" [(ngModel)]="loginObj.email" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="signInForm.controls['signInEmail'] !== undefined && signInForm.controls['signInEmail'].invalid && (signInForm.controls['signInEmail'].dirty || signInForm.controls['signInEmail'].touched) && signInForm.controls['signInEmail'].errors" class="alert">
+                                Please enter an email address.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword" class="col-form-label">Password</label>
+                            <div>
+                                <input type="password" class="form-control" id="loginPassword" name="signInPassword" [(ngModel)]="loginObj.password" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="signInForm.controls['signInPassword'] !== undefined && signInForm.controls['signInPassword'].invalid && (signInForm.controls['signInPassword'].dirty || signInForm.controls['signInPassword'].touched) && signInForm.controls['signInPassword'].errors" class="alert">
+                                Please enter a password.
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-secondary" style="font-size: small;">SUBMIT</button>
+                    </div>
+                </div>
+                  <hr>
+                  <div class="d-grid gap-2 col-8 mx-auto">
+                    <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Sign Up</h2>
+                    <p class="text-center" style="font-size: small; color: grey;">Hello! It is quick and easy to set up an account!</p>
+                    <button type="button" class="btn btn-outline-dark" style="font-size: small;" (click)="openSignUpModal()">CREATE AN ACCOUNT</button>
+                  </div>
+                  <br>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form #signUpForm = "ngForm" (ngSubmit)="signUp()">
+    <div [style.display] = "signUpModalState ? 'block': 'none'" style="opacity: 1;" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="col-11"></p>
+                        <button type="button" class="btn-close col-1" (click)="closeSignUpModal(); signUpForm.reset()"></button>
+                    </div>
+                    <div class="d-grid gap-2 col-8 mx-auto">
+                        <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Sign Up</h2>
+                        <p class="text-center" style="font-size: small; color: grey;">Create an account and become a member!</p>
+                        <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="firstName" class="col-form-label">First Name</label>
+                                <div>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="signUpObj.firstName" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="signUpForm.controls['firstName'] !== undefined && signUpForm.controls['firstName'].invalid && (signUpForm.controls['firstName'].dirty || signUpForm.controls['firstName'].touched) && signUpForm.controls['firstName'].errors" class="alert">
+                                        First name needed.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="lastName" class="col-form-label">Last Name</label>
+                                <div>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="signUpObj.lastName" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="signUpForm.controls['lastName'] !== undefined && signUpForm.controls['lastName'].invalid && (signUpForm.controls['lastName'].dirty || signUpForm.controls['lastName'].touched) && signUpForm.controls['lastName'].errors" class="alert">
+                                        Last name needed.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="createAccEmail" class="col-form-label">Email</label>
+                            <div>
+                                <input type="email" class="form-control" id="createAccEmail" name="signUpEmail" [(ngModel)]="signUpObj.email" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="signUpForm.controls['signUpEmail'] !== undefined && signUpForm.controls['signUpEmail'].invalid && (signUpForm.controls['signUpEmail'].dirty || signUpForm.controls['signUpEmail'].touched) && signUpForm.controls['signUpEmail'].errors" class="alert">
+                                Please enter an email address.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="createAccPassword" class="col-form-label">Password</label>
+                            <div>
+                                <input type="password" class="form-control" id="createAccPassword" name="signUpPassword" [(ngModel)]="signUpObj.password" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="signUpForm.controls['signUpPassword'] !== undefined && signUpForm.controls['signUpPassword'].invalid && (signUpForm.controls['signUpPassword'].dirty || signUpForm.controls['signUpPassword'].touched) && signUpForm.controls['signUpPassword'].errors" class="alert">
+                                Please enter a password.
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-secondary" style="font-size: small;">CREATE AN ACCOUNT</button>
+                    </div>
+                </div>
+                  <hr>
+                  <div class="d-grid gap-2 col-8 mx-auto">
+                    <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Already a member?</h2>
+                    <button type="button" class="btn btn-outline-dark" style="font-size: small;" (click)="openSignInModal()">SIGN IN</button>
+                  </div>
+                  <br>
+            </div>
+        </div>
+    </div>
+</form>
