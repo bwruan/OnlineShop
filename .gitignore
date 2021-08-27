@@ -16,3 +16,9 @@ OnlineShopAPI/AccountMicroservice/Account.Domain/bin/
 OnlineShopAPI/AccountMicroservice/Account.Domain/obj/
 
 OnlineShopAPI/AccountMicroservice/.vs/
+
+OnlineShopAPI/AddressMicroservice/.vs/
+
+OnlineShopAPI/AddressMicroservice/Address.Infrastructure/bin/
+
+OnlineShopAPI/AddressMicroservice/Address.Infrastructure/obj/
