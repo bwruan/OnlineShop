@@ -1,18 +1,16 @@
 ﻿using Address.Infrastructure.Repository.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Address.Infrastructure.Repository
 {
-    public class AddressRepository
+    public class AddressRepository : IAddressRepository
     {
         public async Task AddAddress(string shippingAdd, long accountId)
         {
-            using(var context = new OnlineShopContext())
+            using (var context = new OnlineShopContext())
             {
                 var address = new Entities.Address()
                 {
@@ -40,6 +38,38 @@ namespace Address.Infrastructure.Repository
                 }
 
                 return addressList;
+            }
+        }
+
+        public async Task<Entities.Address> GetAddressByAddressId(long addressId)
+        {
+            using (var context = new OnlineShopContext())
+            {
+                return await context.Addresses.FirstOrDefaultAsync(a => a.AddressId == addressId);
+            }
+        }
+
+        public async Task UpdateAddress(long addressId, string newShipping)
+        {
+            using (var context = new OnlineShopContext())
+            {
+                var address = await context.Addresses.FirstOrDefaultAsync(a => a.AddressId == addressId);
+
+                address.Shipping = newShipping;
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteAddress(long addressId)
+        {
+            using (var context = new OnlineShopContext())
+            {
+                var address = await context.Addresses.FirstOrDefaultAsync(a => a.AddressId == addressId);
+
+                context.Addresses.Remove(address);
+
+                await context.SaveChangesAsync();
             }
         }
     }
