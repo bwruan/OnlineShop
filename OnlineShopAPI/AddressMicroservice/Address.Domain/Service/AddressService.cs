@@ -52,7 +52,7 @@ namespace Address.Domain.Service
 
         public async Task<Models.Address> GetAddressByAddressId(long addressId, string token)
         {
-            var address = _addressRepository.GetAddressByAddressId(addressId);
+            var address = await _addressRepository.GetAddressByAddressId(addressId);
 
             if (address == null)
             {
@@ -60,9 +60,6 @@ namespace Address.Domain.Service
             }
 
             var coreAddress = _mapper.Map<Models.Address>(address);
-            var account = await _userAccountService.GetAccountByAccountId(coreAddress.AccountId, token);
-
-            coreAddress.User = _mapper.Map<Models.UserAccount>(account);
 
             return coreAddress;
         }
