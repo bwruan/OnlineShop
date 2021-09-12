@@ -5,7 +5,7 @@
             <input type="text" class="form-control" id="updateFirst" name="newFirst" [(ngModel)]="updateObj.firstName" required>
             <span [ngStyle]="errorMsgStyle" *ngIf="updateForm.controls['newFirst'] !== undefined && updateForm.controls['newFirst'].invalid && (updateForm.controls['newFirst'].dirty || updateForm.controls['newFirst'].touched) && updateForm.controls['newFirst'].errors" class="alert">
             Please enter a first name.
-        </span>
+            </span>
         </div>
     </div>
     <div class="form-group">
@@ -14,7 +14,7 @@
             <input type="text" class="form-control" id="updateLast" name="newLast" [(ngModel)]="updateObj.lastName" required>
             <span [ngStyle]="errorMsgStyle" *ngIf="updateForm.controls['newLast'] !== undefined && updateForm.controls['newLast'].invalid && (updateForm.controls['newLast'].dirty || updateForm.controls['newLast'].touched) && updateForm.controls['newLast'].errors" class="alert">
             Please enter a last name.
-        </span>
+            </span>
         </div>
     </div>
     <div class="form-group">
@@ -23,7 +23,7 @@
             <input type="email" class="form-control" id="updateEmail" name="newEmail" [(ngModel)]="updateObj.email" required>
             <span [ngStyle]="errorMsgStyle" *ngIf="updateForm.controls['newEmail'] !== undefined && updateForm.controls['newEmail'].invalid && (updateForm.controls['newEmail'].dirty || updateForm.controls['newEmail'].touched) && updateForm.controls['newEmail'].errors" class="alert">
             Please enter an email.
-        </span>
+            </span>
         </div>
     </div>
     <div class="form-group">
@@ -32,7 +32,7 @@
             <input type="password" class="form-control" id="updatePassword" name="newPassword" [(ngModel)]="updateObj.password" required>
             <span [ngStyle]="errorMsgStyle" *ngIf="updateForm.controls['newPassword'] !== undefined && updateForm.controls['newPassword'].invalid && (updateForm.controls['newPassword'].dirty || updateForm.controls['newPassword'].touched) && updateForm.controls['newPassword'].errors" class="alert">
             Please enter a password.
-        </span>
+            </span>
         </div>
     </div>
     <br>
