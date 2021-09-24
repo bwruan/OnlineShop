@@ -59,6 +59,7 @@ export class UserAccountService {
         let header = new HttpHeaders({
             "Authorization": "Bearer "+ token
         });
+        
         return this._http.put(this.baseUrl + "/userAccount/updateAccount", updateObj, {headers: header});
     }
 }

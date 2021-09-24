@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Address.Api.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/address")]
     [ApiController]
     public class AddressController : ControllerBase
     {
