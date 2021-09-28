@@ -19,12 +19,13 @@ export class AddressService {
         return this._http.post(this.baseUrl + "/address/addAddress", newAddress);
     }
 
-    getAddressesByAccountId(accountId: number): Observable<Address[]>{
+    getAddressesByAccountId(): Observable<Address[]>{
         let token = localStorage.getItem("token");
         let header = new HttpHeaders({
             "Authorization": "Bearer "+ token
         });
-        
+
+        let accountId = Number(localStorage.getItem("accountId"));
         return this._http.get<Address[]>(this.baseUrl + "/address/addressList/" + accountId, {headers: header});
     }
 

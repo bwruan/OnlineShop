@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/model/address';
+import { UserAccount } from 'src/app/model/user-account';
 import { AddressService } from 'src/app/service/address-service';
+import { UserAccountService } from 'src/app/service/user-account-service';
 
 @Component({
   selector: 'app-your-address',
@@ -16,16 +18,26 @@ export class YourAddressComponent implements OnInit {
   };
   
   addressList: Address[];
+  addressObj: Address = new Address();
   updateObj: Address = new Address();
   
-  constructor(private addressService: AddressService) { }
+  constructor(private addressService: AddressService, private userAccountService: UserAccountService) { }
 
   ngOnInit(): void {
-    let accountId = Number(localStorage.getItem("accountId"));
+    this.addressObj.user = new UserAccount();
     
-    this.addressService.getAddressesByAccountId(accountId)
+    this.addressService.getAddressesByAccountId()
     .subscribe(res => {
       this.addressList = res;
+
+      this.userAccountService.getAccountById()
+      .subscribe(res => {
+        this.addressObj.accountId = res.accountId;
+        this.addressObj.user.accountId = res.accountId;
+        this.addressObj.user.name = res.name; 
+      }, err => {
+        this.showMessage = err.error; 
+      });
     }, err => {
       this.showMessage = "Unable to grab addresses.";
     });
