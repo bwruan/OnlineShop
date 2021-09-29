@@ -30,36 +30,36 @@ namespace Address.Test.Service
         [Test]
         public async Task AddAddress_Success()
         {
-            _addressRepository.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<long>()))
+            _addressRepository.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
             var addressService = new AddressService(_addressRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            await addressService.AddAddress("123 A St CityTown State 99999", 1);
+            await addressService.AddAddress("Test User", "123 A St", "CityTown", "AA", "99999", 1);
 
-            _addressRepository.Verify(a => a.AddAddress(It.IsAny<string>(), It.IsAny<long>()), Times.Once);
+            _addressRepository.Verify(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()), Times.Once);
         }
 
         [Test]
         public void AddAddress_AddressEmpty()
         {
-            _addressRepository.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<long>()))
+            _addressRepository.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
             var addressService = new AddressService(_addressRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => addressService.AddAddress("", 1));
+            Assert.ThrowsAsync<ArgumentException>(() => addressService.AddAddress("Test User", "", "CityTown", "AA", "99999", 1));
         }
 
         [Test]
         public void AddAddress_AddressNull()
         {
-            _addressRepository.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<long>()))
+            _addressRepository.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
             var addressService = new AddressService(_addressRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => addressService.AddAddress(null, 1));
+            Assert.ThrowsAsync<ArgumentException>(() => addressService.AddAddress("Test User", null, "CityTown", "AA", "99999", 1));
         }
 
         [Test]
@@ -116,25 +116,25 @@ namespace Address.Test.Service
         [Test]
         public async Task UpdateAddress_Success()
         {
-            _addressRepository.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>()))
+            _addressRepository.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
             var addressService = new AddressService(_addressRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            await addressService.UpdateAddress(1, "123 new Address");
+            await addressService.UpdateAddress(1, "Test User", "123 A St", "CityTown", "AA", "99999");
 
-            _addressRepository.Verify(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+            _addressRepository.Verify(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public void UpdateAddress_InternalServerError()
         {
-            _addressRepository.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>()))
+            _addressRepository.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .ThrowsAsync(new ArgumentException());
 
             var addressService = new AddressService(_addressRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => addressService.UpdateAddress(1, It.IsAny<string>()));
+            Assert.ThrowsAsync<ArgumentException>(() => addressService.UpdateAddress(1, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
         }
 
         [Test]

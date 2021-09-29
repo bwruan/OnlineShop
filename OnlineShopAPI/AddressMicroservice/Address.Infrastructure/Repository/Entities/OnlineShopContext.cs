@@ -36,9 +36,29 @@ namespace Address.Infrastructure.Repository.Entities
             {
                 entity.ToTable("Address");
 
-                entity.Property(e => e.Shipping)
+                entity.Property(e => e.City)
                     .IsRequired()
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CustomerName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.State)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UnitStreet)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Zipcode)
+                    .IsRequired()
+                    .HasMaxLength(25)
                     .IsUnicode(false);
             });
 

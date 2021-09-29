@@ -3,7 +3,6 @@ using Address.Infrastructure.Repository;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Address.Domain.Service
@@ -21,14 +20,34 @@ namespace Address.Domain.Service
             _mapper = mapper;
         }
 
-        public async Task AddAddress(string shippingAdd, long accountId)
+        public async Task AddAddress(string customer, string unitStreet, string city, string state, string zipcode, long accountId)
         {
-            if (string.IsNullOrEmpty(shippingAdd))
+            if (string.IsNullOrEmpty(customer))
             {
-                throw new ArgumentException("Please enter an address");
+                throw new ArgumentException("Please enter name");
             }
 
-            await _addressRepository.AddAddress(shippingAdd, accountId);
+            if (string.IsNullOrEmpty(unitStreet))
+            {
+                throw new ArgumentException("Please enter address unit and street");
+            }
+
+            if (string.IsNullOrEmpty(city))
+            {
+                throw new ArgumentException("Please enter city");
+            }
+
+            if (string.IsNullOrEmpty(state))
+            {
+                throw new ArgumentException("Please select a state");
+            }
+
+            if (string.IsNullOrEmpty(zipcode))
+            {
+                throw new ArgumentException("Please enter zipcode");
+            }
+
+            await _addressRepository.AddAddress(customer, unitStreet, city, state, zipcode, accountId);
         }
 
         public async Task<List<Models.Address>> GetAddressesByAccountId(long accountId, string token)
@@ -64,7 +83,7 @@ namespace Address.Domain.Service
             return coreAddress;
         }
 
-        public async Task UpdateAddress(long addressId, string newShipping)
+        public async Task UpdateAddress(long addressId, string newCustomer, string newUnitStreet, string newCity, string newState, string newZipcode)
         {
             var address = _addressRepository.GetAddressByAddressId(addressId);
 
@@ -73,12 +92,32 @@ namespace Address.Domain.Service
                 throw new ArgumentException("Address does not exist.");
             }
 
-            if (string.IsNullOrEmpty(newShipping))
+            if (string.IsNullOrEmpty(newCustomer))
             {
-                throw new ArgumentException("Please enter an address.");
+                throw new ArgumentException("Please enter name");
             }
 
-            await _addressRepository.UpdateAddress(addressId, newShipping);
+            if (string.IsNullOrEmpty(newUnitStreet))
+            {
+                throw new ArgumentException("Please enter address unit and street");
+            }
+
+            if (string.IsNullOrEmpty(newCity))
+            {
+                throw new ArgumentException("Please enter city");
+            }
+
+            if (string.IsNullOrEmpty(newState))
+            {
+                throw new ArgumentException("Please select a state");
+            }
+
+            if (string.IsNullOrEmpty(newZipcode))
+            {
+                throw new ArgumentException("Please enter zipcode");
+            }
+
+            await _addressRepository.UpdateAddress(addressId, newCustomer, newUnitStreet, newCity, newState, newZipcode);
         }
 
         public async Task DeleteAddress(long addressId)

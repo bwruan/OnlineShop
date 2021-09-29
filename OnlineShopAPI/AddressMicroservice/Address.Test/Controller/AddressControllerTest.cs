@@ -26,7 +26,7 @@ namespace Address.Test.Controller
         [Test]
         public async Task AddAddress_Success()
         {
-            _addressService.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<long>()))
+            _addressService.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
             var controller = new AddressController(_addressService.Object);
@@ -34,7 +34,11 @@ namespace Address.Test.Controller
             var response = await controller.AddAddress(new AddAddressRequest()
             {
                 AccountId = 1,
-                Shipping = "123 A St CityTown State 99999"
+                CustomerName = "Test User",
+                UnitStreet = "123 A St",
+                City = "CityTown",
+                State = "AA",
+                Zipcode = "99999"
             });
 
             Assert.NotNull(response);
@@ -48,7 +52,7 @@ namespace Address.Test.Controller
         [Test]
         public async Task AddAddress_InternalServerError()
         {
-            _addressService.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<long>()))
+            _addressService.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .ThrowsAsync(new Exception());
 
             var controller = new AddressController(_addressService.Object);
@@ -56,7 +60,11 @@ namespace Address.Test.Controller
             var response = await controller.AddAddress(new AddAddressRequest()
             {
                 AccountId = 1,
-                Shipping = "123 A St CityTown State 99999"
+                CustomerName = "Test User",
+                UnitStreet = "123 A St",
+                City = "CityTown",
+                State = "AA",
+                Zipcode = "99999"
             });
 
             Assert.NotNull(response);
@@ -182,7 +190,7 @@ namespace Address.Test.Controller
         [Test]
         public async Task UpdateAddress_Success()
         {
-            _addressService.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>()))
+            _addressService.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
             var controller = new AddressController(_addressService.Object);
@@ -190,7 +198,11 @@ namespace Address.Test.Controller
             var response = await controller.UpdateAddress(new UpdateAddressRequest()
             {
                 AddressId = 1,
-                NewShipping = "123 A St CityTown State 99999"
+                NewCustomer = "Test User",
+                NewUnitStreet = "123 A St",
+                NewCity = "CityTown",
+                NewState = "AA",
+                NewZipcode = "99999"
             });
 
             Assert.NotNull(response);
@@ -204,7 +216,7 @@ namespace Address.Test.Controller
         [Test]
         public async Task UpdateAddress_InternalServerError()
         {
-            _addressService.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>()))
+            _addressService.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .ThrowsAsync(new Exception());
 
             var controller = new AddressController(_addressService.Object);
@@ -212,7 +224,11 @@ namespace Address.Test.Controller
             var response = await controller.UpdateAddress(new UpdateAddressRequest()
             {
                 AddressId = 1,
-                NewShipping = "123 A St CityTown State 99999"
+                NewCustomer = "Test User",
+                NewUnitStreet = "123 A St",
+                NewCity = "CityTown",
+                NewState = "AA",
+                NewZipcode = "99999"
             });
 
             Assert.NotNull(response);

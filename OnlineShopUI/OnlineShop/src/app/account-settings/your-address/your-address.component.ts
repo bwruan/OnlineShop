@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Address } from 'src/app/model/address';
 import { UserAccount } from 'src/app/model/user-account';
 import { AddressService } from 'src/app/service/address-service';
@@ -10,6 +10,8 @@ import { UserAccountService } from 'src/app/service/user-account-service';
   styleUrls: ['./your-address.component.css']
 })
 export class YourAddressComponent implements OnInit {
+  @ViewChild('addAddressForm') addAddressForm;
+
   showMessage: any;
   errorMsgStyle: any = {
     color: "red",
@@ -20,6 +22,8 @@ export class YourAddressComponent implements OnInit {
   addressList: Address[];
   addressObj: Address = new Address();
   updateObj: Address = new Address();
+
+  addModalState: boolean;
   
   constructor(private addressService: AddressService, private userAccountService: UserAccountService) { }
 
@@ -41,5 +45,9 @@ export class YourAddressComponent implements OnInit {
     }, err => {
       this.showMessage = "Unable to grab addresses.";
     });
+  }
+
+  closeAddModal(){
+    
   }
 }

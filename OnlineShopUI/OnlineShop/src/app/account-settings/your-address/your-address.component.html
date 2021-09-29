@@ -19,3 +19,49 @@
         </div>
     </div>
 </div>
+
+<form #addAddressForm = "ngForm">
+    <div [style.display] = "addModalState ? 'block': 'none'" style="opacity: 1;" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="col-11"></p>
+                        <button type="button" class="btn-close col-1" (click)="closeAddModal(); addAddressForm.reset()"></button>
+                    </div>
+                    <div class="d-grid gap-2 col-8 mx-auto">
+                        <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Add an Address</h2>
+                        <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
+                        <div class="form-group">
+                            <label for="loginEmail" class="col-form-label">Email</label>
+                            <div>
+                                <input type="email" class="form-control" id="loginEmail" name="signInEmail" [(ngModel)]="loginObj.email" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="signInForm.controls['signInEmail'] !== undefined && signInForm.controls['signInEmail'].invalid && (signInForm.controls['signInEmail'].dirty || signInForm.controls['signInEmail'].touched) && signInForm.controls['signInEmail'].errors" class="alert">
+                                Please enter an email address.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword" class="col-form-label">Password</label>
+                            <div>
+                                <input type="password" class="form-control" id="loginPassword" name="signInPassword" [(ngModel)]="loginObj.password" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="signInForm.controls['signInPassword'] !== undefined && signInForm.controls['signInPassword'].invalid && (signInForm.controls['signInPassword'].dirty || signInForm.controls['signInPassword'].touched) && signInForm.controls['signInPassword'].errors" class="alert">
+                                Please enter a password.
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-secondary" style="font-size: small;">SUBMIT</button>
+                    </div>
+                </div>
+                  <hr>
+                  <div class="d-grid gap-2 col-8 mx-auto">
+                    <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Sign Up</h2>
+                    <p class="text-center" style="font-size: small; color: grey;">Hello! It is quick and easy to set up an account!</p>
+                    <button type="button" class="btn btn-outline-dark" style="font-size: small;" (click)="openSignUpModal()">CREATE AN ACCOUNT</button>
+                  </div>
+                  <br>
+            </div>
+        </div>
+    </div>
+</form>
