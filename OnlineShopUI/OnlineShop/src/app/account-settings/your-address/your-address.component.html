@@ -1,7 +1,7 @@
 <div class="d-inline-flex py-3">
     <div class="card" style="width: 18rem; margin-right: 10px; border: dotted;">
         <div class="card-body text-center" style="padding-top: 55px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16" (click)="openAddModal()">
                 <path d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
             </svg>
         </div>
@@ -9,9 +9,11 @@
     <div class="card" style="width: 18rem; margin-right: 10px;">
         <div class="card-body" *ngFor="let address of addressList" value="{{address.addressId}}">
             <br>
-            <h6 class="card-text">{{address.user.name}}
+            <h6 class="card-text">{{address.customerName}}
                 <br>
-                {{address.shipping}}
+                {{address.unitStreet}}
+                <br>
+                {{address.city}}, {{address.state}} {{address.zipcode}}
             </h6>
             <br>
             <a href="#" class="card-link">Edit</a>
@@ -33,34 +35,120 @@
                         <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Add an Address</h2>
                         <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
                         <div class="form-group">
-                            <label for="loginEmail" class="col-form-label">Email</label>
+                            <label for="fullName" class="col-form-label">Full Name</label>
                             <div>
-                                <input type="email" class="form-control" id="loginEmail" name="signInEmail" [(ngModel)]="loginObj.email" required>
-                                <span [ngStyle]="errorMsgStyle" *ngIf="signInForm.controls['signInEmail'] !== undefined && signInForm.controls['signInEmail'].invalid && (signInForm.controls['signInEmail'].dirty || signInForm.controls['signInEmail'].touched) && signInForm.controls['signInEmail'].errors" class="alert">
-                                Please enter an email address.
+                                <input type="text" class="form-control" id="fullName" name="addressName" [(ngModel)]="addressObj.customerName" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="addAddressForm.controls['addressName'] !== undefined && addAddressForm.controls['addressName'].invalid && (addAddressForm.controls['addressName'].dirty || addAddressForm.controls['addressName'].touched) && addAddressForm.controls['addressName'].errors" class="alert">
+                                Please enter a name.
                                 </span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="loginPassword" class="col-form-label">Password</label>
+                            <label for="address1" class="col-form-label">Address</label>
                             <div>
-                                <input type="password" class="form-control" id="loginPassword" name="signInPassword" [(ngModel)]="loginObj.password" required>
-                                <span [ngStyle]="errorMsgStyle" *ngIf="signInForm.controls['signInPassword'] !== undefined && signInForm.controls['signInPassword'].invalid && (signInForm.controls['signInPassword'].dirty || signInForm.controls['signInPassword'].touched) && signInForm.controls['signInPassword'].errors" class="alert">
-                                Please enter a password.
+                                <input type="text" class="form-control" id="address1" name="addressUnit" [(ngModel)]="addressObj.unitStreet" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="addAddressForm.controls['addressUnit'] !== undefined && addAddressForm.controls['addressUnit'].invalid && (addAddressForm.controls['addressUnit'].dirty || addAddressForm.controls['addressUnit'].touched) && addAddressForm.controls['addressUnit'].errors" class="alert">
+                                Please enter an address.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="col-form-label">City</label>
+                            <div>
+                                <input type="text" class="form-control" id="city" name="addressCity" [(ngModel)]="addressObj.city" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="addAddressForm.controls['addressCity'] !== undefined && addAddressForm.controls['addressCity'].invalid && (addAddressForm.controls['addressCity'].dirty || addAddressForm.controls['addressCity'].touched) && addAddressForm.controls['addressCity'].errors" class="alert">
+                                    Please enter a city
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stateDropdown" class="col-form-label">State</label>
+                            <div>
+                                <select id="stateDropdown" name="addressState">
+                                    <option *ngFor ="let state of stateList">{{state.abbrev}} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipcode" class="col-form-label">Zipcode</label>
+                            <div>
+                                <input type="text" class="form-control" id="zipcode" name="addressZip" [(ngModel)]="addressObj.zipcode" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="addAddressForm.controls['addressZip'] !== undefined && addAddressForm.controls['addressZip'].invalid && (addAddressForm.controls['addressZip'].dirty || addAddressForm.controls['addressZip'].touched) && addAddressForm.controls['addressZip'].errors" class="alert">
+                                    Please enter a zipcode
                                 </span>
                             </div>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-secondary" style="font-size: small;">SUBMIT</button>
+                        <button type="submit" class="btn btn-primary" style="font-size: small;" (click)="updateAddress()">Save</button>
+                        <button type="button" class="btn btn-secondary" (click)="closeAddModal(); addAddressForm.reset()"></button>
                     </div>
                 </div>
-                  <hr>
-                  <div class="d-grid gap-2 col-8 mx-auto">
-                    <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Sign Up</h2>
-                    <p class="text-center" style="font-size: small; color: grey;">Hello! It is quick and easy to set up an account!</p>
-                    <button type="button" class="btn btn-outline-dark" style="font-size: small;" (click)="openSignUpModal()">CREATE AN ACCOUNT</button>
-                  </div>
-                  <br>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form #ngForm="editForm">
+    <div [style.display] = "editModalState ? 'block': 'none'" style="opacity: 1;" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="col-11"></p>
+                        <button type="button" class="btn-close col-1" (click)="closeEditModal(); editForm.reset()"></button>
+                    </div>
+                    <div class="d-grid gap-2 col-8 mx-auto">
+                        <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Edit Address</h2>
+                        <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
+                        <div class="form-group">
+                            <label for="fullName" class="col-form-label">Full Name</label>
+                            <div>
+                                <input type="text" class="form-control" id="fullName" name="addressName" [(ngModel)]="addressObj.customerName" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="addAddressForm.controls['addressName'] !== undefined && addAddressForm.controls['addressName'].invalid && (addAddressForm.controls['addressName'].dirty || addAddressForm.controls['addressName'].touched) && addAddressForm.controls['addressName'].errors" class="alert">
+                                Please enter a name.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address1" class="col-form-label">Address</label>
+                            <div>
+                                <input type="text" class="form-control" id="address1" name="addressUnit" [(ngModel)]="addressObj.unitStreet" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="addAddressForm.controls['addressUnit'] !== undefined && addAddressForm.controls['addressUnit'].invalid && (addAddressForm.controls['addressUnit'].dirty || addAddressForm.controls['addressUnit'].touched) && addAddressForm.controls['addressUnit'].errors" class="alert">
+                                Please enter an address.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="col-form-label">City</label>
+                            <div>
+                                <input type="text" class="form-control" id="city" name="addressCity" [(ngModel)]="addressObj.city" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="addAddressForm.controls['addressCity'] !== undefined && addAddressForm.controls['addressCity'].invalid && (addAddressForm.controls['addressCity'].dirty || addAddressForm.controls['addressCity'].touched) && addAddressForm.controls['addressCity'].errors" class="alert">
+                                    Please enter a city
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stateDropdown" class="col-form-label">State</label>
+                            <div>
+                                <select id="stateDropdown" name="addressState">
+                                    <option *ngFor ="let state of stateList">{{state.abbrev}} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipcode" class="col-form-label">Zipcode</label>
+                            <div>
+                                <input type="text" class="form-control" id="zipcode" name="addressZip" [(ngModel)]="addressObj.zipcode" required>
+                                <span [ngStyle]="errorMsgStyle" *ngIf="addAddressForm.controls['addressZip'] !== undefined && addAddressForm.controls['addressZip'].invalid && (addAddressForm.controls['addressZip'].dirty || addAddressForm.controls['addressZip'].touched) && addAddressForm.controls['addressZip'].errors" class="alert">
+                                    Please enter a zipcode
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary" style="font-size: small;" (click)="addAddress()">Add</button>
+                        <button type="button" class="btn btn-secondary" (click)="closeAddModal(); addAddressForm.reset()"></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

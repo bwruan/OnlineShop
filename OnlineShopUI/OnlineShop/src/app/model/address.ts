@@ -2,7 +2,11 @@ import { UserAccount } from "./user-account";
 
 export class Address {
     addressId: number;
-    shipping: string;
+    customerName: string;
+    unitStreet: string;
+    city: string;
+    state: string;
+    zipcode: string;
     accountId: number;
     user: UserAccount;
 }

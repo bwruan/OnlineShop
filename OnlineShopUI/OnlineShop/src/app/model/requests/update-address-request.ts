@@ -1,9 +1,18 @@
 export class UpdateAddressRequest {
     addressId: number;
-    newShipping: string;
+    newCustomer: string;
+    newUnitStreet: string;
+    newCity: string;
+    newState: string;
+    newZipcode: string;
 
-    constructor(addressId: number, newShipping: string){
+    constructor(addressId: number, newCustomer: string, newUnitStreet: string, newCity: string,
+        newState: string, newZipcode: string){
         this.addressId = addressId;
-        this.newShipping = newShipping;
+        this.newCustomer = newCustomer;
+        this.newUnitStreet = newUnitStreet;
+        this.newCity = newCity;
+        this.newState = newState;
+        this.newZipcode = newZipcode;
     }
 }
