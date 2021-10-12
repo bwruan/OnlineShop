@@ -34,3 +34,21 @@ OnlineShopAPI/AddressMicroservice/Address.Domain/obj/
 OnlineShopAPI/AddressMicroservice/Address.Test/bin/
 
 OnlineShopAPI/AddressMicroservice/Address.Test/obj/
+
+OnlineShopAPI/PaymentInfoMicroservice/.vs/
+
+OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Api/bin/
+
+OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Api/obj/
+
+OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Domain/bin/
+
+OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Domain/obj/
+
+OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Infrastructure/bin/
+
+OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Infrastructure/obj/
+
+OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Test/bin/
+
+OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Test/obj/
