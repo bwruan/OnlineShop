@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Address } from 'src/app/model/address';
 import { AddAddressRequest } from 'src/app/model/requests/add-address-request';
+import { UpdateAddressRequest } from 'src/app/model/requests/update-address-request';
 import { UserAccount } from 'src/app/model/user-account';
 import { AddressService } from 'src/app/service/address-service';
 import { UserAccountService } from 'src/app/service/user-account-service';
@@ -40,7 +42,7 @@ export class YourAddressComponent implements OnInit {
     {name: "South Dakota", abbrev: "SD"}, {name: "Tennessee", abbrev: "TN"}, {name: "Texas", abbrev:	"TX"}, {name: "Utah", abbrev: "UT"}, {name: "Vermont", abbrev: "VT"},
     {name: "Virginia", abbrev: "VA"}, {name: "Washington", abbrev: "WA"}, {name: "West Virginia", abbrev: "WV"}, {name: "Wisconsin", abbrev: "WI"}, {name: "Wyoming", abbrev:	"WY"}];
   
-  constructor(private addressService: AddressService, private userAccountService: UserAccountService) { }
+  constructor(private addressService: AddressService, private userAccountService: UserAccountService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.addressObj.user = new UserAccount();
@@ -71,13 +73,15 @@ export class YourAddressComponent implements OnInit {
   }
 
   addAddress(){
+    this.addAddressObj.accountId = Number(localStorage.getItem("accountId"));
+
     this.addressService.addAddress(new AddAddressRequest(this.addAddressObj.addressId, this.addAddressObj.customerName, this.addAddressObj.unitStreet, 
       this.addAddressObj.city, this.addAddressObj.state, this.addAddressObj.zipcode, this.addAddressObj.accountId))
       .subscribe(res => {
         location.reload();
       }, err => {
         this.showMessage = err.error;
-      })
+      });
   }
 
   openEditModal(addressId){
@@ -85,6 +89,7 @@ export class YourAddressComponent implements OnInit {
 
     this.addressService.getAddressByAddressId(addressId)
     .subscribe(res => {
+      this.addressObj.addressId = addressId
       this.addressObj.accountId = res.accountId;
       this.addressObj.customerName = res.customerName;
       this.addressObj.addressId = res.addressId;
@@ -94,6 +99,32 @@ export class YourAddressComponent implements OnInit {
       this.addressObj.zipcode = res.zipcode;
     }, err => {
       this.showMessage = err.error;      
-    })
+    });
+  }
+
+  closeEditModal(){
+    this.editModalState = false;
+    this.editForm.reset();
+  }
+
+  updateAddress(){
+    this.addressObj.addressId = parseInt(this.route.snapshot.paramMap.get('id'));
+
+    this.addressService.updateAddress(new UpdateAddressRequest(this.addressObj.addressId, this.addressObj.customerName, this.addressObj.unitStreet, this.addressObj.city, 
+      this.addressObj.state, this.addressObj.zipcode))
+      .subscribe(res => {
+        location.reload();
+      }, err => {
+        this.showMessage = err.error;
+      });
+  }
+
+  deleteAddress(addressId){
+    this.addressService.deleteAddress(addressId)
+    .subscribe(res => {
+      location.reload();
+    }, err => {
+      this.showMessage = err.error;
+    });
   }
 }

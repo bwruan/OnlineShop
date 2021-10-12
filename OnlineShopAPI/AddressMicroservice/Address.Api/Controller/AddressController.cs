@@ -93,7 +93,7 @@ namespace Address.Api.Controller
             }
         }
 
-        [HttpPatch("updateAddress")]
+        [HttpPut("updateAddress")]
         public async Task<IActionResult> UpdateAddress([FromBody] UpdateAddressRequest request)
         {
             try
