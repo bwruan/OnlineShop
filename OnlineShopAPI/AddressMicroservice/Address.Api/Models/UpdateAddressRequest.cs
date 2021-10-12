@@ -9,6 +9,14 @@ namespace Address.Api.Models
     {
         public long AddressId { get; set; }
 
-        public string NewShipping { get; set; }
+        public string NewCustomer { get; set; }
+
+        public string NewUnitStreet { get; set; }
+
+        public string NewCity { get; set; }
+
+        public string NewState { get; set; }
+
+        public string NewZipcode { get; set; }
     }
 }

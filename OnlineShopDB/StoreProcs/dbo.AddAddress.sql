@@ -5,7 +5,11 @@
 -- =============================================
 CREATE PROCEDURE dbo.AddAddress
 (
-	@shipping varchar(50),
+	@customer varchar(50),
+	@unitStreet varchar(50),
+	@city varchar(50),
+	@state varchar(25),
+	@zipcode varchar(25),
 	@accountId bigint
 )
 AS
@@ -19,12 +23,20 @@ BEGIN
 	BEGIN
 		INSERT INTO dbo.Address
 		(
-			Shipping,
+			CustomerName,
+			UnitStreet,
+			City,
+			State,
+			Zipcode,
 			AccountId
 		)
 		VALUES
 		(
-			@shipping,
+			@customer,
+			@unitStreet,
+			@city,
+			@state,
+			@zipcode,
 			@accountId
 		);
 	END	

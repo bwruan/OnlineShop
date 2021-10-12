@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Address.Domain.Mapper;
+using Address.Domain.Service;
 using Address.Infrastructure.AccountMicroservice;
 using Address.Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,6 +35,7 @@ namespace Address.Api
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddSingleton<IAddressRepository, AddressRepository>();
+            services.AddTransient<IAddressService, AddressService>();
             services.AddTransient<IUserAccountService, UserAccountService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -65,6 +67,10 @@ namespace Address.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

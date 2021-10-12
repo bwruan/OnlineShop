@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Address.Api.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/address")]
     [ApiController]
     public class AddressController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace Address.Api.Controller
         {
             try
             {
-                await _addressService.AddAddress(request.Shipping, request.AccountId);
+                await _addressService.AddAddress(request.CustomerName, request.UnitStreet, request.City, request.State, request.Zipcode, request.AccountId);
 
                 return StatusCode(201);
             }
@@ -93,12 +93,12 @@ namespace Address.Api.Controller
             }
         }
 
-        [HttpPatch("updateAddress")]
+        [HttpPut("updateAddress")]
         public async Task<IActionResult> UpdateAddress([FromBody] UpdateAddressRequest request)
         {
             try
             {
-                await _addressService.UpdateAddress(request.AddressId, request.NewShipping);
+                await _addressService.UpdateAddress(request.AddressId, request.NewCustomer, request.NewUnitStreet, request.NewCity, request.NewState, request.NewZipcode);
 
                 return Ok();
             }

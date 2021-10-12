@@ -8,13 +8,17 @@ namespace Address.Infrastructure.Repository
 {
     public class AddressRepository : IAddressRepository
     {
-        public async Task AddAddress(string shippingAdd, long accountId)
+        public async Task AddAddress(string customer, string unitStreet, string city, string state, string zipcode, long accountId)
         {
             using (var context = new OnlineShopContext())
             {
                 var address = new Entities.Address()
                 {
-                    Shipping = shippingAdd,
+                    CustomerName = customer,
+                    UnitStreet = unitStreet,
+                    City = city,
+                    State = state,
+                    Zipcode = zipcode,
                     AccountId = accountId
                 };
 
@@ -22,7 +26,7 @@ namespace Address.Infrastructure.Repository
 
                 await context.SaveChangesAsync();
             }
-        }
+        }        
 
         public async Task<List<Entities.Address>> GetAddressesByAccountId(long accountId)
         {
@@ -49,13 +53,17 @@ namespace Address.Infrastructure.Repository
             }
         }
 
-        public async Task UpdateAddress(long addressId, string newShipping)
+        public async Task UpdateAddress(long addressId, string newCustomer, string newUnitStreet, string newCity, string newState, string newZipcode)
         {
             using (var context = new OnlineShopContext())
             {
                 var address = await context.Addresses.FirstOrDefaultAsync(a => a.AddressId == addressId);
 
-                address.Shipping = newShipping;
+                address.CustomerName = newCustomer;
+                address.UnitStreet = newUnitStreet;
+                address.City = newCity;
+                address.State = newState;
+                address.Zipcode = newZipcode;
 
                 await context.SaveChangesAsync();
             }
