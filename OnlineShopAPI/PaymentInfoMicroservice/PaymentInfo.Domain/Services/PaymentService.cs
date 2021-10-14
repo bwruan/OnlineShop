@@ -69,16 +69,16 @@ namespace PaymentInfo.Domain.Services
             await _paymentRepository.AddPayment(name, cardNum, securtiyCode, expDate, billName, billUnit, billCity, billState, billZip, cardTypeId, accountId);
         }
 
-        public async Task<Payment> GetPaymentByPaymentId(long paymentId)
+        public async Task<Payment> GetPaymentByPaymentId(long paymentId, string token)
         {
             return _mapper.Map<Payment>(await _paymentRepository.GetPaymentByPaymentId(paymentId));
         }
 
-        public async Task<List<Payment>> GetPayments()
+        public async Task<List<Payment>> GetPaymentsByAccountId(long accountId, string token)
         {
             var paymentList = new List<Payment>();
 
-            var payments = await _paymentRepository.GetPayments();
+            var payments = await _paymentRepository.GetPaymentsByAccountId(accountId);
 
             foreach (var payment in payments)
             {

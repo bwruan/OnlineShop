@@ -58,13 +58,16 @@ namespace PaymentInfo.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<Payment>> GetPayments()
+        public async Task<List<Payment>> GetPaymentsByAccountId(long accountId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                return (await connection.QueryAsync<Payment>("dbo.GetPayments", commandType: CommandType.StoredProcedure)).ToList();
+                var param = new DynamicParameters();
+                param.Add("@accountId", accountId);
+
+                return (await connection.QueryAsync<Payment>("dbo.GetPaymentsByAccountId", commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
