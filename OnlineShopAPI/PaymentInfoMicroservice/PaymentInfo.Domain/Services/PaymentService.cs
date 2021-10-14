@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PaymentInfo.Domain.Models;
+using PaymentInfo.Infrastructure.AccountService;
 using PaymentInfo.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,13 @@ namespace PaymentInfo.Domain.Services
     public class PaymentService : IPaymentService
     {
         private readonly IPaymentRepository _paymentRepository;
+        private readonly IUserAccountService _userAccountService;
         private readonly IMapper _mapper;
 
-        public PaymentService(IPaymentRepository paymentRepository, IMapper mapper)
+        public PaymentService(IPaymentRepository paymentRepository, IUserAccountService userAccountService,IMapper mapper)
         {
             _paymentRepository = paymentRepository;
+            _userAccountService = userAccountService;
             _mapper = mapper;
         }
 
@@ -82,7 +85,12 @@ namespace PaymentInfo.Domain.Services
 
             foreach (var payment in payments)
             {
-                paymentList.Add(_mapper.Map<Payment>(payment));
+                var account = await _userAccountService.GetAccountByAccountId(accountId, token);
+                var corePayment = _mapper.Map<Payment>(payment);
+
+                corePayment.AccountId = account.AccountId;
+                
+                paymentList.Add(corePayment);
             }
 
             return paymentList;
