@@ -11,6 +11,6 @@ namespace PaymentInfo.Infrastructure.Repositories
         Task DeletePayment(long paymentId);
         Task<Payment> GetPaymentByPaymentId(long paymentId);
         Task<List<Payment>> GetPayments();
-        Task UpdatePayment(long paymentId, string newName, string newCardNum, string newSecCode, DateTime newExpDate, string newBillName, string newBillUnit, string newBillCity, string newBillState, string newBillZip);
+        Task UpdatePayment(long paymentId, string newName, string newCardNum, string newSecCode, DateTime newExpDate, string newBillName, string newBillUnit, string newBillCity, string newBillState, string newBillZip, long newTypeId);
     }
 }

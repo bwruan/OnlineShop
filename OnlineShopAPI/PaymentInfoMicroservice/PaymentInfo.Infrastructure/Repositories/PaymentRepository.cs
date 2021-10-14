@@ -69,7 +69,7 @@ namespace PaymentInfo.Infrastructure.Repositories
         }
 
         public async Task UpdatePayment(long paymentId, string newName, string newCardNum, string newSecCode, DateTime newExpDate, string newBillName, string newBillUnit,
-            string newBillCity, string newBillState, string newBillZip)
+            string newBillCity, string newBillState, string newBillZip, long newTypeId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -86,6 +86,7 @@ namespace PaymentInfo.Infrastructure.Repositories
                 param.Add("@newBillCity", newBillCity);
                 param.Add("@newBillState", newBillState);
                 param.Add("@newBillZip", newBillZip);
+                param.Add("@newTypeId", newTypeId);
 
                 await connection.ExecuteAsync("dbo.UpdatePayment", param, commandType: CommandType.StoredProcedure);
             }
