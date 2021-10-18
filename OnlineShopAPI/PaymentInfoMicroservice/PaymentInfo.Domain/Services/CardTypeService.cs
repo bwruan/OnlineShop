@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PaymentInfo.Domain.Services
 {
-    public class CardTypeService
+    public class CardTypeService : ICardTypeService
     {
         private readonly ICardTypeRepository _cardTypeRepository;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace PaymentInfo.Domain.Services
 
             var cardTypeList = await _cardTypeRepository.GetCardTypes();
 
-            foreach(var type in cardTypeList)
+            foreach (var type in cardTypeList)
             {
                 typeList.Add(_mapper.Map<CardType>(type));
             }

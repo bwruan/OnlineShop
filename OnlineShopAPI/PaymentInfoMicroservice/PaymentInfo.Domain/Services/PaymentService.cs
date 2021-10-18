@@ -1,21 +1,23 @@
 ﻿using AutoMapper;
 using PaymentInfo.Domain.Models;
+using PaymentInfo.Infrastructure.AccountService;
 using PaymentInfo.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PaymentInfo.Domain.Services
 {
-    public class PaymentService
+    public class PaymentService : IPaymentService
     {
         private readonly IPaymentRepository _paymentRepository;
+        private readonly IUserAccountService _userAccountService;
         private readonly IMapper _mapper;
 
-        public PaymentService(IPaymentRepository paymentRepository, IMapper mapper)
+        public PaymentService(IPaymentRepository paymentRepository, IUserAccountService userAccountService,IMapper mapper)
         {
             _paymentRepository = paymentRepository;
+            _userAccountService = userAccountService;
             _mapper = mapper;
         }
 
@@ -70,31 +72,36 @@ namespace PaymentInfo.Domain.Services
             await _paymentRepository.AddPayment(name, cardNum, securtiyCode, expDate, billName, billUnit, billCity, billState, billZip, cardTypeId, accountId);
         }
 
-        public async Task<Payment> GetPaymentByPaymentId(long paymentId)
+        public async Task<Payment> GetPaymentByPaymentId(long paymentId, string token)
         {
             return _mapper.Map<Payment>(await _paymentRepository.GetPaymentByPaymentId(paymentId));
         }
 
-        public async Task<List<Payment>> GetPayments()
+        public async Task<List<Payment>> GetPaymentsByAccountId(long accountId, string token)
         {
             var paymentList = new List<Payment>();
 
-            var payments = await _paymentRepository.GetPayments();
+            var payments = await _paymentRepository.GetPaymentsByAccountId(accountId);
 
-            foreach(var payment in payments)
+            foreach (var payment in payments)
             {
-                paymentList.Add(_mapper.Map<Payment>(payment));
+                var account = await _userAccountService.GetAccountByAccountId(accountId, token);
+                var corePayment = _mapper.Map<Payment>(payment);
+
+                corePayment.AccountId = account.AccountId;
+                
+                paymentList.Add(corePayment);
             }
 
             return paymentList;
         }
 
         public async Task UpdatePayment(long paymentId, string newName, string newCardNum, string newSecCode, DateTime newExpDate, string newBillName, string newBillUnit,
-            string newBillCity, string newBillState, string newBillZip)
+            string newBillCity, string newBillState, string newBillZip, long newTypeId)
         {
             var payment = await _paymentRepository.GetPaymentByPaymentId(paymentId);
 
-            if(payment == null)
+            if (payment == null)
             {
                 throw new ArgumentException("This Payment does not exist.");
             }
@@ -109,7 +116,7 @@ namespace PaymentInfo.Domain.Services
                 throw new ArgumentException("Card Number cannot be empty.");
             }
 
-            if(newCardNum.Length != 16)
+            if (newCardNum.Length != 16)
             {
                 throw new ArgumentException("Card Number must be 16 digits.");
             }
@@ -144,14 +151,14 @@ namespace PaymentInfo.Domain.Services
                 throw new ArgumentException("Please enter card expiration date.");
             }
 
-            await _paymentRepository.UpdatePayment(payment.PaymentId, newName, newCardNum, newSecCode, newExpDate, newBillName, newBillUnit, newBillCity, newBillState, newBillZip);
+            await _paymentRepository.UpdatePayment(payment.PaymentId, newName, newCardNum, newSecCode, newExpDate, newBillName, newBillUnit, newBillCity, newBillState, newBillZip, newTypeId);
         }
 
         public async Task DeletePayment(long paymentId)
         {
             var payment = await _paymentRepository.GetPaymentByPaymentId(paymentId);
 
-            if(payment == null)
+            if (payment == null)
             {
                 throw new ArgumentException("This Payment does not exist.");
             }

@@ -14,7 +14,8 @@ CREATE PROCEDURE dbo.UpdatePayment
 	@newBillUnit varchar(50),
 	@newBillCity varchar(50),
 	@newBillState varchar(50),
-	@newBillZip varchar(50)
+	@newBillZip varchar(50),
+	@newTypeId bigint
 )
 AS
 BEGIN
@@ -34,7 +35,8 @@ BEGIN
 		BillingUnit = @newBillUnit,
 		BillingCity = @newBillCity,
 		BillingState = @newBillState,
-		BillingZipcode = @newBillZip
+		BillingZipcode = @newBillZip,
+		CardType = @newTypeId
 		WHERE PaymentId = @paymentId
 	END
 END
