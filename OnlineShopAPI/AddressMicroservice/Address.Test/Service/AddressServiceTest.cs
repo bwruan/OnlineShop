@@ -127,7 +127,7 @@ namespace Address.Test.Service
         }
 
         [Test]
-        public void UpdateAddress_InternalServerError()
+        public void UpdateAddress_Fail()
         {
             _addressRepository.Setup(a => a.UpdateAddress(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .ThrowsAsync(new ArgumentException());
@@ -151,7 +151,7 @@ namespace Address.Test.Service
         }
 
         [Test]
-        public void DeleteAddress_InternalServerError()
+        public void DeleteAddress_Fail()
         {
             _addressRepository.Setup(a => a.DeleteAddress(It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
