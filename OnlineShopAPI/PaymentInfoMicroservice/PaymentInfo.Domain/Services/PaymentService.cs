@@ -21,7 +21,7 @@ namespace PaymentInfo.Domain.Services
             _mapper = mapper;
         }
 
-        public async Task AddPayment(string name, string cardNum, string securtiyCode, DateTime expDate, string billName, string billUnit,
+        public async Task AddPayment(string name, string cardNum, string securtiyCode, string expDate, string billName, string billUnit,
             string billCity, string billState, string billZip, long cardTypeId, long accountId)
         {
             if (string.IsNullOrEmpty(name))
@@ -64,7 +64,7 @@ namespace PaymentInfo.Domain.Services
                 throw new ArgumentException("Zipcode cannot be empty.");
             }
 
-            if (expDate == null)
+            if (string.IsNullOrEmpty(expDate))
             {
                 throw new ArgumentException("Please enter card expiration date.");
             }
@@ -96,7 +96,7 @@ namespace PaymentInfo.Domain.Services
             return paymentList;
         }
 
-        public async Task UpdatePayment(long paymentId, string newName, string newCardNum, string newSecCode, DateTime newExpDate, string newBillName, string newBillUnit,
+        public async Task UpdatePayment(long paymentId, string newName, string newCardNum, string newSecCode, string newExpDate, string newBillName, string newBillUnit,
             string newBillCity, string newBillState, string newBillZip, long newTypeId)
         {
             var payment = await _paymentRepository.GetPaymentByPaymentId(paymentId);
@@ -146,7 +146,7 @@ namespace PaymentInfo.Domain.Services
                 throw new ArgumentException("Zipcode cannot be empty.");
             }
 
-            if (newExpDate == null)
+            if (string.IsNullOrEmpty(newExpDate))
             {
                 throw new ArgumentException("Please enter card expiration date.");
             }

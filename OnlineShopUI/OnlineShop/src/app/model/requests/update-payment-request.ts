@@ -3,7 +3,7 @@ export class UpdatePaymentRequest {
     newNameOnCard: string;
     newCardNumber: string;
     newSecurityCode: string;
-    newExpDate: Date;
+    newExpDate: string;
     newBillingName: string;
     newBillingUnit: string;
     newBillingCity: string;
@@ -11,7 +11,7 @@ export class UpdatePaymentRequest {
     newBillingZipcode: string;
     newCardType: number;
 
-    constructor(paymentId: number, newNameOnCard: string, newCardNumber: string, newSecurityCode: string, newExpDate: Date, newBillingName: string, newBillingUnit: string, 
+    constructor(paymentId: number, newNameOnCard: string, newCardNumber: string, newSecurityCode: string, newExpDate: string, newBillingName: string, newBillingUnit: string, 
         newBillingCity: string, newBillingState: string, newBillingZipcode: string, newCardType: number){
         this.paymentId = paymentId;
         this.newNameOnCard = newNameOnCard;

@@ -3,7 +3,7 @@ CREATE TABLE dbo.PaymentInfo(
 	NameOnCard varchar(25) not null,
 	CardNumber varchar(16) not null,
 	SecurityCode varchar(3) not null,
-	ExpDate datetime2(7) not null,
+	ExpDate varchar(25) not null,
 	BillingName varchar(50) not null,
 	BillingUnit varchar(50) not null,
 	BillingCity varchar(50) not null,

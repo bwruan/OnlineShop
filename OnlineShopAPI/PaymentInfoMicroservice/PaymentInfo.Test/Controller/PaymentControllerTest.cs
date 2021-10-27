@@ -26,7 +26,7 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task AddPayment_Success()
         {
-            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
+            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                  It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
@@ -37,7 +37,7 @@ namespace PaymentInfo.Test.Controller
                 NameOnCard = "Test User",
                 CardNumber = "1234567898765432",
                 SecurityCode = "123",
-                ExpDate = DateTime.Parse("10/2023"),
+                ExpDate = "10/2023",
                 BillingName = "Test User",
                 BillingUnit = "123 A St",
                 BillingCity = "CityTown",
@@ -58,7 +58,7 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task AddPayment_InternalServerError()
         {
-            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
+            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                  It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
                 .ThrowsAsync(new Exception());
 
@@ -69,7 +69,7 @@ namespace PaymentInfo.Test.Controller
                 NameOnCard = "Test User",
                 CardNumber = "1234567898765432",
                 SecurityCode = "123",
-                ExpDate = DateTime.Parse("10/2023"),
+                ExpDate = "10/2023",
                 BillingName = "Test User",
                 BillingUnit = "123 A St",
                 BillingCity = "CityTown",
@@ -202,7 +202,7 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task UpdatePayment_Success()
         {
-            _paymentService.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
+            _paymentService.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                  It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
@@ -214,7 +214,7 @@ namespace PaymentInfo.Test.Controller
                 NewNameOnCard = "Test User",
                 NewCardNumber = "1234567898765432",
                 NewSecurityCode = "123",
-                NewExpDate = DateTime.Parse("10/2023"),
+                NewExpDate = "10/2023",
                 NewBillingName = "Test User",
                 NewBillingUnit = "123 A St",
                 NewBillingCity = "CityTown",
@@ -234,7 +234,7 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task UpdatePayment_InternalServerError()
         {
-            _paymentService.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
+            _paymentService.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                  It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .ThrowsAsync(new Exception());
 
@@ -246,7 +246,7 @@ namespace PaymentInfo.Test.Controller
                 NewNameOnCard = "Test User",
                 NewCardNumber = "1234567898765432",
                 NewSecurityCode = "123",
-                NewExpDate = DateTime.Parse("10/2023"),
+                NewExpDate = "10/2023",
                 NewBillingName = "Test User",
                 NewBillingUnit = "123 A St",
                 NewBillingCity = "CityTown",

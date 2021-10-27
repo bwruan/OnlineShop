@@ -3,7 +3,7 @@ export class Payment {
     nameOnCard: string;
     cardNumber: string;
     securityCode: string;
-    expDate: Date;
+    expDate: string;
     billingName: string;
     billingUnit: string;
     billingCity: string;

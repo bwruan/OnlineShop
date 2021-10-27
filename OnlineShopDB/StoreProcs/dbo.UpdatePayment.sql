@@ -9,7 +9,7 @@ CREATE PROCEDURE dbo.UpdatePayment
 	@newName varchar(25),
 	@newCardNum varchar(16),
 	@newSecCode varchar(3),
-	@newExpDate datetime2(7),
+	@newExpDate varchar(25),
 	@newBillName varchar(50),
 	@newBillUnit varchar(50),
 	@newBillCity varchar(50),

@@ -15,7 +15,7 @@ namespace PaymentInfo.Api.Models
 
         public string SecurityCode { get; set; }
 
-        public DateTime ExpDate { get; set; }
+        public string ExpDate { get; set; }
 
         public string BillingName { get; set; }
 

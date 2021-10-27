@@ -14,7 +14,7 @@ namespace PaymentInfo.Infrastructure.Repositories.Entities
 
         public string SecurityCode { get; set; }
 
-        public DateTime ExpDate { get; set; }
+        public string ExpDate { get; set; }
 	
         public string BillingName { get; set; }
 	

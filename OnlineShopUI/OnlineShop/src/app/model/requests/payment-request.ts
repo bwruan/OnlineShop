@@ -3,7 +3,7 @@ export class PaymentRequest {
     nameOnCard: string;
     cardNumber: string;
     securityCode: string;
-    expDate: Date;
+    expDate: string;
     billingName: string;
     billingUnit: string;
     billingCity: string;
@@ -12,7 +12,7 @@ export class PaymentRequest {
     cardType: number;
     accountId: number;
 
-    constructor(paymentId: number, nameOnCard: string, cardNumber: string, securityCode: string, expDate: Date, billingName: string, billingUnit: string, 
+    constructor(paymentId: number, nameOnCard: string, cardNumber: string, securityCode: string, expDate: string, billingName: string, billingUnit: string, 
         billingCity: string, billingState: string, billingZipcode: string, cardType: number, accountId: number){
         this.paymentId = paymentId;
         this.nameOnCard = nameOnCard;
