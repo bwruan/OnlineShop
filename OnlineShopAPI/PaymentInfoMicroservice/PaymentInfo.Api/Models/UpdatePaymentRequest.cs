@@ -17,16 +17,6 @@ namespace PaymentInfo.Api.Models
 
         public string NewExpDate { get; set; }
 
-        public string NewBillingName { get; set; }
-
-        public string NewBillingUnit { get; set; }
-
-        public string NewBillingCity { get; set; }
-
-        public string NewBillingState { get; set; }
-
-        public string NewBillingZipcode { get; set; }
-
-        public long NewCardType { get; set; }
+        public long NewCardTypeId { get; set; }
     }
 }

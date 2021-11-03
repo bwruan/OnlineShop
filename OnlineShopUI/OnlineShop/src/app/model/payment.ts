@@ -3,12 +3,9 @@ export class Payment {
     nameOnCard: string;
     cardNumber: string;
     securityCode: string;
+    expMonth: string;
+    expYear: string;
     expDate: string;
-    billingName: string;
-    billingUnit: string;
-    billingCity: string;
-    billingState: string;
-    billingZipcode: string;
-    cardType: number;
+    cardTypeId: number;
     accountId: number;
 }

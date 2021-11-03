@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Payment } from "../model/payment";
+import { AddPaymentRequest } from "../model/requests/add-payment-request";
 import { UpdatePaymentRequest } from "../model/requests/update-payment-request";
 
 @Injectable({
@@ -14,7 +15,7 @@ export default class PaymentService {
 
     constructor(private _http: HttpClient){}
 
-    addPayment(newPayment: PaymentRequest): Observable<any>{
+    addPayment(newPayment: AddPaymentRequest): Observable<any>{
         return this._http.post(this.baseUrl + "/payment/addPayment", newPayment);
     }
 

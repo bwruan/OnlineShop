@@ -21,8 +21,7 @@ namespace PaymentInfo.Domain.Services
             _mapper = mapper;
         }
 
-        public async Task AddPayment(string name, string cardNum, string securtiyCode, string expDate, string billName, string billUnit,
-            string billCity, string billState, string billZip, long cardTypeId, long accountId)
+        public async Task AddPayment(string name, string cardNum, string securtiyCode, string expDate, long cardTypeId, long accountId)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -44,32 +43,12 @@ namespace PaymentInfo.Domain.Services
                 throw new ArgumentException("Security code cannot be empty.");
             }
 
-            if (string.IsNullOrEmpty(billName))
-            {
-                throw new ArgumentException("Name for address cannot be empty.");
-            }
-
-            if (string.IsNullOrEmpty(billUnit))
-            {
-                throw new ArgumentException("Address cannot be empty.");
-            }
-
-            if (string.IsNullOrEmpty(billCity))
-            {
-                throw new ArgumentException("City cannot be empty.");
-            }
-
-            if (string.IsNullOrEmpty(billZip))
-            {
-                throw new ArgumentException("Zipcode cannot be empty.");
-            }
-
             if (string.IsNullOrEmpty(expDate))
             {
                 throw new ArgumentException("Please enter card expiration date.");
             }
 
-            await _paymentRepository.AddPayment(name, cardNum, securtiyCode, expDate, billName, billUnit, billCity, billState, billZip, cardTypeId, accountId);
+            await _paymentRepository.AddPayment(name, cardNum, securtiyCode, expDate, cardTypeId, accountId);
         }
 
         public async Task<Payment> GetPaymentByPaymentId(long paymentId, string token)
@@ -96,8 +75,7 @@ namespace PaymentInfo.Domain.Services
             return paymentList;
         }
 
-        public async Task UpdatePayment(long paymentId, string newName, string newCardNum, string newSecCode, string newExpDate, string newBillName, string newBillUnit,
-            string newBillCity, string newBillState, string newBillZip, long newTypeId)
+        public async Task UpdatePayment(long paymentId, string newName, string newCardNum, string newSecCode, string newExpDate, long newTypeId)
         {
             var payment = await _paymentRepository.GetPaymentByPaymentId(paymentId);
 
@@ -126,32 +104,13 @@ namespace PaymentInfo.Domain.Services
                 throw new ArgumentException("Security code cannot be empty.");
             }
 
-            if (string.IsNullOrEmpty(newBillName))
-            {
-                throw new ArgumentException("Name for Address cannot be empty.");
-            }
-
-            if (string.IsNullOrEmpty(newBillUnit))
-            {
-                throw new ArgumentException("Address cannot be empty.");
-            }
-
-            if (string.IsNullOrEmpty(newBillCity))
-            {
-                throw new ArgumentException("City cannot be empty.");
-            }
-
-            if (string.IsNullOrEmpty(newBillZip))
-            {
-                throw new ArgumentException("Zipcode cannot be empty.");
-            }
 
             if (string.IsNullOrEmpty(newExpDate))
             {
                 throw new ArgumentException("Please enter card expiration date.");
             }
 
-            await _paymentRepository.UpdatePayment(payment.PaymentId, newName, newCardNum, newSecCode, newExpDate, newBillName, newBillUnit, newBillCity, newBillState, newBillZip, newTypeId);
+            await _paymentRepository.UpdatePayment(payment.PaymentId, newName, newCardNum, newSecCode, newExpDate, newTypeId);
         }
 
         public async Task DeletePayment(long paymentId)

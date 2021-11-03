@@ -10,11 +10,6 @@ CREATE PROCEDURE dbo.UpdatePayment
 	@newCardNum varchar(16),
 	@newSecCode varchar(3),
 	@newExpDate varchar(25),
-	@newBillName varchar(50),
-	@newBillUnit varchar(50),
-	@newBillCity varchar(50),
-	@newBillState varchar(50),
-	@newBillZip varchar(50),
 	@newTypeId bigint
 )
 AS
@@ -31,12 +26,7 @@ BEGIN
 		CardNumber = @newCardNum,
 		SecurityCode = @newSecCode,
 		ExpDate = @newExpDate,
-		BillingName = @newBillName,
-		BillingUnit = @newBillUnit,
-		BillingCity = @newBillCity,
-		BillingState = @newBillState,
-		BillingZipcode = @newBillZip,
-		CardType = @newTypeId
+		CardTypeId = @newTypeId
 		WHERE PaymentId = @paymentId
 	END
 END

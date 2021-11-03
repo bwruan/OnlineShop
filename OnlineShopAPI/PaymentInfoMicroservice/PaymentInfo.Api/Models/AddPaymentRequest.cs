@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PaymentInfo.Api.Models
 {
-    public class PaymentRequest
+    public class AddPaymentRequest
     {
         public long PaymentId { get; set; }
 
@@ -17,17 +17,7 @@ namespace PaymentInfo.Api.Models
 
         public string ExpDate { get; set; }
 
-        public string BillingName { get; set; }
-
-        public string BillingUnit { get; set; }
-
-        public string BillingCity { get; set; }
-
-        public string BillingState { get; set; }
-
-        public string BillingZipcode { get; set; }
-
-        public long CardType { get; set; }
+        public long CardTypeId { get; set; }
 
         public long AccountId { get; set; }
     }

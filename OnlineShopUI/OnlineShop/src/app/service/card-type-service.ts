@@ -14,6 +14,6 @@ export class CardTypeService {
     constructor(private _http: HttpClient){}
 
     getCardTypes(): Observable<CardType[]>{
-        return this._http.get<CardType[]>(this.baseUrl + "card/cardType");
+        return this._http.get<CardType[]>(this.baseUrl + "/card/cardType");
     }
 }

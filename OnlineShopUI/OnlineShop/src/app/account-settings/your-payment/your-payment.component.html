@@ -1,7 +1,7 @@
 <div class="d-inline-flex py-3">
     <div class="card" style="width: 18rem; margin-right: 10px; border: dotted;">
         <div class="card-body text-center" style="padding-top: 55px;">
-            <button type="button"  style="border: none; background-color: white;">
+            <button type="button" (click)="openAddModal()" style="border: none; background-color: white;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
                     <path d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
                 </svg>
@@ -10,9 +10,173 @@
     </div>
     <div class="card" style="width: 18rem; margin-right: 10px;" *ngFor="let payment of paymentList" value="{{payment.paymentId}}">
         <div class="card-body">
-            {{payment.nameOnCard}}
-            <button type="button" class="btn btn-link" style="padding-left: 0%;" >Edit</button>
-            <button type="button" class="btn btn-link" style="padding-left: 0%;" >Remove</button>
+            <br>
+            <h6 class="card-text">{{payment.nameOnCard}}
+                <br>
+                {{payment.cardNumber}}
+                <br>
+                {{payment.expDate}}
+            </h6>
+            <button type="button" class="btn btn-link" style="padding-left: 0%;" (click)="openEditModal(payment.paymentId)">Edit</button>
+            <button type="button" class="btn btn-link" style="padding-left: 0%;" (click)="deletePayment(payment.paymentId)">Remove</button>
         </div>
     </div>
 </div>
+
+<form #addPaymentForm = "ngForm">
+    <div [style.display] = "addModalState ? 'block': 'none'" style="opacity: 1;" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="col-11"></p>
+                        <button type="button" class="btn-close col-1" (click)="closeAddModal(); addPaymentForm.reset()"></button>
+                    </div>
+                    <div class="d-grid gap-2 col-8 mx-auto">
+                        <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Add New Payment</h2>
+                        <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
+                        <div class="form-group">
+                            <label for="cardType" class="col-form-label">Card Type</label>
+                            <div>
+                                <select id="cardType" name="cardTypeDrop" [(ngModel)]="addPaymentObj.cardTypeId">
+                                    <option *ngFor ="let cardType of cardTypes" value={{cardType.cardTypeId}}>{{cardType.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-5">
+                                <label for="cardHolder" class="col-form-label">Name on Card</label>
+                                <div>
+                                    <input type="text" class="form-control" id="cardHolder" name="cardName" [(ngModel)]="addPaymentObj.nameOnCard" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="addPaymentForm.controls['cardName'] !== undefined && addPaymentForm.controls['cardName'].invalid && (addPaymentForm.controls['cardName'].dirty || addPaymentForm.controls['cardName'].touched) && addPaymentForm.controls['cardName'].errors" class="alert">
+                                    Please enter a name.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-7">
+                                <label for="cardNum" class="col-form-label">Card Number</label>
+                                <div>
+                                    <input type="text" class="form-control" id="cardNum" name="cardNumber" [(ngModel)]="addPaymentObj.cardNumber" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="addPaymentForm.controls['cardNumber'] !== undefined && addPaymentForm.controls['cardNumber'].invalid && (addPaymentForm.controls['cardNumber'].dirty || addPaymentForm.controls['cardNumber'].touched) && addPaymentForm.controls['cardNumber'].errors" class="alert">
+                                    Please enter your 16 digit card number.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-5">
+                                <label for="security" class="col-form-label">Security Code</label>
+                                <div>
+                                    <input type="text" class="form-control" id="security" name="secCode" [(ngModel)]="addPaymentObj.securityCode" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="addPaymentForm.controls['secCode'] !== undefined && addPaymentForm.controls['secCode'].invalid && (addPaymentForm.controls['secCode'].dirty || addPaymentForm.controls['secCode'].touched) && addPaymentForm.controls['secCode'].errors" class="alert">
+                                        Please enter security found on back of your card.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-7">
+                                <label for="monthDrop" class="col-form-label">Exp Date</label>
+                                <div>
+                                    <select id="monthDrop" name="expMonth" [(ngModel)]="addPaymentObj.expMonth" required>
+                                        <option *ngFor ="let month of months">{{month.num}}</option>
+                                    </select>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="addPaymentForm.controls['expMonth'] !== undefined && addPaymentForm.controls['expMonth'].invalid && (addPaymentForm.controls['expMonth'].dirty || addPaymentForm.controls['expMonth'].touched) && addPaymentForm.controls['expMonth'].errors" class="alert">
+                                        Please select month.
+                                    </span>
+                                    /
+                                    <select id="yearDrop" name="expYear" [(ngModel)]="addPaymentObj.expYear" required>
+                                        <option *ngFor="let year of years">{{year.short}}</option>
+                                    </select>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="addPaymentForm.controls['expYear'] !== undefined && addPaymentForm.controls['expYear'].invalid && (addPaymentForm.controls['expYear'].dirty || addPaymentForm.controls['expYear'].touched) && addPaymentForm.controls['expYear'].errors" class="alert">
+                                        Please select year.
+                                    </span>
+                                </div>
+                            </div>                        
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary" style="font-size: small;" (click)="addPayment()" [disabled]="addPaymentForm.form.invalid">Add</button>
+                        <button type="button" class="btn btn-secondary" style="font-size: small;" (click)="closeAddModal(); addPaymentForm.reset()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form #editForm = "ngForm">
+    <div [style.display] = "editModalState ? 'block': 'none'" style="opacity: 1;" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="col-11"></p>
+                        <button type="button" class="btn-close col-1" (click)="closeEditModal(); editForm.reset()"></button>
+                    </div>
+                    <div class="d-grid gap-2 col-8 mx-auto">
+                        <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Edit Payment</h2>
+                        <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
+                        <div class="form-group">
+                            <label for="cardType" class="col-form-label">Card Type</label>
+                            <div>
+                                <select id="newCardType" name="newCardTypeDrop" [(ngModel)]="paymentObj.cardTypeId" required>
+                                    <option *ngFor ="let cardType of cardTypes" value={{cardType.cardTypeId}}>{{cardType.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-5">
+                                <label for="cardHolder" class="col-form-label">Name on Card</label>
+                                <div>
+                                    <input type="text" class="form-control" id="newCardHolder" name="newCardName" [(ngModel)]="paymentObj.nameOnCard" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="editForm.controls['newCardName'] !== undefined && editForm.controls['newCardName'].invalid && (editForm.controls['newCardName'].dirty || editForm.controls['newCardName'].touched) && editForm.controls['newCardName'].errors" class="alert">
+                                        Please enter a name.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-7">
+                                <label for="cardNum" class="col-form-label">Card Number</label>
+                                <div>
+                                    <input type="text" class="form-control" id="newCardNum" name="newCardNumber" [(ngModel)]="paymentObj.cardNumber" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="editForm.controls['newCardName'] !== undefined && editForm.controls['newCardName'].invalid && (editForm.controls['newCardName'].dirty || editForm.controls['newCardName'].touched) && editForm.controls['newCardName'].errors" class="alert">
+                                        Please enter your 16 digit card number.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-5">
+                                <label for="security" class="col-form-label">Security Code</label>
+                                <div>
+                                    <input type="text" class="form-control" id="newSecurity" name="newSecCode" [(ngModel)]="paymentObj.securityCode" required>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="editForm.controls['newSecCode'] !== undefined && editForm.controls['newSecCode'].invalid && (editForm.controls['newSecCode'].dirty || editForm.controls['newSecCode'].touched) && editForm.controls['newSecCode'].errors" class="alert">
+                                        Please enter security found on back of your card.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-7">
+                                <label for="monthDrop" class="col-form-label">Exp Date</label>
+                                <div>
+                                    <select id="newMonthDrop" name="newExpMonth" [(ngModel)]="paymentObj.expMonth" required>
+                                        <option *ngFor ="let month of months">{{month.num}}</option>
+                                    </select>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="editForm.controls['newExpMonth'] !== undefined && editForm.controls['newExpMonth'].invalid && (editForm.controls['newExpMonth'].dirty || editForm.controls['newExpMonth'].touched) && editForm.controls['newExpMonth'].errors" class="alert">
+                                        Please select month.
+                                    </span>
+                                    /
+                                    <select id="newYearDrop" name="newExpYear" [(ngModel)]="paymentObj.expYear" required>
+                                        <option *ngFor="let year of years">{{year.short}}</option>
+                                    </select>
+                                    <span [ngStyle]="errorMsgStyle" *ngIf="editForm.controls['newExpYear'] !== undefined && editForm.controls['newExpYear'].invalid && (editForm.controls['newExpYear'].dirty || editForm.controls['newExpYear'].touched) && editForm.controls['newExpYear'].errors" class="alert">
+                                        Please select year.
+                                    </span>
+                                </div>
+                            </div>                        
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary" style="font-size: small;" [disabled]="editForm.form.invalid" (click)="updatePayment()">Save</button>
+                        <button type="button" class="btn btn-secondary" style="font-size: small;" (click)="closeEditModal(); editForm.reset()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
