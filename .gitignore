@@ -52,3 +52,21 @@ OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Infrastructure/obj/
 OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Test/bin/
 
 OnlineShopAPI/PaymentInfoMicroservice/PaymentInfo.Test/obj/
+
+OnlineShopAPI/ShoppingMicroservice/.vs/
+
+OnlineShopAPI/ShoppingMicroservice/Shopping.Api/bin/
+
+OnlineShopAPI/ShoppingMicroservice/Shopping.Api/obj/
+
+OnlineShopAPI/ShoppingMicroservice/Shopping.Domain/bin/
+
+OnlineShopAPI/ShoppingMicroservice/Shopping.Domain/obj/
+
+OnlineShopAPI/ShoppingMicroservice/Shopping.Infrastructure/bin/
+
+OnlineShopAPI/ShoppingMicroservice/Shopping.Infrastructure/obj/
+
+OnlineShopAPI/ShoppingMicroservice/Shopping.Test/bin/
+
+OnlineShopAPI/ShoppingMicroservice/Shopping.Test/obj/
