@@ -14,19 +14,9 @@ namespace PaymentInfo.Infrastructure.Repositories.Entities
 
         public string SecurityCode { get; set; }
 
-        public DateTime ExpDate { get; set; }
-	
-        public string BillingName { get; set; }
-	
-        public string BillingUnit { get; set; }
-
-        public string BillingCity { get; set; }
+        public string ExpDate { get; set; }
         
-        public string BillingState { get; set; }
-        
-        public string BillingZipcode { get; set; }
-        
-        public long CardType { get; set; }
+        public long CardTypeId { get; set; }
         
         public long AccountId { get; set; }
     }

@@ -26,24 +26,18 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task AddPayment_Success()
         {
-            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
+            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
             var controller = new PaymentController(_paymentService.Object);
 
-            var response = await controller.AddPayment(new PaymentRequest()
+            var response = await controller.AddPayment(new AddPaymentRequest()
             {
                 NameOnCard = "Test User",
                 CardNumber = "1234567898765432",
                 SecurityCode = "123",
-                ExpDate = DateTime.Parse("10/2023"),
-                BillingName = "Test User",
-                BillingUnit = "123 A St",
-                BillingCity = "CityTown",
-                BillingState = "AA",
-                BillingZipcode = "99999",
-                CardType = 1,
+                ExpDate = "10/2023",
+                CardTypeId = 1,
                 AccountId = 1
             });
 
@@ -58,24 +52,18 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task AddPayment_InternalServerError()
         {
-            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
+            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
                 .ThrowsAsync(new Exception());
 
             var controller = new PaymentController(_paymentService.Object);
 
-            var response = await controller.AddPayment(new PaymentRequest()
+            var response = await controller.AddPayment(new AddPaymentRequest()
             {
                 NameOnCard = "Test User",
                 CardNumber = "1234567898765432",
                 SecurityCode = "123",
-                ExpDate = DateTime.Parse("10/2023"),
-                BillingName = "Test User",
-                BillingUnit = "123 A St",
-                BillingCity = "CityTown",
-                BillingState = "AA",
-                BillingZipcode = "99999",
-                CardType = 1,
+                ExpDate = "10/2023",
+                CardTypeId = 1,
                 AccountId = 1
             });
 
@@ -202,8 +190,7 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task UpdatePayment_Success()
         {
-            _paymentService.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
+            _paymentService.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
             var controller = new PaymentController(_paymentService.Object);
@@ -214,13 +201,8 @@ namespace PaymentInfo.Test.Controller
                 NewNameOnCard = "Test User",
                 NewCardNumber = "1234567898765432",
                 NewSecurityCode = "123",
-                NewExpDate = DateTime.Parse("10/2023"),
-                NewBillingName = "Test User",
-                NewBillingUnit = "123 A St",
-                NewBillingCity = "CityTown",
-                NewBillingState = "AA",
-                NewBillingZipcode = "99999",
-                NewCardType = 1
+                NewExpDate = "10/2023",
+                NewCardTypeId = 1
             });
 
             Assert.NotNull(response);
@@ -234,8 +216,7 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task UpdatePayment_InternalServerError()
         {
-            _paymentService.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
+            _paymentService.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .ThrowsAsync(new Exception());
 
             var controller = new PaymentController(_paymentService.Object);
@@ -246,13 +227,8 @@ namespace PaymentInfo.Test.Controller
                 NewNameOnCard = "Test User",
                 NewCardNumber = "1234567898765432",
                 NewSecurityCode = "123",
-                NewExpDate = DateTime.Parse("10/2023"),
-                NewBillingName = "Test User",
-                NewBillingUnit = "123 A St",
-                NewBillingCity = "CityTown",
-                NewBillingState = "AA",
-                NewBillingZipcode = "99999",
-                NewCardType = 1
+                NewExpDate = "10/2023",
+                NewCardTypeId = 1
             });
 
             Assert.NotNull(response);

@@ -3,12 +3,7 @@ CREATE TABLE dbo.PaymentInfo(
 	NameOnCard varchar(25) not null,
 	CardNumber varchar(16) not null,
 	SecurityCode varchar(3) not null,
-	ExpDate datetime2(7) not null,
-	BillingName varchar(50) not null,
-	BillingUnit varchar(50) not null,
-	BillingCity varchar(50) not null,
-	BillingState varchar(25) not null,
-	BillingZipcode varchar(25) not null,
-    CardType int not null foreign key references dbo.CardType(CardTypeId),
+	ExpDate varchar(25) not null,
+    CardTypeId int not null foreign key references dbo.CardType(CardTypeId),
 	AccountId bigint not null foreign key references dbo.Account(AccountId)
 );

@@ -44,7 +44,7 @@ export class AddressService {
             "Authorization": "Bearer "+ token
         });
         
-        return this._http.put(this.baseUrl + "/address/updateAddress", {headers: header});
+        return this._http.put(this.baseUrl + "/address/updateAddress", updateObj, {headers: header});
     }
 
     deleteAddress(addressId: number){

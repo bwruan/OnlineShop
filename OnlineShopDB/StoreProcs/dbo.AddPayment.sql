@@ -8,12 +8,7 @@ CREATE PROCEDURE dbo.AddPayment
 	@name varchar(25),
 	@cardNum varchar(16),
 	@securityCode varchar(3),
-	@expDate datetime2(7),
-	@billname varchar(50),
-	@billUnit varchar(50),
-	@billCity varchar(50),
-	@billState varchar(25),
-	@billZip varchar(25),
+	@expDate varchar(25),
 	@cardTypeId int,
 	@accountId bigint
 )
@@ -32,12 +27,7 @@ BEGIN
 			CardNumber,
 			SecurityCode,
 			ExpDate,
-			BillingName,
-			BillingUnit,
-			BillingCity,
-			BillingState,
-			BillingZipcode,
-			CardType,
+			CardTypeId,
 			AccountId
 		)
 		VALUES
@@ -45,11 +35,6 @@ BEGIN
 			@name,
 			@cardNum,
 			@securityCode,
-			@billname,
-			@billUnit,
-			@billCity,
-			@billState,
-			@billZip,
 			@expDate,
 			@cardTypeId,
 			@accountId

@@ -8,7 +8,7 @@
             </button>
         </div>
     </div>
-    <div class="card" style="width: 18rem; margin-right: 10px;" *ngFor="let address of addressList" value="{{address.addressId}}">
+    <div class="card" style="width: 18rem; margin-right: 10px;" *ngFor="let address of addressList" value="{{address.accountId}}">
         <div class="card-body">
             <br>
             <h6 class="card-text">{{address.customerName}}
@@ -17,7 +17,6 @@
                 <br>
                 {{address.city}}, {{address.state}} {{address.zipcode}}
             </h6>
-            <br>
             <button type="button" class="btn btn-link" style="padding-left: 0%;" (click)="openEditModal(address.addressId)">Edit</button>
             <button type="button" class="btn btn-link" style="padding-left: 0%;" (click)="deleteAddress(address.addressId)">Remove</button>
         </div>

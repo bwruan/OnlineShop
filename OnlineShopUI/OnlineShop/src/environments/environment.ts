@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   accountApi: "https://localhost:44399/api",
-  addressApi: "https://localhost:44324/api"
+  addressApi: "https://localhost:44324/api",
+  paymentApi: "https://localhost:44353/api"
 };
 
 /*

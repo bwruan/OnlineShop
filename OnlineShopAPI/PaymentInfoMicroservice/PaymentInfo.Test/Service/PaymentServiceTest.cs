@@ -30,30 +30,25 @@ namespace PaymentInfo.Test.Service
         [Test]
         public async Task AddPayment_Success()
         {
-            _paymentRepository.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
+            _paymentRepository.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
             var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            await paymentService.AddPayment("Test User", "1234567898765432", "123", DateTime.Parse("10/2023"), "Test User", "123 A St",
-                "CityTown", "AA", "99999", 1, 1);
+            await paymentService.AddPayment("Test User", "1234567898765432", "123", "10/2023", 1, 1);
 
-            _paymentRepository.Verify(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()), Times.Once);
+            _paymentRepository.Verify(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()), Times.Once);
         }
 
         [Test]
         public void AddPayment_Fail()
         {
-            _paymentRepository.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
+            _paymentRepository.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
 
             var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => paymentService.AddPayment("", "", "", DateTime.Parse("10/2023"), null, "123 A St",
-                "CityTown", "AA", "99999", 1, 1));
+            Assert.ThrowsAsync<ArgumentException>(() => paymentService.AddPayment("", "", "", "10/2023", 1, 1));
         }
 
         [Test]
@@ -116,17 +111,14 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.GetPaymentByPaymentId(It.IsAny<long>()))
                 .ReturnsAsync(new Payment());
 
-            _paymentRepository.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(),
-                It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
+            _paymentRepository.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
             var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            await paymentService.UpdatePayment(1, "Test User", "1234567898765432", "123", DateTime.Parse("10/2023"),
-                "Test User", "123 A St", "CityTown", "AA", "99999", 1);
+            await paymentService.UpdatePayment(1, "Test User", "1234567898765432", "123", "10/2023", 1);
 
-            _paymentRepository.Verify(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()), Times.Once);
+            _paymentRepository.Verify(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()), Times.Once);
         }
 
         [Test]
@@ -135,14 +127,12 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.GetPaymentByPaymentId(It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
 
-            _paymentRepository.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
+            _paymentRepository.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
 
             var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => paymentService.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<string>(),
-                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()));
+            Assert.ThrowsAsync<ArgumentException>(() => paymentService.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()));
         }
 
         [Test]

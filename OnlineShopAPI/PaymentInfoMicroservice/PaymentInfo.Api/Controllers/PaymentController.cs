@@ -19,12 +19,11 @@ namespace PaymentInfo.Api.Controllers
         }
 
         [HttpPost("addPayment")]
-        public async Task<IActionResult> AddPayment([FromBody] PaymentRequest request)
+        public async Task<IActionResult> AddPayment([FromBody] AddPaymentRequest request)
         {
             try
             {
-                await _paymentService.AddPayment(request.NameOnCard, request.CardNumber, request.SecurityCode, request.ExpDate, request.BillingName, request.BillingUnit,
-                    request.BillingCity, request.BillingState, request.BillingZipcode, request.CardType, request.AccountId);
+                await _paymentService.AddPayment(request.NameOnCard, request.CardNumber, request.SecurityCode, request.ExpDate, request.CardTypeId, request.AccountId);
 
                 return StatusCode(201);
             }
@@ -97,8 +96,7 @@ namespace PaymentInfo.Api.Controllers
         {
             try
             {
-                await _paymentService.UpdatePayment(request.PaymentId, request.NewNameOnCard, request.NewCardNumber, request.NewSecurityCode, request.NewExpDate, request.NewBillingName,
-                    request.NewBillingUnit, request.NewBillingCity, request.NewBillingState, request.NewBillingZipcode, request.NewCardType);
+                await _paymentService.UpdatePayment(request.PaymentId, request.NewNameOnCard, request.NewCardNumber, request.NewSecurityCode, request.NewExpDate, request.NewCardTypeId);
 
                 return Ok();
             }
