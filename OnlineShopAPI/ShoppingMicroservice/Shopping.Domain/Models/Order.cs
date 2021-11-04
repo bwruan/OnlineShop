@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-#nullable disable
-
-namespace Shopping.Infrastructure.Repository.Entities
+namespace Shopping.Domain.Models
 {
-    public partial class Order
+    public class Order
     {
         public long OrderId { get; set; }
-        public int OrderNum { get; set; }
-        public long CartId { get; set; }
-        public DateTime PurchaseDate { get; set; }
-        public long AccountId { get; set; }
 
-        public virtual Cart Cart { get; set; }
+        public int OrderNum { get; set; }
+
+        public long CartId { get; set; }
+
+        public DateTime PurchaseDate { get; set; }
+
+        public long AccountId { get; set; }
     }
 }
