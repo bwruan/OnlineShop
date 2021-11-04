@@ -7,10 +7,8 @@ CREATE PROCEDURE dbo.AddItem
 (
 	@name varchar(50),
 	@price smallmoney,
-	@quantity int,
 	@picutre varbinary(max),
-	@itemTypeId int,
-	@sellerId bigint
+	@itemTypeId int
 )
 AS
 BEGIN
@@ -23,19 +21,15 @@ BEGIN
 	(
 		Name,
 		Price,
-		Quantity,
 		Picture,
-		ItemType,
-		SellerId
+		ItemTypeId
 	)
 	VALUES
 	(
 		@name, 
-		@price, 
-		@quantity, 
+		@price,  
 		@picutre,
-		@itemTypeId,
-		@sellerId
+		@itemTypeId
 	)
 END
 GO
