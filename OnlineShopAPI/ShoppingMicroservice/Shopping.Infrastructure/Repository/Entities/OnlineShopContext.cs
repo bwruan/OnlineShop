@@ -20,6 +20,7 @@ namespace Shopping.Infrastructure.Repository.Entities
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ItemType> ItemTypes { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -42,7 +43,7 @@ namespace Shopping.Infrastructure.Repository.Entities
                     .WithMany(p => p.Carts)
                     .HasForeignKey(d => d.ItemId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Cart__ItemId__4BAC3F29");
+                    .HasConstraintName("FK__Cart__ItemId__22751F6C");
             });
 
             modelBuilder.Entity<Item>(entity =>
@@ -56,11 +57,11 @@ namespace Shopping.Infrastructure.Repository.Entities
 
                 entity.Property(e => e.Price).HasColumnType("smallmoney");
 
-                entity.HasOne(d => d.ItemTypeNavigation)
+                entity.HasOne(d => d.ItemType)
                     .WithMany(p => p.Items)
-                    .HasForeignKey(d => d.ItemType)
+                    .HasForeignKey(d => d.ItemTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Item__ItemType__47DBAE45");
+                    .HasConstraintName("FK__Item__ItemTypeId__1F98B2C1");
             });
 
             modelBuilder.Entity<ItemType>(entity =>
@@ -70,6 +71,19 @@ namespace Shopping.Infrastructure.Repository.Entities
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.Property(e => e.PurchaseDate)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Cart)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.CartId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Orders__CartId__25518C17");
             });
 
             OnModelCreatingPartial(modelBuilder);

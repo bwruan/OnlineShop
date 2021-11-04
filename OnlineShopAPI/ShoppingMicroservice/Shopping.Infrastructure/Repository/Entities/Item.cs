@@ -15,12 +15,10 @@ namespace Shopping.Infrastructure.Repository.Entities
         public long ItemId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public int Quantity { get; set; }
         public byte[] Picture { get; set; }
-        public int ItemType { get; set; }
-        public long SellerId { get; set; }
+        public int ItemTypeId { get; set; }
 
-        public virtual ItemType ItemTypeNavigation { get; set; }
+        public virtual ItemType ItemType { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
     }
 }
