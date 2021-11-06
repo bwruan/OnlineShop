@@ -6,8 +6,8 @@ namespace Shopping.Infrastructure.Repository
 {
     public interface IOrdersRepository
     {
-        Task<List<Order>> GetOrders();
+        Task<List<Order>> GetOrdersByAccountId(long accountId);
         Task<List<Order>> GetOrdersByOrderNum(int orderNum);
-        Task PurchaseOrder();
+        Task PurchaseOrder(long accountId);
     }
 }

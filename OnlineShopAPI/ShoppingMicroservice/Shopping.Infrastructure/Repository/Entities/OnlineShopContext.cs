@@ -83,7 +83,7 @@ namespace Shopping.Infrastructure.Repository.Entities
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CartId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Orders__CartId__25518C17");
+                    .HasConstraintName("FK__Orders__CartId__29221CFB");
             });
 
             OnModelCreatingPartial(modelBuilder);

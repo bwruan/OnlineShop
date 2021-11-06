@@ -10,7 +10,7 @@ namespace Shopping.Infrastructure.Repository
 {
     public class OrdersRepository : IOrdersRepository
     {
-        public async Task PurchaseOrder()
+        public async Task PurchaseOrder(long accountId)
         {
             using (var context = new OnlineShopContext())
             {
@@ -25,6 +25,7 @@ namespace Shopping.Infrastructure.Repository
                     orders.CartId = item.CartId;
                     orders.PurchaseDate = DateTime.Now;
                     orders.OrderNum = orderNum;
+                    orders.AccountId = accountId;
 
                     context.Orders.Add(orders);
                 }
@@ -33,11 +34,11 @@ namespace Shopping.Infrastructure.Repository
             }
         }
 
-        public async Task<List<Order>> GetOrders()
+        public async Task<List<Order>> GetOrdersByAccountId(long accountId)
         {
             using (var context = new OnlineShopContext())
             {
-                return await context.Orders.ToListAsync();
+                return await context.Orders.Where(o => o.AccountId == accountId).ToListAsync();
             }
         }
 
