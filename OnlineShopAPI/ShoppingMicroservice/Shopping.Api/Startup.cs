@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using Shopping.Domain.Mapper;
+using Shopping.Domain.Service;
+using Shopping.Infrastructure.AccountMicroservice;
+using Shopping.Infrastructure.Repository;
 
 namespace Shopping.Api
 {
@@ -25,7 +32,34 @@ namespace Shopping.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddSingleton<ICartRepository, CartRepository>();
+            services.AddTransient<ICartService, CartService>();
+            services.AddSingleton<IItemRepository, ItemRepository>();
+            services.AddTransient<IItemService, ItemService>();
+            services.AddSingleton<IItemTypeRepository, ItemTypeRepository>();
+            services.AddTransient<IItemTypeService, ItemTypeService>();
+            services.AddSingleton<IOrdersRepository, OrdersRepository>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IUserAccountService, UserAccountService>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration.GetSection("Jwt:Issuer").Value,
+                        ValidAudience = Configuration.GetSection("Jwt:Issuer").Value,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("Jwt:Key").Value))
+                    };
+                });
+            services.AddMvc();
             services.AddControllers();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +73,10 @@ namespace Shopping.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
