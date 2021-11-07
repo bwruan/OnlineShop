@@ -12,6 +12,7 @@ import { LoginSecurityComponent } from './account-settings/login-security/login-
 import { YourAddressComponent } from './account-settings/your-address/your-address.component';
 import { YourPaymentComponent } from './account-settings/your-payment/your-payment.component';
 import { YourOrdersComponent } from './account-settings/your-orders/your-orders.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { YourOrdersComponent } from './account-settings/your-orders/your-orders.
     LoginSecurityComponent,
     YourAddressComponent,
     YourPaymentComponent,
-    YourOrdersComponent
+    YourOrdersComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
