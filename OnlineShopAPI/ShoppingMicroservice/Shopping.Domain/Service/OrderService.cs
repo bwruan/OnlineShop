@@ -41,7 +41,7 @@ namespace Shopping.Domain.Service
             return orders;
         }
 
-        public async Task<List<Order>> GetOrdersByOrderNum(int orderNum)
+        public async Task<List<Order>> GetOrdersByOrderNum(int orderNum, string token)
         {
             var orders = new List<Order>();
             var orderList = await _ordersRepository.GetOrdersByOrderNum(orderNum);
