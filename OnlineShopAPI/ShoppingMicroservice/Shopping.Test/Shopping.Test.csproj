@@ -13,4 +13,13 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shopping.Api\Shopping.Api.csproj" />
+    <ProjectReference Include="..\Shopping.Domain\Shopping.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -25,20 +25,10 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task GetCardTypes_Success()
         {
-            var httpContext = new DefaultHttpContext();
-
-            httpContext.Request.Headers["Authorization"] = "Bearer testtoken";
-
             _cardTypeService.Setup(c => c.GetCardTypes())
                 .ReturnsAsync(new List<CardType>());
 
-            var controller = new CardTypeController(_cardTypeService.Object)
-            {
-                ControllerContext = new ControllerContext()
-                {
-                    HttpContext = httpContext
-                }
-            };
+            var controller = new CardTypeController(_cardTypeService.Object);
 
             var response = await controller.GetCardTypes();
 
@@ -53,20 +43,10 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task GetCardTypes_InternalServerError()
         {
-            var httpContext = new DefaultHttpContext();
-
-            httpContext.Request.Headers["Authorization"] = "Bearer testtoken";
-
             _cardTypeService.Setup(c => c.GetCardTypes())
                 .ThrowsAsync(new Exception());
 
-            var controller = new CardTypeController(_cardTypeService.Object)
-            {
-                ControllerContext = new ControllerContext()
-                {
-                    HttpContext = httpContext
-                }
-            };
+            var controller = new CardTypeController(_cardTypeService.Object);
 
             var response = await controller.GetCardTypes();
 
