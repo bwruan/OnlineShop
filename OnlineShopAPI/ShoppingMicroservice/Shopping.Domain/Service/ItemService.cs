@@ -19,7 +19,7 @@ namespace Shopping.Domain.Service
             _mapper = mapper;
         }
 
-        public async Task<List<Item>> GetAllItems()
+        public async Task<List<Item>> GetAllItems(string token)
         {
             var items = new List<Item>();
 
@@ -33,7 +33,7 @@ namespace Shopping.Domain.Service
             return items;
         }
 
-        public async Task<Item> GetItemByItemId(long itemId)
+        public async Task<Item> GetItemByItemId(long itemId, string token)
         {
             var item = await _itemRepository.GetItemByItemId(itemId);
 
@@ -45,7 +45,7 @@ namespace Shopping.Domain.Service
             return _mapper.Map<Item>(item);
         }
 
-        public async Task<List<Item>> GetItemsByItemType(long itemTypeId)
+        public async Task<List<Item>> GetItemsByItemType(long itemTypeId, string token)
         {
             var items = new List<Item>();
 

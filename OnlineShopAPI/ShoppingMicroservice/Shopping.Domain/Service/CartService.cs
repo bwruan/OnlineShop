@@ -34,7 +34,7 @@ namespace Shopping.Domain.Service
             await _cartRepository.AddToCart(itemId, amount);
         }
 
-        public async Task<List<Cart>> GetItemsInCart()
+        public async Task<List<Cart>> GetItemsInCart(string token)
         {
             var cartItems = new List<Cart>();
 

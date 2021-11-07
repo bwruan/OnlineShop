@@ -6,8 +6,8 @@ namespace Shopping.Domain.Service
 {
     public interface IItemService
     {
-        Task<List<Item>> GetAllItems();
-        Task<Item> GetItemByItemId(long itemId);
-        Task<List<Item>> GetItemsByItemType(long itemTypeId);
+        Task<List<Item>> GetAllItems(string token);
+        Task<Item> GetItemByItemId(long itemId, string token);
+        Task<List<Item>> GetItemsByItemType(long itemTypeId, string token);
     }
 }
