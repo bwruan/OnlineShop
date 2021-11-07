@@ -19,7 +19,7 @@ namespace Shopping.Domain.Service
             _mapper = mapper;
         }
 
-        public async Task AddToCart(long itemId, int amount)
+        public async Task AddToCart(long accountId, long itemId, int amount)
         {
             if (itemId <= 0)
             {
@@ -31,14 +31,14 @@ namespace Shopping.Domain.Service
                 throw new ArgumentException("Must have a quantity of at least 1");
             }
 
-            await _cartRepository.AddToCart(itemId, amount);
+            await _cartRepository.AddToCart(accountId, itemId, amount);
         }
 
-        public async Task<List<Cart>> GetItemsInCart(string token)
+        public async Task<List<Cart>> GetItemsInCartByAccountId(long accountId, string token)
         {
             var cartItems = new List<Cart>();
 
-            var cartList = await _cartRepository.GetItemsInCart();
+            var cartList = await _cartRepository.GetItemsInCartByAccountId(accountId);
 
             foreach (var item in cartList)
             {

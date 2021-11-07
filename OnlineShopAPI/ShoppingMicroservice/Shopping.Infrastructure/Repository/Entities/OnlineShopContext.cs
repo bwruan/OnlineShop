@@ -43,7 +43,7 @@ namespace Shopping.Infrastructure.Repository.Entities
                     .WithMany(p => p.Carts)
                     .HasForeignKey(d => d.ItemId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Cart__ItemId__22751F6C");
+                    .HasConstraintName("FK__Cart__ItemId__2DE6D218");
             });
 
             modelBuilder.Entity<Item>(entity =>
@@ -78,12 +78,6 @@ namespace Shopping.Infrastructure.Repository.Entities
                 entity.Property(e => e.PurchaseDate)
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.Cart)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.CartId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Orders__CartId__29221CFB");
             });
 
             OnModelCreatingPartial(modelBuilder);

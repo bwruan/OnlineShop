@@ -25,7 +25,7 @@ namespace Shopping.Api.Controller
         {
             try
             {
-                await _cartService.AddToCart(request.ItemId, request.Amount);
+                await _cartService.AddToCart(request.AccountId, request.ItemId, request.Amount);
 
                 return StatusCode(201);
             }
@@ -35,8 +35,8 @@ namespace Shopping.Api.Controller
             }
         }
 
-        [HttpGet("cartItems")]
-        public async Task<IActionResult> GetItemsInCart()
+        [HttpGet("cartItems/{accountId}")]
+        public async Task<IActionResult> GetItemsInCartByAccountId(long accountId)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Shopping.Api.Controller
                     token = jwt[0].Replace("Bearer ", "");
                 }
 
-                return Ok(await _cartService.GetItemsInCart(token));
+                return Ok(await _cartService.GetItemsInCartByAccountId(accountId, token));
             }
             catch (Exception ex)
             {

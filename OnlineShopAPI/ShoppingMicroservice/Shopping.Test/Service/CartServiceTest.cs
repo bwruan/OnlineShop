@@ -27,49 +27,49 @@ namespace Shopping.Test.Service
         [Test]
         public async Task AddToCart_Success()
         {
-            _cartRepository.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<int>()))
+            _cartRepository.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>()))
                 .Returns(Task.CompletedTask);
 
             var cartService = new CartService(_cartRepository.Object, _mapper.Object);
 
-            await cartService.AddToCart(1, 1);
+            await cartService.AddToCart(1,1, 1);
 
-            _cartRepository.Verify(c => c.AddToCart(It.IsAny<long>(), It.IsAny<int>()), Times.Once);
+            _cartRepository.Verify(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>()), Times.Once);
         }
 
         [Test]
         public void AddToCart_Fail()
         {
-            _cartRepository.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<int>()))
+            _cartRepository.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>()))
                 .ThrowsAsync(new Exception());
 
             var cartService = new CartService(_cartRepository.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => cartService.AddToCart(0, 0));
+            Assert.ThrowsAsync<ArgumentException>(() => cartService.AddToCart(0, 0, 0));
         }
 
         [Test]
         public async Task GetItemsInCart_Success()
         {
-            _cartRepository.Setup(c => c.GetItemsInCart())
+            _cartRepository.Setup(c => c.GetItemsInCartByAccountId(It.IsAny<long>()))
                 .ReturnsAsync(new List<Cart>());
 
             var cartService = new CartService(_cartRepository.Object, _mapper.Object);
 
-            await cartService.GetItemsInCart("SecretKey6196BRuan");
+            await cartService.GetItemsInCartByAccountId(1, "SecretKey6196BRuan");
 
-            _cartRepository.Verify(c => c.GetItemsInCart(), Times.Once);
+            _cartRepository.Verify(c => c.GetItemsInCartByAccountId(It.IsAny<long>()), Times.Once);
         }
 
         [Test]
         public void GetItemsInCart_Fail()
         {
-            _cartRepository.Setup(c => c.GetItemsInCart())
+            _cartRepository.Setup(c => c.GetItemsInCartByAccountId(It.IsAny<long>()))
                 .ThrowsAsync(new Exception());
 
             var cartService = new CartService(_cartRepository.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<Exception>(() => cartService.GetItemsInCart("SecretKey6196BRuan"));
+            Assert.ThrowsAsync<Exception>(() => cartService.GetItemsInCartByAccountId(0, "SecretKey6196BRuan"));
         }
 
         [Test]

@@ -18,13 +18,15 @@ export class CartService {
         return this._http.post(this.baseUrl + "/cart/addToCart", addItem);
     }
 
-    getItemsInCart(): Observable<Cart[]>{
+    getItemsInCartByAccountId(): Observable<Cart[]>{
         let token = localStorage.getItem("token");
         let header = new HttpHeaders({
             "Authorization": "Bearer "+ token
         });
 
-        return this._http.get<Cart[]>(this.baseUrl + "/cart/cartItems/", {headers: header});
+        let accountId = Number(localStorage.getItem("accountId"));
+
+        return this._http.get<Cart[]>(this.baseUrl + "/cart/cartItems/" + accountId, {headers: header});
     }
 
     purchaseRemove(){

@@ -15,14 +15,13 @@ namespace Shopping.Infrastructure.Repository
             using (var context = new OnlineShopContext())
             {
                 var orders = new Order();
-                var cartItems = await context.Carts.ToListAsync();
+                var cartItems = await context.Carts.Where(c => c.AccountId == accountId).ToListAsync();
 
                 var rnd = new Random();
                 var orderNum = rnd.Next(10000, 99999);
 
                 foreach (var item in cartItems)
                 {
-                    orders.CartId = item.CartId;
                     orders.PurchaseDate = DateTime.Now;
                     orders.OrderNum = orderNum;
                     orders.AccountId = accountId;

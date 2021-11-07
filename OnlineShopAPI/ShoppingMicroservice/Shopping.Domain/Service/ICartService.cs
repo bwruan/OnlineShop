@@ -6,8 +6,8 @@ namespace Shopping.Domain.Service
 {
     public interface ICartService
     {
-        Task AddToCart(long itemId, int amount);
-        Task<List<Cart>> GetItemsInCart(string token);
+        Task AddToCart(long accountId, long itemId, int amount);
+        Task<List<Cart>> GetItemsInCartByAccountId(long accountId, string token);
         Task PurchaseRemove();
     }
 }
