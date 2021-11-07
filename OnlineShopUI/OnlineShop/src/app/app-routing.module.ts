@@ -10,7 +10,6 @@ import { ShopInterfaceComponent } from './nav-bar/shop-interface/shop-interface.
 
 const routes: Routes = [
   {path:"", component: LandingPageComponent},
-  {path:"shop/shopAll", component: ShopInterfaceComponent},
   {path:"shop/:itemTypeId", component: ShopInterfaceComponent},
   {path: "accountsetting", component: AccountSettingsComponent, children: [
     {path: 'loginSecurity', component: LoginSecurityComponent},

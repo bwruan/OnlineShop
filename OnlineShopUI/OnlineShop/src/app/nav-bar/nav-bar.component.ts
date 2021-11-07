@@ -100,8 +100,4 @@ export class NavBarComponent implements OnInit {
   shopByItemType(itemTypeId): void{
     this.router.navigate(['/shop', itemTypeId]);
   }
-
-  shopAll():void{
-    this.router.navigate(['/shop/shopAll']);
-  }
 }

@@ -1,1 +1,11 @@
-<p>shop-interface works!</p>
+<div class="py-4 row row-cols-2 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let item of items" value="{{item.itemId}}">
+      <div class="card">
+        {{item.picture}}
+        <div class="card-body">
+          <h5 class="card-title text-center">{{item.name}}</h5>
+          <p class="card-text text-center">{{item.price | currency}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
