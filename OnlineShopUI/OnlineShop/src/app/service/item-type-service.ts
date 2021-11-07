@@ -8,7 +8,7 @@ import { ItemType } from "../model/item-type";
     providedIn: 'root'
 })
 
-export class CartService {
+export class ItemTypeService {
     baseUrl: string = environment.shoppingApi;
 
     constructor(private _http: HttpClient){}

@@ -5,8 +5,13 @@ import { LoginSecurityComponent } from './account-settings/login-security/login-
 import { YourAddressComponent } from './account-settings/your-address/your-address.component';
 import { YourOrdersComponent } from './account-settings/your-orders/your-orders.component';
 import { YourPaymentComponent } from './account-settings/your-payment/your-payment.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ShopInterfaceComponent } from './nav-bar/shop-interface/shop-interface.component';
 
 const routes: Routes = [
+  {path:"", component: LandingPageComponent},
+  {path:"shop/shopAll", component: ShopInterfaceComponent},
+  {path:"shop/:itemTypeId", component: ShopInterfaceComponent},
   {path: "accountsetting", component: AccountSettingsComponent, children: [
     {path: 'loginSecurity', component: LoginSecurityComponent},
     {path: 'yourAddress', component: YourAddressComponent},

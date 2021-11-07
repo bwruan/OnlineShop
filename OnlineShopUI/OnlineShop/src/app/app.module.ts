@@ -13,6 +13,7 @@ import { YourAddressComponent } from './account-settings/your-address/your-addre
 import { YourPaymentComponent } from './account-settings/your-payment/your-payment.component';
 import { YourOrdersComponent } from './account-settings/your-orders/your-orders.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ShopInterfaceComponent } from './nav-bar/shop-interface/shop-interface.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     YourAddressComponent,
     YourPaymentComponent,
     YourOrdersComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    ShopInterfaceComponent
   ],
   imports: [
     BrowserModule,

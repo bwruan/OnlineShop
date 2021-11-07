@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ItemType } from '../model/item-type';
 import { AddAccountRequest } from '../model/requests/add-account-request';
 import { LoginRequest } from '../model/requests/login-request';
 import { UserAccount } from '../model/user-account';
+import { ItemTypeService } from '../service/item-type-service';
 import { UserAccountService } from '../service/user-account-service';
 
 @Component({
@@ -21,13 +24,20 @@ export class NavBarComponent implements OnInit {
     fontStyle: "italic",
     fontSize: "10"
   };
+  itemTypes: ItemType[];
 
   loginObj: UserAccount = new UserAccount();
   signUpObj: UserAccount = new UserAccount();
 
-  constructor(private userAccountService: UserAccountService) { }
+  constructor(private userAccountService: UserAccountService, private itemTypeService: ItemTypeService, private router: Router) { }
 
   ngOnInit(): void {
+    this.itemTypeService.getItemType()
+    .subscribe(res => {
+      this.itemTypes = res;
+    }, err => {
+      this.showMessage = err.error;
+    });
   }
 
   openSignInModal(): void{
@@ -85,5 +95,13 @@ export class NavBarComponent implements OnInit {
     }, err => {
       this.showMessage = err.error;
     })
+  }
+
+  shopByItemType(itemTypeId): void{
+    this.router.navigate(['/shop', itemTypeId]);
+  }
+
+  shopAll():void{
+    this.router.navigate(['/shop/shopAll']);
   }
 }

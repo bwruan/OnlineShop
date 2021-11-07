@@ -8,7 +8,7 @@ import { Item } from "../model/item";
     providedIn: 'root'
 })
 
-export class CartService {
+export class ItemService {
     baseUrl: string = environment.shoppingApi;
 
     constructor(private _http: HttpClient){}

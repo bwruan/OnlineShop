@@ -9,7 +9,7 @@ import { PurchaseOrderRequest } from "../model/requests/purchase-order-request";
     providedIn: 'root'
 })
 
-export class CartService {
+export class OrderService {
     baseUrl: string = environment.shoppingApi;
 
     constructor(private _http: HttpClient){}
