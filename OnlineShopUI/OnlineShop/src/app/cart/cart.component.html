@@ -1,8 +1,9 @@
-<div *ngIf="!isNotEmpty">
+<div class="d-flex flex-wrap align-content-center" *ngIf="!isNotEmpty">
     Cart Is Empty
 </div>
 
-<div *ngIf="isNotEmpty">
-    GET CART STUFF
-
+<div *ngIf="isNotEmpty"> 
+    <div *ngFor="let items of cartItems" value="items.itemId">
+        {{items.shopItem.name}}
+    </div>
 </div>

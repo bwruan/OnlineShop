@@ -13,5 +13,7 @@ namespace Shopping.Domain.Models
         public int Amount { get; set; }
 
         public long AccountId { get; set; }
+
+        public Item ShopItem { get; set; }
     }
 }

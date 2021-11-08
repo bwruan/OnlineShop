@@ -31,7 +31,7 @@ namespace Shopping.Infrastructure.Repository
         {
             using (var context = new OnlineShopContext())
             {
-                return await context.Carts.Where(c => c.AccountId == accountId).ToListAsync();
+                return await context.Carts.Include(i => i.Item).Where(c => c.AccountId == accountId).ToListAsync();
             }
         }
 
