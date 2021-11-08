@@ -25,6 +25,18 @@
     </div>
     <div class="col-6 py-3">
         <h6 class="text-center">CHECK OUT</h6>
+        <form #checkOutForm = "ngForm">
+            <div class="form-group">
+                <label for="cardType" class="col-form-label">Select Payment</label>
+                <div>
+                    
+                </div>
+            </div>
+            <br>
+            <div class="d-grid gap-2 col-3 mx-auto">
+                <button type="submit" class="btn btn-outline-dark" style="font-size: small;" [disabled]="checkOutForm.form.invalid">Purchase</button>
+            </div>
+        </form>
     </div>
 </div>
 
