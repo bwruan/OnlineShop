@@ -83,6 +83,7 @@ export class NavBarComponent implements OnInit {
     this.userAccountService.logOut()
     .subscribe(res => {
       localStorage.clear();
+      this.router.navigate(["/"]);
     }, err =>{
       this.showMessage = "Unable to log out: " + err.error;
     });

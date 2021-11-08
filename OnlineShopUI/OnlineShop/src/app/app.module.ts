@@ -14,6 +14,7 @@ import { YourPaymentComponent } from './account-settings/your-payment/your-payme
 import { YourOrdersComponent } from './account-settings/your-orders/your-orders.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ShopInterfaceComponent } from './nav-bar/shop-interface/shop-interface.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ShopInterfaceComponent } from './nav-bar/shop-interface/shop-interface.
     YourPaymentComponent,
     YourOrdersComponent,
     LandingPageComponent,
-    ShopInterfaceComponent
+    ShopInterfaceComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

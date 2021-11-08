@@ -1,6 +1,6 @@
 <div class="py-4 row row-cols-2 row-cols-md-3 g-4">
     <div class="col" *ngFor="let item of items" value="{{item.itemId}}">
-      <div class="card">
+      <div class="card" (click)="openItemModal(item.itemId)" style="cursor: pointer;">
         {{item.picture}}
         <div class="card-body">
           <h5 class="card-title text-center">{{item.name}}</h5>
@@ -8,4 +8,36 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
+
+<div [style.display] = "itemModalState ? 'block': 'none'" style="opacity: 1;" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <p class="col-11"></p>
+                    <button type="button" class="btn-close col-1" (click)="closeItemModal()"></button>
+                </div>
+                <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
+                <div class="mx-auto text-center">
+                    <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">{{itemObj.name}}</h2>
+                    {{itemObj.picture}}
+                    <br>
+                    {{itemObj.price | currency}}
+                    <br>
+                </div>
+                <hr>
+                <div class="row col-8 text-center">
+                    <p class="col-6"></p>
+                    <label for="quantity" class="col-1 control-label">Qty:</label>
+                    <p class="col-1"></p>
+                    <input type="number" class="col-4 control-label" id="quantity" name="quantity" min="1" max="50" [(ngModel)]="cartObj.amount">
+                </div>
+                <br>
+                <div class="d-grid gap-2 col-8 mx-auto">
+                    <button type="button" class="btn btn-outline-dark" style="font-size: small;" (click)="addToCart(itemObj.itemId)">ADD TO CART</button>
+                </div>
+                <br>
+        </div>
+    </div>
+</div>

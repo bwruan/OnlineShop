@@ -52,30 +52,20 @@ export class YourPaymentComponent implements OnInit {
   constructor(private paymentService: PaymentService, private userAccountService: UserAccountService, private cardTypeService: CardTypeService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.paymentService.getPaymentsByAccountId()
-    // .subscribe(res => {
-    //   this.paymentList = res;
+    this.paymentService.getPaymentsByAccountId()
+    .subscribe(res => {
+      this.paymentList = res;
 
-    //   this.userAccountService.getAccountById()
-    //   .subscribe(res => {
-    //     this.paymentObj.accountId = res.accountId;
-    //   },err => {
-    //     this.showMessage = err.error; 
-    //   });
-    // }, err => {
-    //   this.showMessage = "Unable to grab payments.";
-    // });
+      this.userAccountService.getAccountById()
+      .subscribe(res => {
+        this.paymentObj.accountId = res.accountId;
+      },err => {
+        this.showMessage = err.error; 
+      });
+    }, err => {
+      this.showMessage = "Unable to grab payments.";
+    });
   }
-
-  // selectYears(){
-  //   let expYear = new Date().getFullYear();
-  //   let range = [];
-  //   range.push(expYear);
-
-  //   for(let i = 1; i < 10; i++){
-  //     range.push(expYear + i);
-  //   }
-  // }
 
   openAddModal(){
     this.addModalState = true;
