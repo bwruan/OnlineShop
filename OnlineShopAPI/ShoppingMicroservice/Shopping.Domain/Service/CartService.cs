@@ -3,7 +3,6 @@ using Shopping.Domain.Models;
 using Shopping.Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shopping.Domain.Service
@@ -11,11 +10,13 @@ namespace Shopping.Domain.Service
     public class CartService : ICartService
     {
         private readonly ICartRepository _cartRepository;
+        private readonly IItemRepository _itemRepository;
         private readonly IMapper _mapper;
 
-        public CartService(ICartRepository cartRepository, IMapper mapper)
+        public CartService(ICartRepository cartRepository, IItemRepository itemRepository, IMapper mapper)
         {
             _cartRepository = cartRepository;
+            _itemRepository = itemRepository;
             _mapper = mapper;
         }
 
@@ -42,7 +43,13 @@ namespace Shopping.Domain.Service
 
             foreach (var item in cartList)
             {
-                cartItems.Add(_mapper.Map<Cart>(item));
+                var shopItem = await _itemRepository.GetItemByItemId(item.ItemId);
+                var coreShopItem = _mapper.Map<Item>(shopItem);
+                var coreCartItem = _mapper.Map<Cart>(item);
+
+                coreCartItem.ShopItem = coreShopItem;
+
+                cartItems.Add(coreCartItem);
             }
 
             return cartItems;

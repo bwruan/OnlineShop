@@ -74,6 +74,7 @@ export class NavBarComponent implements OnInit {
       localStorage.setItem("accountId", res.accountId);
 
       this.closeSignInModal();
+      this.router.navigate(["/"]);
     }, err =>{
       this.showMessage = "Unable to log in: " + err.error;      
     });

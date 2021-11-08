@@ -2,8 +2,30 @@
     Cart Is Empty
 </div>
 
-<div *ngIf="isNotEmpty"> 
-    <div *ngFor="let items of cartItems" value="items.itemId">
-        {{items.shopItem.name}}
+<div class="d-flex jumbotron jumbotron-fluid">
+    <div class="col-5 list-group list-group-flush" id="sidebar">
+        <div *ngIf="isNotEmpty"> 
+            <div class="py-3">
+                <h6 class="text-center">CART</h6>
+            </div>            
+            <div class="py-3" *ngFor="let items of cartItems" value="items.itemId">
+                <br>
+                {{items.shopItem.picture}}
+                <br>
+                {{items.shopItem.name}}
+                <br>
+                {{items.shopItem.price | currency}} * {{items.amount}}
+                <hr>
+            </div>
+            Total: 
+        </div>
+    </div>
+    <div class="col-1">
+        <hr class="vertical">
+    </div>
+    <div class="col-6 py-3">
+        <h6 class="text-center">CHECK OUT</h6>
     </div>
 </div>
+
+
