@@ -9,5 +9,6 @@ namespace Shopping.Domain.Service
         Task AddToCart(long accountId, long itemId, int amount);
         Task<List<Cart>> GetItemsInCartByAccountId(long accountId, string token);
         Task PurchaseRemove();
+        Task<decimal> CalculateTotalCost(long accountId);
     }
 }

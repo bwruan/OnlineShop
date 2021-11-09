@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Api.Models;
 using Shopping.Domain.Service;
@@ -70,6 +68,21 @@ namespace Shopping.Api.Controller
                 await _cartService.PurchaseRemove();
 
                 return Ok();
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPatch("calculate/{accountId}")]
+        public async Task<IActionResult> CalculateTotalCost(long accountId)
+        {
+            try
+            {
+                var total = await _cartService.CalculateTotalCost(accountId);
+
+                return Ok(total);
             }
             catch(Exception ex)
             {

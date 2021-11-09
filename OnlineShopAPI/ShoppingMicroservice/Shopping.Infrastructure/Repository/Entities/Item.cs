@@ -10,6 +10,7 @@ namespace Shopping.Infrastructure.Repository.Entities
         public Item()
         {
             Carts = new HashSet<Cart>();
+            Orders = new HashSet<Order>();
         }
 
         public long ItemId { get; set; }
@@ -20,5 +21,6 @@ namespace Shopping.Infrastructure.Repository.Entities
 
         public virtual ItemType ItemType { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

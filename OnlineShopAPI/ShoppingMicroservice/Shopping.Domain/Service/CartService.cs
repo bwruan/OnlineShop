@@ -35,6 +35,11 @@ namespace Shopping.Domain.Service
             await _cartRepository.AddToCart(accountId, itemId, amount);
         }
 
+        public async Task<decimal> CalculateTotalCost(long accountId)
+        {
+            return await _cartRepository.CalculateTotalCost(accountId);
+        }
+
         public async Task<List<Cart>> GetItemsInCartByAccountId(long accountId, string token)
         {
             var cartItems = new List<Cart>();

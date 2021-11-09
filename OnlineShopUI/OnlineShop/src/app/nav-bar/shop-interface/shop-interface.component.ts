@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Cart } from 'src/app/model/cart';
 import { Item } from 'src/app/model/item';
@@ -12,6 +12,8 @@ import { ItemService } from 'src/app/service/item-service';
   styleUrls: ['./shop-interface.component.css']
 })
 export class ShopInterfaceComponent implements OnInit {
+  @ViewChild("addToCartForm") addToCartForm;
+
   showMessage: any;
   errorMsgStyle: any = {
     color: "red",
@@ -65,6 +67,7 @@ export class ShopInterfaceComponent implements OnInit {
   closeItemModal(): void{
     this.itemModalState = false;
     this.showMessage = undefined;
+    this.addToCartForm.reset();
   }
 
   addToCart(itemId){

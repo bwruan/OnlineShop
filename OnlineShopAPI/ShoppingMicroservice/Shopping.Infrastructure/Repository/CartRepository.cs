@@ -27,6 +27,22 @@ namespace Shopping.Infrastructure.Repository
             }
         }
 
+        public async Task<decimal> CalculateTotalCost(long accountId)
+        {
+            using (var context = new OnlineShopContext())
+            {
+                var cartItemsPrice = await context.Carts.Include(i => i.Item).Where(c => c.AccountId == accountId).ToListAsync();
+                decimal total = 0;
+
+                foreach(var item in cartItemsPrice)
+                {
+                    total = total + (item.Amount * item.Item.Price);
+                }
+
+                return total;
+            }
+        }
+
         public async Task<List<Cart>> GetItemsInCartByAccountId(long accountId)
         {
             using (var context = new OnlineShopContext())

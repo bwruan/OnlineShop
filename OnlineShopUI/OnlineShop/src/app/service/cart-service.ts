@@ -37,4 +37,15 @@ export class CartService {
         
         return this._http.delete(this.baseUrl + "/cart/emptyCart/", {headers: header});
     } 
+
+    calculateTotal(){
+        let token = localStorage.getItem("token");
+        let header = new HttpHeaders({
+            "Authorization": "Bearer "+ token
+        });
+
+        let accountId = Number(localStorage.getItem("accountId"));
+        
+        return this._http.patch(this.baseUrl + "/cart/calculate/" + accountId, {headers: header});
+    }
 }

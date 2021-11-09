@@ -1,1 +1,25 @@
-<p>your-orders works!</p>
+<div class="py-3" *ngIf="!hasNoOrders">
+    No orders. Go shopping!!!
+</div>
+
+<div class="py-3 row row-cols-1 row-cols-md-1 g-4" *ngIf="hasNoOrders">
+    <div class="card">
+        <div class="card-header row" style="font-size: small;" *ngFor="let order of orderList">
+            <div class="col-2">
+                Order Placed: 
+                <br>
+                {{order.purchaseDate | date:'longDate'}}
+                </div>
+                <div class="col-7"></div>
+                <div class="col-3 text-end">
+                Order Number: {{order.orderNum}}
+                <br>
+                <button type="button" class="btn btn-link" style="padding: 0%; font-size: smaller; text-decoration: none;">View Order Details</button>
+                </div>
+            </div>
+        <div class="card-body">
+          <h5 class="card-title" style="margin: 0%; padding-bottom: 0%;">Order Received</h5>
+          <p class="card-text" style="font-size: small;">We are processing your order.</p>
+        </div>
+    </div>
+</div>

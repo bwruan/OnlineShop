@@ -78,6 +78,12 @@ namespace Shopping.Infrastructure.Repository.Entities
                 entity.Property(e => e.PurchaseDate)
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.ItemId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Orders__ItemId__40058253");
             });
 
             OnModelCreatingPartial(modelBuilder);
