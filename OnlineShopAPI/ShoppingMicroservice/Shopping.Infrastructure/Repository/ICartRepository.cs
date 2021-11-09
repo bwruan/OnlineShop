@@ -10,5 +10,6 @@ namespace Shopping.Infrastructure.Repository
         Task<List<Cart>> GetItemsInCartByAccountId(long accountId);
         Task PurchaseRemove();
         Task<decimal> CalculateTotalCost(long accountId);
+        Task RemoveFromCart(long itemId);
     }
 }

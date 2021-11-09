@@ -64,5 +64,10 @@ namespace Shopping.Domain.Service
         {
             await _cartRepository.PurchaseRemove();
         }
+
+        public async Task RemoveFromCart(long itemId)
+        {
+            await _cartRepository.RemoveFromCart(itemId);
+        }
     }
 }

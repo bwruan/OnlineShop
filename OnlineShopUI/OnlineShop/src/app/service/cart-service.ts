@@ -48,4 +48,13 @@ export class CartService {
         
         return this._http.patch(this.baseUrl + "/cart/calculate/" + accountId, {headers: header});
     }
+
+    removeFromCart(itemId: number){
+        let token = localStorage.getItem("token");
+        let header = new HttpHeaders({
+            "Authorization": "Bearer "+ token
+        });
+        
+        return this._http.delete(this.baseUrl + "/cart/removeItem/" + itemId, {headers: header});
+    }
 }

@@ -89,5 +89,20 @@ namespace Shopping.Api.Controller
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpDelete("removeItem/{itemId}")]
+        public async Task<IActionResult> RemoveFromCart(long itemId)
+        {
+            try
+            {
+                await _cartService.RemoveFromCart(itemId);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

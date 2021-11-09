@@ -90,4 +90,13 @@ export class CartComponent implements OnInit {
       this.showMessage = err.error;
     })
   }
+
+  deleteitem(itemId){
+    this.cartService.removeFromCart(itemId)
+    .subscribe(res => {
+      location.reload();
+    }, err => {
+      this.showMessage = err.error;
+    })
+  }
 }

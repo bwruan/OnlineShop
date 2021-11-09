@@ -10,5 +10,6 @@ namespace Shopping.Domain.Service
         Task<List<Cart>> GetItemsInCartByAccountId(long accountId, string token);
         Task PurchaseRemove();
         Task<decimal> CalculateTotalCost(long accountId);
+        Task RemoveFromCart(long itemId);
     }
 }

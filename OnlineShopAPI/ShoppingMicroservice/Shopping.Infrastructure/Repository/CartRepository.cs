@@ -60,5 +60,17 @@ namespace Shopping.Infrastructure.Repository
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task RemoveFromCart(long itemId)
+        {
+            using (var context = new OnlineShopContext())
+            {
+                var item = await context.Carts.FirstOrDefaultAsync(c => c.ItemId == itemId);
+
+                context.Carts.Remove(item);
+
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }
