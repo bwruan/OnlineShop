@@ -8,8 +8,11 @@ import { OrderService } from 'src/app/service/order-service';
   styleUrls: ['./your-orders.component.css']
 })
 export class YourOrdersComponent implements OnInit {
+  orderModalState: boolean;
+
   orderList: Order[];
   hasNoOrders: boolean;
+  orderNumList: Order[];
 
   constructor(private orderService: OrderService) { }
 
@@ -29,4 +32,18 @@ export class YourOrdersComponent implements OnInit {
     });
   }
 
+  openOrderModal(orderNum){
+    this.orderModalState = true;
+
+    this.orderService.getOrdersByOrderNum(orderNum)
+    .subscribe(res => {
+      this.orderNumList = res;
+    }, err => {
+      console.log(err.error);
+    })
+  }
+
+  closeOrderModal(){
+    this.orderModalState = false;
+  }
 }

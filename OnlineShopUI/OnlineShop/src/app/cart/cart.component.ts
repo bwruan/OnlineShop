@@ -40,36 +40,31 @@ export class CartComponent implements OnInit {
 
       if(this.cartItems.length != 0){
         this.isNotEmpty = true;
+
+        this.cartService.calculateTotal()
+        .subscribe(res => {
+          this.totalCost = res;
+          
+          this.paymentService.getPaymentsByAccountId()
+          .subscribe(res => {
+            this.paymentList = res;
+
+            this.addressService.getAddressesByAccountId()
+            .subscribe(res => {
+              this.addressList = res;
+            }, err => {
+              this.showMessage = err.error;
+            });
+          }, err => {
+            this.showMessage = "Unable to grab payments.";
+          });
+        }, err => {
+          this.showMessage = err.error;
+        });
       }
       else{
         this.isNotEmpty = false;
       }
-
-      this.cartService.calculateTotal()
-      .subscribe(res => {
-        this.totalCost = res;
-        this.addressService.getAddressesByAccountId()
-        .subscribe(res => {
-          this.addressList = res;
-        }, err => {
-          this.showMessage = err.error;
-        })
-      }, err => {
-        this.showMessage = err.error;
-      })
-      // this.paymentService.getPaymentsByAccountId()
-      // .subscribe(res => {
-      //   this.paymentList = res;
-
-      //   this.userAccountService.getAccountById()
-      //   .subscribe(res => {
-      //     this.paymentObj.accountId = res.accountId;
-      //   },err => {
-      //     this.showMessage = err.error; 
-      //   });
-      // }, err => {
-      //   this.showMessage = "Unable to grab payments.";
-      // });
     }, err => {
       console.log(err.error);
     });

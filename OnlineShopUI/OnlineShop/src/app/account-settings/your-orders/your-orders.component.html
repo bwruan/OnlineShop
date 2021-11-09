@@ -14,12 +14,41 @@
                 <div class="col-3 text-end">
                 Order Number: {{order.orderNum}}
                 <br>
-                <button type="button" class="btn btn-link" style="padding: 0%; font-size: smaller; text-decoration: none;">View Order Details</button>
+                <button type="button" class="btn btn-link" style="padding: 0%; font-size: smaller; text-decoration: none;" (click)="openOrderModal(order.orderNum)">View Order Details</button>
                 </div>
             </div>
         <div class="card-body">
           <h5 class="card-title" style="margin: 0%; padding-bottom: 0%;">Order Received</h5>
           <p class="card-text" style="font-size: small;">We are processing your order.</p>
+        </div>
+    </div>
+</div>
+
+<div [style.display] = "orderModalState ? 'block': 'none'" style="opacity: 1;" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <p class="col-11"></p>
+                    <button type="button" class="btn-close col-1" (click)="closeOrderModal()"></button>
+                </div>
+                <div class="mx-auto text-center" *ngFor="let specific of orderNumList">
+                    <h6 class="text-start" style="font-family:'Courier New', Courier, monospace">Order Number: {{specific.orderNum}}</h6>
+                    <div class="row">
+                        <div class="col-3">
+                            PICTURE OF ITEM
+                        </div>
+                        <div class="col-9">
+                            ITEM NAME asdfghjkl; sdfgshjukiolgp;'f'
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-grid gap-2 col-8 mx-auto">
+                    <button type="button" class="btn btn-outline-dark" style="font-size: small;" (click)="closeOrderModal()">Close</button>
+                </div>
+                <br>
+            </div>
         </div>
     </div>
 </div>

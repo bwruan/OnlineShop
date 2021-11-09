@@ -33,10 +33,12 @@
         <form #checkOutForm = "ngForm">
             <div class="form-group">
                 <label for="cardType" class="col-form-label">Select Payment</label>
-                <div class="form-check">
+                <div class="form-check" *ngFor="let payment of paymentList">
                     <input class="form-check-input" type="radio" name="payments" id="listOfPayments">
                     <label class="form-check-label" for="listOfPayments">
-                        <b>Name</b> CardNum
+                        <b>{{payment.nameOnCard}}</b> {{payment.cardNumber}} 
+                        <br>
+                        <b>Exp:</b> {{payment.expDate | date:'shortDate'}}
                     </label>
                 </div>
             </div>

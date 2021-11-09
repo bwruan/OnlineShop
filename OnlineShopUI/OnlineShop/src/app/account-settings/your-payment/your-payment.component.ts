@@ -55,13 +55,6 @@ export class YourPaymentComponent implements OnInit {
     this.paymentService.getPaymentsByAccountId()
     .subscribe(res => {
       this.paymentList = res;
-
-      this.userAccountService.getAccountById()
-      .subscribe(res => {
-        this.paymentObj.accountId = res.accountId;
-      },err => {
-        this.showMessage = err.error; 
-      });
     }, err => {
       this.showMessage = "Unable to grab payments.";
     });

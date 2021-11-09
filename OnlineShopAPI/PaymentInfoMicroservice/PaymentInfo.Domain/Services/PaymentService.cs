@@ -63,13 +63,8 @@ namespace PaymentInfo.Domain.Services
             var payments = await _paymentRepository.GetPaymentsByAccountId(accountId);
 
             foreach (var payment in payments)
-            {
-                var account = await _userAccountService.GetAccountByAccountId(accountId, token);
-                var corePayment = _mapper.Map<Payment>(payment);
-
-                corePayment.AccountId = account.AccountId;
-                
-                paymentList.Add(corePayment);
+            {                
+                paymentList.Add(_mapper.Map<Payment>(payment));
             }
 
             return paymentList;
