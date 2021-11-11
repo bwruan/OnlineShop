@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Api.Models;
 using Shopping.Domain.Service;
@@ -25,7 +23,7 @@ namespace Shopping.Api.Controller
         {
             try
             {
-                await _cartService.AddToCart(request.ItemId, request.Amount);
+                await _cartService.AddToCart(request.AccountId, request.ItemId, request.Amount);
 
                 return StatusCode(201);
             }
@@ -35,8 +33,8 @@ namespace Shopping.Api.Controller
             }
         }
 
-        [HttpGet("cartItems")]
-        public async Task<IActionResult> GetItemsInCart()
+        [HttpGet("cartItems/{accountId}")]
+        public async Task<IActionResult> GetItemsInCartByAccountId(long accountId)
         {
             try
             {
@@ -54,7 +52,7 @@ namespace Shopping.Api.Controller
                     token = jwt[0].Replace("Bearer ", "");
                 }
 
-                return Ok(await _cartService.GetItemsInCart(token));
+                return Ok(await _cartService.GetItemsInCartByAccountId(accountId, token));
             }
             catch (Exception ex)
             {
@@ -72,6 +70,36 @@ namespace Shopping.Api.Controller
                 return Ok();
             }
             catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPatch("calculate/{accountId}")]
+        public async Task<IActionResult> CalculateTotalCost(long accountId)
+        {
+            try
+            {
+                var total = await _cartService.CalculateTotalCost(accountId);
+
+                return Ok(total);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("removeItem/{itemId}")]
+        public async Task<IActionResult> RemoveFromCart(long itemId)
+        {
+            try
+            {
+                await _cartService.RemoveFromCart(itemId);
+
+                return Ok();
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }

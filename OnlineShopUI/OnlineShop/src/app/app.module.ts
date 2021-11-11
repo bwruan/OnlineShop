@@ -12,6 +12,9 @@ import { LoginSecurityComponent } from './account-settings/login-security/login-
 import { YourAddressComponent } from './account-settings/your-address/your-address.component';
 import { YourPaymentComponent } from './account-settings/your-payment/your-payment.component';
 import { YourOrdersComponent } from './account-settings/your-orders/your-orders.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ShopInterfaceComponent } from './nav-bar/shop-interface/shop-interface.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { YourOrdersComponent } from './account-settings/your-orders/your-orders.
     LoginSecurityComponent,
     YourAddressComponent,
     YourPaymentComponent,
-    YourOrdersComponent
+    YourOrdersComponent,
+    LandingPageComponent,
+    ShopInterfaceComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Shopping.Domain.Models;
-using Shopping.Infrastructure.AccountMicroservice;
 using Shopping.Infrastructure.Repository;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shopping.Domain.Service
@@ -12,13 +9,13 @@ namespace Shopping.Domain.Service
     public class OrderService : IOrderService
     {
         private readonly IOrdersRepository _ordersRepository;
-        private readonly IUserAccountService _userAccountService;
+        private readonly IItemRepository _itemRepository;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrdersRepository ordersRepository, IUserAccountService userAccountService, IMapper mapper)
+        public OrderService(IOrdersRepository ordersRepository, IItemRepository itemRepository, IMapper mapper)
         {
             _ordersRepository = ordersRepository;
-            _userAccountService = userAccountService;
+            _itemRepository = itemRepository;
             _mapper = mapper;
         }
 
@@ -29,11 +26,11 @@ namespace Shopping.Domain.Service
 
             foreach (var order in orderList)
             {
-                var account = await _userAccountService.GetAccountByAccountId(order.AccountId, token);
-                var coreAccount = _mapper.Map<UserAccount>(account);
+                var item = await _itemRepository.GetItemByItemId(order.ItemId);
+                var coreItem = _mapper.Map<Item>(item);
                 var coreOrder = _mapper.Map<Order>(order);
 
-                coreOrder.AccountId = coreAccount.AccountId;
+                coreOrder.OrderedItem = coreItem;
 
                 orders.Add(coreOrder);
             }
@@ -48,7 +45,13 @@ namespace Shopping.Domain.Service
 
             foreach (var order in orderList)
             {
-                orders.Add(_mapper.Map<Order>(order));
+                var item = await _itemRepository.GetItemByItemId(order.ItemId);
+                var coreItem = _mapper.Map<Item>(item);
+                var coreOrder = _mapper.Map<Order>(order);
+
+                coreOrder.OrderedItem = coreItem;
+
+                orders.Add(coreOrder);
             }
 
             return orders;

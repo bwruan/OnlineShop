@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Shopping.Domain.Models
 {
@@ -10,10 +8,14 @@ namespace Shopping.Domain.Models
 
         public int OrderNum { get; set; }
 
-        public long CartId { get; set; }
-
         public DateTime PurchaseDate { get; set; }
 
         public long AccountId { get; set; }
+
+        public long ItemId { get; set; }
+
+        public Item OrderedItem { get; set; }
+
+        public int Amount { get; set; }
     }
 }

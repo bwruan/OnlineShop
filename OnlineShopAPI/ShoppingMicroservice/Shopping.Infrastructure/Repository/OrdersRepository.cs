@@ -3,7 +3,6 @@ using Shopping.Infrastructure.Repository.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shopping.Infrastructure.Repository
@@ -14,18 +13,20 @@ namespace Shopping.Infrastructure.Repository
         {
             using (var context = new OnlineShopContext())
             {
-                var orders = new Order();
-                var cartItems = await context.Carts.ToListAsync();
+                var cartItems = await context.Carts.Include(i => i.Item).Where(c => c.AccountId == accountId).ToListAsync();
 
                 var rnd = new Random();
                 var orderNum = rnd.Next(10000, 99999);
 
                 foreach (var item in cartItems)
                 {
-                    orders.CartId = item.CartId;
+                    var orders = new Order();
                     orders.PurchaseDate = DateTime.Now;
                     orders.OrderNum = orderNum;
                     orders.AccountId = accountId;
+                    orders.ItemId = item.ItemId;
+                    orders.Item = item.Item;
+                    orders.Amount = item.Amount;
 
                     context.Orders.Add(orders);
                 }
@@ -38,7 +39,7 @@ namespace Shopping.Infrastructure.Repository
         {
             using (var context = new OnlineShopContext())
             {
-                return await context.Orders.Where(o => o.AccountId == accountId).ToListAsync();
+                return await context.Orders.Include(i => i.Item.Carts).Where(o => o.AccountId == accountId).ToListAsync();
             }
         }
 
@@ -46,7 +47,7 @@ namespace Shopping.Infrastructure.Repository
         {
             using (var context = new OnlineShopContext())
             {
-                return await context.Orders.Where(o => o.OrderNum == orderNum).ToListAsync();
+                return await context.Orders.Include(i => i.Item).Where(o => o.OrderNum == orderNum).ToListAsync();
             }
         }
     }

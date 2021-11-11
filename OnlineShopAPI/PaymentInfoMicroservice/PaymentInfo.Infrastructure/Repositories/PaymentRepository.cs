@@ -48,7 +48,7 @@ namespace PaymentInfo.Infrastructure.Repositories
                 var param = new DynamicParameters();
                 param.Add("@paymentId", paymentId);
 
-                return await connection.QueryFirstOrDefault("dbo.GetPaymentByPaymentId", param, commandType: CommandType.StoredProcedure);
+                return await connection.QueryFirstOrDefaultAsync<Payment>("dbo.GetPaymentByPaymentId", param, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -61,7 +61,7 @@ namespace PaymentInfo.Infrastructure.Repositories
                 var param = new DynamicParameters();
                 param.Add("@accountId", accountId);
 
-                return (await connection.QueryAsync<Payment>("dbo.GetPaymentsByAccountId", commandType: CommandType.StoredProcedure)).ToList();
+                return (await connection.QueryAsync<Payment>("dbo.GetPaymentsByAccountId", param, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 

@@ -1,4 +1,4 @@
-<div class="d-inline-flex py-3">
+<div class="d-inline-flex py-3 row row-cols-2 row-cols-md-2 g-4">
     <div class="card" style="width: 18rem; margin-right: 10px; border: dotted;">
         <div class="card-body text-center" style="padding-top: 55px;">
             <button type="button" (click)="openAddModal()" style="border: none; background-color: white;">
@@ -8,14 +8,14 @@
             </button>
         </div>
     </div>
-    <div class="card" style="width: 18rem; margin-right: 10px;" *ngFor="let payment of paymentList" value="{{payment.paymentId}}">
+    <div class="card" style="width: 18rem; margin-right: 10px;" *ngFor="let payment of paymentList" value="{{payment.paymentId}">
         <div class="card-body">
             <br>
             <h6 class="card-text">{{payment.nameOnCard}}
                 <br>
                 {{payment.cardNumber}}
                 <br>
-                {{payment.expDate}}
+                {{payment.expDate | date:"shortDate"}}
             </h6>
             <button type="button" class="btn btn-link" style="padding-left: 0%;" (click)="openEditModal(payment.paymentId)">Edit</button>
             <button type="button" class="btn btn-link" style="padding-left: 0%;" (click)="deletePayment(payment.paymentId)">Remove</button>
@@ -49,7 +49,7 @@
                                 <div>
                                     <input type="text" class="form-control" id="cardHolder" name="cardName" [(ngModel)]="addPaymentObj.nameOnCard" required>
                                     <span [ngStyle]="errorMsgStyle" *ngIf="addPaymentForm.controls['cardName'] !== undefined && addPaymentForm.controls['cardName'].invalid && (addPaymentForm.controls['cardName'].dirty || addPaymentForm.controls['cardName'].touched) && addPaymentForm.controls['cardName'].errors" class="alert">
-                                    Please enter a name.
+                                        Please enter a name.
                                     </span>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                 <div>
                                     <input type="text" class="form-control" id="cardNum" name="cardNumber" [(ngModel)]="addPaymentObj.cardNumber" required>
                                     <span [ngStyle]="errorMsgStyle" *ngIf="addPaymentForm.controls['cardNumber'] !== undefined && addPaymentForm.controls['cardNumber'].invalid && (addPaymentForm.controls['cardNumber'].dirty || addPaymentForm.controls['cardNumber'].touched) && addPaymentForm.controls['cardNumber'].errors" class="alert">
-                                    Please enter your 16 digit card number.
+                                        Please enter your 16 digit card number.
                                     </span>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                     </span>
                                     /
                                     <select id="yearDrop" name="expYear" [(ngModel)]="addPaymentObj.expYear" required>
-                                        <option *ngFor="let year of years">{{year.short}}</option>
+                                        <option *ngFor="let year of years">{{year.full}}</option>
                                     </select>
                                     <span [ngStyle]="errorMsgStyle" *ngIf="addPaymentForm.controls['expYear'] !== undefined && addPaymentForm.controls['expYear'].invalid && (addPaymentForm.controls['expYear'].dirty || addPaymentForm.controls['expYear'].touched) && addPaymentForm.controls['expYear'].errors" class="alert">
                                         Please select year.

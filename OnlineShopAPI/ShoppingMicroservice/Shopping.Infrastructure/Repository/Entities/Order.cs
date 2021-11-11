@@ -9,10 +9,11 @@ namespace Shopping.Infrastructure.Repository.Entities
     {
         public long OrderId { get; set; }
         public int OrderNum { get; set; }
-        public long CartId { get; set; }
         public DateTime PurchaseDate { get; set; }
+        public int Amount { get; set; }
+        public long ItemId { get; set; }
         public long AccountId { get; set; }
 
-        public virtual Cart Cart { get; set; }
+        public virtual Item Item { get; set; }
     }
 }

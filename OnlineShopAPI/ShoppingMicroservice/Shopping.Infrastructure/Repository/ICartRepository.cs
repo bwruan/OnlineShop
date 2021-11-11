@@ -6,8 +6,10 @@ namespace Shopping.Infrastructure.Repository
 {
     public interface ICartRepository
     {
-        Task AddToCart(long itemId, int amount);
-        Task<List<Cart>> GetItemsInCart();
+        Task AddToCart(long accountId, long itemId, int amount);
+        Task<List<Cart>> GetItemsInCartByAccountId(long accountId);
         Task PurchaseRemove();
+        Task<decimal> CalculateTotalCost(long accountId);
+        Task RemoveFromCart(long itemId);
     }
 }

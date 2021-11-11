@@ -14,7 +14,7 @@ namespace Shopping.Infrastructure.Repository
         {
             using (var context = new OnlineShopContext())
             {
-                return await context.Items.ToListAsync();
+                return await context.Items.OrderBy(i => i.ItemTypeId).ToListAsync();
             }
         }
 

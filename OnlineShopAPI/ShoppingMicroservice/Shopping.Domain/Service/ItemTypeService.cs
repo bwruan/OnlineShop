@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Shopping.Domain.Models;
 using Shopping.Infrastructure.Repository;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shopping.Domain.Service

@@ -27,7 +27,7 @@ namespace Shopping.Test.Controller
         [Test]
         public async Task AddToCart_Success()
         {
-            _cartService.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<int>()))
+            _cartService.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>()))
                 .Returns(Task.CompletedTask);
 
             var controller = new CartController(_cartService.Object);
@@ -49,7 +49,7 @@ namespace Shopping.Test.Controller
         [Test]
         public async Task AddToCart_InternalServerErrpr()
         {
-            _cartService.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<int>()))
+            _cartService.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>()))
                 .ThrowsAsync(new Exception());
 
             var controller = new CartController(_cartService.Object);
@@ -69,13 +69,13 @@ namespace Shopping.Test.Controller
         }
 
         [Test]
-        public async Task GetItemsInCart_Success()
+        public async Task GetItemsInCartByAccountId_Success()
         {
             var httpContext = new DefaultHttpContext();
 
             httpContext.Request.Headers["Authorization"] = "Bearer testtoken";
 
-            _cartService.Setup(c => c.GetItemsInCart(It.IsAny<string>()))
+            _cartService.Setup(c => c.GetItemsInCartByAccountId(It.IsAny<long>(), It.IsAny<string>()))
                 .ReturnsAsync(new List<Cart>());
 
             var controller = new CartController(_cartService.Object)
@@ -86,7 +86,7 @@ namespace Shopping.Test.Controller
                 }
             };
 
-            var response = await controller.GetItemsInCart();
+            var response = await controller.GetItemsInCartByAccountId(1);
 
             Assert.NotNull(response);
             Assert.AreEqual(response.GetType(), typeof(OkObjectResult));
@@ -97,13 +97,13 @@ namespace Shopping.Test.Controller
         }
 
         [Test]
-        public async Task GetItemsInCart_InternalServerError()
+        public async Task GetItemsInCartByAccountId_InternalServerError()
         {
             var httpContext = new DefaultHttpContext();
 
             httpContext.Request.Headers["Authorization"] = "Bearer testtoken";
 
-            _cartService.Setup(c => c.GetItemsInCart(It.IsAny<string>()))
+            _cartService.Setup(c => c.GetItemsInCartByAccountId(It.IsAny<long>(), It.IsAny<string>()))
                 .ThrowsAsync(new Exception());
 
             var controller = new CartController(_cartService.Object)
@@ -114,7 +114,7 @@ namespace Shopping.Test.Controller
                 }
             };
 
-            var response = await controller.GetItemsInCart();
+            var response = await controller.GetItemsInCartByAccountId(1);
 
             Assert.NotNull(response);
             Assert.AreEqual(response.GetType(), typeof(ObjectResult));

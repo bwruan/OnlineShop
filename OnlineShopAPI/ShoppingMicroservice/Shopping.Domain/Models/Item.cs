@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shopping.Domain.Models
+﻿namespace Shopping.Domain.Models
 {
     public class Item
     {
