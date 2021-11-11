@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cart } from 'src/app/model/cart';
 import { Item } from 'src/app/model/item';
 import { AddToCartRequest } from 'src/app/model/requests/add-to-cart-request';
@@ -21,12 +22,13 @@ export class ShopInterfaceComponent implements OnInit {
     fontSize: "10"
   };
   itemModalState: boolean;
+  imageSrc: any;
   
   itemObj: Item = new Item();
   items: Item[];
   cartObj: Cart = new Cart();
 
-  constructor(private route: ActivatedRoute, private itemService: ItemService, private cartService: CartService) { }
+  constructor(private route: ActivatedRoute, private itemService: ItemService, private cartService: CartService, private router: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     let itemTypeId = parseInt(this.route.snapshot.paramMap.get('itemTypeId'));
@@ -35,6 +37,10 @@ export class ShopInterfaceComponent implements OnInit {
       this.itemService.getAllItems()
       .subscribe(res => {
         this.items = res;
+        for(let i = 0; i < this.items.length; i++){
+          var url = 'data:image/jpg;base64,' + res[i].picture;
+          this.items[i].picture = this.sanitizer.bypassSecurityTrustUrl(url);
+        }
       }, err => {
         this.showMessage = err.error;
       });
@@ -43,6 +49,10 @@ export class ShopInterfaceComponent implements OnInit {
       this.itemService.getItemsByItemType(itemTypeId)
       .subscribe(res => {
         this.items = res;
+        for(let i = 0; i < this.items.length; i++){
+          var url = 'data:image/jpg;base64,' + res[i].picture;
+          this.items[i].picture = this.sanitizer.bypassSecurityTrustUrl(url);
+        }
       }, err => {
         this.showMessage = err.error;
       });
@@ -59,6 +69,10 @@ export class ShopInterfaceComponent implements OnInit {
       this.itemObj.name = res.name;
       this.itemObj.picture = res.picture;
       this.itemObj.price = res.price;
+
+      var url = 'data:image/jpg;base64,' + res.picture;
+      this.imageSrc = this.sanitizer.bypassSecurityTrustUrl(url);
+
     }, err => {
       this.showMessage = err.error;
     });

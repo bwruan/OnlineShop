@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Address } from '../model/address';
 import { Cart } from '../model/cart';
 import { Payment } from '../model/payment';
@@ -31,12 +32,16 @@ export class CartComponent implements OnInit {
   totalCost: any;
 
   constructor(private cartService: CartService, private itemService: ItemService, private paymentService: PaymentService, private userAccountService: UserAccountService, 
-    private orderService: OrderService, private addressService: AddressService) { }
+    private orderService: OrderService, private addressService: AddressService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.cartService.getItemsInCartByAccountId()
     .subscribe(res => {
       this.cartItems = res;
+      for(let i = 0; i < this.cartItems.length; i++){
+        var url = 'data:image/jpg;base64,' + res[i].shopItem.picture;
+        this.cartItems[i].shopItem.picture = this.sanitizer.bypassSecurityTrustUrl(url);
+      }
 
       if(this.cartItems.length != 0){
         this.isNotEmpty = true;

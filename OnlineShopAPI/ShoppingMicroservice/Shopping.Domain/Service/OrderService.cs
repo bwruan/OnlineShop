@@ -9,13 +9,13 @@ namespace Shopping.Domain.Service
     public class OrderService : IOrderService
     {
         private readonly IOrdersRepository _ordersRepository;
-        private readonly ICartRepository _cartRepository;
+        private readonly IItemRepository _itemRepository;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrdersRepository ordersRepository, ICartRepository cartRepository, IMapper mapper)
+        public OrderService(IOrdersRepository ordersRepository, IItemRepository itemRepository, IMapper mapper)
         {
             _ordersRepository = ordersRepository;
-            _cartRepository = cartRepository;
+            _itemRepository = itemRepository;
             _mapper = mapper;
         }
 
@@ -26,7 +26,13 @@ namespace Shopping.Domain.Service
 
             foreach (var order in orderList)
             {
-                orders.Add(_mapper.Map<Order>(order));
+                var item = await _itemRepository.GetItemByItemId(order.ItemId);
+                var coreItem = _mapper.Map<Item>(item);
+                var coreOrder = _mapper.Map<Order>(order);
+
+                coreOrder.OrderedItem = coreItem;
+
+                orders.Add(coreOrder);
             }
 
             return orders;
@@ -39,7 +45,13 @@ namespace Shopping.Domain.Service
 
             foreach (var order in orderList)
             {
-                orders.Add(_mapper.Map<Order>(order));
+                var item = await _itemRepository.GetItemByItemId(order.ItemId);
+                var coreItem = _mapper.Map<Item>(item);
+                var coreOrder = _mapper.Map<Order>(order);
+
+                coreOrder.OrderedItem = coreItem;
+
+                orders.Add(coreOrder);
             }
 
             return orders;

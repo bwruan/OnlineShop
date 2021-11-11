@@ -1,7 +1,7 @@
 <div class="py-4 row row-cols-2 row-cols-md-3 g-4">
     <div class="col" *ngFor="let item of items" value="{{item.itemId}}">
       <div class="card" (click)="openItemModal(item.itemId)" style="cursor: pointer;">
-        {{item.picture}}
+        <img [src]="item.picture">
         <div class="card-body">
           <h5 class="card-title text-center">{{item.name}}</h5>
           <p class="card-text text-center">{{item.price | currency}}</p>
@@ -22,7 +22,7 @@
                     <div *ngIf ="showMessage" [ngStyle]="errorMsgStyle">{{showMessage}}</div>
                     <div class="mx-auto text-center">
                         <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">{{itemObj.name}}</h2>
-                        {{itemObj.picture}}
+                        <img [src]="imageSrc">
                         <br>
                         {{itemObj.price | currency}}
                         <br>

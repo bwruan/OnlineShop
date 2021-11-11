@@ -10,7 +10,7 @@
         <div class="py-3" *ngFor="let items of cartItems" value="items.itemId">
             <div class="row">
                 <div class="col-3">
-                    {{items.shopItem.picture}} PICTURE OF ITEM
+                    <img [src]="items.shopItem.picture" style="width: 100%;">
                 </div>
                 <div class="col-5">
                     {{items.shopItem.name}}

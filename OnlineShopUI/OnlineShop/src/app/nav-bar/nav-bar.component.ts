@@ -100,6 +100,11 @@ export class NavBarComponent implements OnInit {
   }
 
   shopByItemType(itemTypeId): void{
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
+    this.router.onSameUrlNavigation = 'reload';
+  
     this.router.navigate(['/shop', itemTypeId]);
   }
 }

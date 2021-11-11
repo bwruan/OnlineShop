@@ -39,7 +39,7 @@ namespace Shopping.Infrastructure.Repository
         {
             using (var context = new OnlineShopContext())
             {
-                return await context.Orders.Include(i => i.Item).Where(o => o.AccountId == accountId).ToListAsync();
+                return await context.Orders.Include(i => i.Item.Carts).Where(o => o.AccountId == accountId).ToListAsync();
             }
         }
 
@@ -47,7 +47,7 @@ namespace Shopping.Infrastructure.Repository
         {
             using (var context = new OnlineShopContext())
             {
-                return await context.Orders.Where(o => o.OrderNum == orderNum).ToListAsync();
+                return await context.Orders.Include(i => i.Item).Where(o => o.OrderNum == orderNum).ToListAsync();
             }
         }
     }

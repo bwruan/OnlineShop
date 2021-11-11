@@ -3,8 +3,8 @@
 </div>
 
 <div class="py-3 row row-cols-1 row-cols-md-1 g-4" *ngIf="hasNoOrders">
-    <div class="card">
-        <div class="card-header row" style="font-size: small;" *ngFor="let order of orderList">
+    <div class="card" *ngFor="let order of orderList">
+        <div class="card-header row" style="font-size: small;">
             <div class="col-2">
                 Order Placed: 
                 <br>
@@ -20,6 +20,15 @@
         <div class="card-body">
           <h5 class="card-title" style="margin: 0%; padding-bottom: 0%;">Order Received</h5>
           <p class="card-text" style="font-size: small;">We are processing your order.</p>
+          <div class="row">
+            <div class="col-3">
+                <img [src]="order.orderedItem.picture" style="width: 100%;">
+            </div>
+            <div class="col-2"></div>
+            <div class="col-2 text-start">
+                {{order.orderedItem.name}}
+            </div>
+        </div>
         </div>
     </div>
 </div>
@@ -32,16 +41,21 @@
                     <p class="col-11"></p>
                     <button type="button" class="btn-close col-1" (click)="closeOrderModal()"></button>
                 </div>
-                <div class="mx-auto text-center" *ngFor="let specific of orderNumList">
+                <div class="mx-auto" *ngFor="let specific of orderNumList">
                     <h6 class="text-start" style="font-family:'Courier New', Courier, monospace">Order Number: {{specific.orderNum}}</h6>
                     <div class="row">
-                        <div class="col-3">
-                            PICTURE OF ITEM
+                        <div class="col-4">
+                            <img [src]="specific.orderedItem.picture" style="width: 100%;">
                         </div>
-                        <div class="col-9">
-                            ITEM NAME asdfghjkl; sdfgshjukiolgp;'f'
+                        <div class="col-4 text-start">
+                            {{specific.orderedItem.name}}
+                        </div>
+                        <div class="col-4 text-start">
+                            Purchased on: <br>
+                            {{specific.purchaseDate | date:'longDate'}}
                         </div>
                     </div>
+                    <br>
                 </div>
                 <hr>
                 <div class="d-grid gap-2 col-8 mx-auto">
