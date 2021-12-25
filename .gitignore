@@ -70,3 +70,5 @@ OnlineShopAPI/ShoppingMicroservice/Shopping.Infrastructure/obj/
 OnlineShopAPI/ShoppingMicroservice/Shopping.Test/bin/
 
 OnlineShopAPI/ShoppingMicroservice/Shopping.Test/obj/
+
+.vs/
