@@ -15,7 +15,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Shopping.Domain.Mapper;
 using Shopping.Domain.Service;
-using Shopping.Infrastructure.AccountMicroservice;
 using Shopping.Infrastructure.Repository;
 
 namespace Shopping.Api
@@ -42,7 +41,6 @@ namespace Shopping.Api
             services.AddTransient<IItemTypeService, ItemTypeService>();
             services.AddSingleton<IOrdersRepository, OrdersRepository>();
             services.AddTransient<IOrderService, OrderService>();
-            services.AddTransient<IUserAccountService, UserAccountService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

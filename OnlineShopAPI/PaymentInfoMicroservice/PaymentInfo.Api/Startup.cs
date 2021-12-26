@@ -15,7 +15,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PaymentInfo.Domain.Mapper;
 using PaymentInfo.Domain.Services;
-using PaymentInfo.Infrastructure.AccountService;
 using PaymentInfo.Infrastructure.Repositories;
 
 namespace PaymentInfo.Api
@@ -38,7 +37,6 @@ namespace PaymentInfo.Api
             services.AddSingleton<IPaymentRepository, PaymentRepository>();
             services.AddTransient<ICardTypeService, CardTypeService>();
             services.AddTransient<IPaymentService, PaymentService>();
-            services.AddTransient<IUserAccountService, UserAccountService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
