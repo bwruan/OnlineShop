@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentInfo.Api.Models;
 using PaymentInfo.Domain.Services;
@@ -9,6 +10,7 @@ namespace PaymentInfo.Api.Controllers
 {
     [Route("api/payment")]
     [ApiController]
+    [Authorize]
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;

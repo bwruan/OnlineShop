@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Api.Models;
 using Shopping.Domain.Service;
@@ -9,6 +10,7 @@ namespace Shopping.Api.Controller
 {
     [Route("api/order")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;

@@ -13,6 +13,7 @@ namespace Account.API.Controllers
 {
     [Route("api/userAccount")]
     [ApiController]
+    [Authorize]
     public class UserAccountController : ControllerBase
     {
         private readonly IUserAccountService _userAccountService;

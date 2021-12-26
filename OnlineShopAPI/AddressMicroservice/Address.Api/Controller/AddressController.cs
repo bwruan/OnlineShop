@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Address.Api.Models;
 using Address.Domain.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace Address.Api.Controller
 {
     [Route("api/address")]
     [ApiController]
+    [Authorize]
     public class AddressController : ControllerBase
     {
         private readonly IAddressService _addressService;
