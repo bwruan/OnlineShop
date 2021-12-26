@@ -7,8 +7,6 @@ using DbOrder = Shopping.Infrastructure.Repository.Entities.Order;
 using CoreOrder = Shopping.Domain.Models.Order;
 using DbItemType = Shopping.Infrastructure.Repository.Entities.ItemType;
 using CoreItemType = Shopping.Domain.Models.ItemType;
-using DbAccount = Shopping.Infrastructure.AccountMicroservice.Model.UserAccount;
-using CoreAccount = Shopping.Domain.Models.UserAccount;
 
 namespace Shopping.Domain.Mapper
 {
@@ -23,8 +21,6 @@ namespace Shopping.Domain.Mapper
             CreateMap<DbOrder, CoreOrder>();
 
             CreateMap<DbItemType, CoreItemType>();
-            
-            CreateMap<DbAccount, CoreAccount>();
         }
     }
 }
