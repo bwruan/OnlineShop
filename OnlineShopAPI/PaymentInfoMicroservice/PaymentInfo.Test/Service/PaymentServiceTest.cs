@@ -2,8 +2,6 @@
 using Moq;
 using NUnit.Framework;
 using PaymentInfo.Domain.Services;
-using PaymentInfo.Infrastructure.AccountService;
-using PaymentInfo.Infrastructure.AccountService.Model;
 using PaymentInfo.Infrastructure.Repositories;
 using PaymentInfo.Infrastructure.Repositories.Entities;
 using System;
@@ -16,14 +14,12 @@ namespace PaymentInfo.Test.Service
     public class PaymentServiceTest
     {
         private Mock<IPaymentRepository> _paymentRepository;
-        private Mock<IUserAccountService> _userAccountService;
         private Mock<IMapper> _mapper;
 
         [SetUp]
         public void Setup()
         {
             _paymentRepository = new Mock<IPaymentRepository>();
-            _userAccountService = new Mock<IUserAccountService>();
             _mapper = new Mock<IMapper>();
         }
 
@@ -33,7 +29,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             await paymentService.AddPayment("Test User", "1234567898765432", "123", "10/2023", 1, 1);
 
@@ -46,7 +42,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
 
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             Assert.ThrowsAsync<ArgumentException>(() => paymentService.AddPayment("", "", "", "10/2023", 1, 1));
         }
@@ -57,7 +53,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.GetPaymentByPaymentId(It.IsAny<long>()))
                 .ReturnsAsync(new Payment());
 
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             await paymentService.GetPaymentByPaymentId(1, It.IsAny<string>());
 
@@ -70,7 +66,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.GetPaymentByPaymentId(It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
 
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             Assert.ThrowsAsync<ArgumentException>(() => paymentService.GetPaymentByPaymentId(1, "SecretKey6196BRuan"));
         }
@@ -81,10 +77,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.GetPaymentsByAccountId(It.IsAny<long>()))
                 .ReturnsAsync(new List<Payment>());
 
-            _userAccountService.Setup(a => a.GetAccountByAccountId(It.IsAny<long>(), It.IsAny<string>()))
-                .ReturnsAsync(new UserAccount());
-
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             await paymentService.GetPaymentsByAccountId(1, It.IsAny<string>());
 
@@ -97,10 +90,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.GetPaymentsByAccountId(It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
 
-            _userAccountService.Setup(a => a.GetAccountByAccountId(It.IsAny<long>(), It.IsAny<string>()))
-                .ThrowsAsync(new ArgumentException());
-
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             Assert.ThrowsAsync<ArgumentException>(() => paymentService.GetPaymentsByAccountId(1, "SecretKey6196BRuan"));
         }
@@ -114,7 +104,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             await paymentService.UpdatePayment(1, "Test User", "1234567898765432", "123", "10/2023", 1);
 
@@ -130,7 +120,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
 
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             Assert.ThrowsAsync<ArgumentException>(() => paymentService.UpdatePayment(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()));
         }
@@ -144,7 +134,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.DeletePayment(It.IsAny<long>()))
                 .Returns(Task.CompletedTask);
 
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             await paymentService.DeletePayment(1);
 
@@ -160,7 +150,7 @@ namespace PaymentInfo.Test.Service
             _paymentRepository.Setup(p => p.DeletePayment(It.IsAny<long>()))
                 .ThrowsAsync(new ArgumentException());
 
-            var paymentService = new PaymentService(_paymentRepository.Object, _userAccountService.Object, _mapper.Object);
+            var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
             Assert.ThrowsAsync<ArgumentException>(() => paymentService.DeletePayment(It.IsAny<long>()));
         }
