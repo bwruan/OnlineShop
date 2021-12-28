@@ -21,6 +21,7 @@ namespace Shopping.Api.Controller
         }
 
         [HttpGet("allItems")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllItems()
         {
             try
@@ -48,6 +49,7 @@ namespace Shopping.Api.Controller
         }
 
         [HttpGet("item/{itemId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetItemByItemId(long itemId)
         {
             try
@@ -75,6 +77,7 @@ namespace Shopping.Api.Controller
         }
 
         [HttpGet("itemType/{itemTypeId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetItemsByItemType(long itemTypeId)
         {
             try
