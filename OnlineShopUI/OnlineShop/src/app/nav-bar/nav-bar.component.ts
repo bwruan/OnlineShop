@@ -93,7 +93,19 @@ export class NavBarComponent implements OnInit {
   signUp(){
     this.userAccountService.addAccount(new AddAccountRequest(this.signUpObj.accountId, this.signUpObj.firstName + " " + this.signUpObj.lastName, this.signUpObj.email, this.signUpObj.password))
     .subscribe(res => {
+      this.loginObj.email = this.signUpObj.email;
+      this.loginObj.password = this.signUpObj.password;
+      
+      this.userAccountService.logIn(new LoginRequest(this.loginObj.email, this.loginObj.password))
+      .subscribe(res => {
+        this.showMessage = undefined;
+
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("email", this.loginObj.email);
+      localStorage.setItem("accountId", res.accountId);
+
       location.reload();
+      })
     }, err => {
       this.showMessage = err.error;
     })

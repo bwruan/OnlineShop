@@ -89,8 +89,13 @@ export class ShopInterfaceComponent implements OnInit {
 
     this.cartService.addToCart(new AddToCartRequest(itemId, this.cartObj.amount, this.cartObj.accountId))
     .subscribe(res => {
-      this.showMessage = "Added to cart.";
-      this.closeItemModal();
+      if(this.cartObj.amount == null || this.cartObj.amount == 0){
+        this.showMessage = "Please select an amount.";
+      }
+      else{
+        this.showMessage = "Added to cart.";
+        this.closeItemModal();
+      }
     }, err => {
       this.showMessage = "Please log in to make purchase.";
     });
