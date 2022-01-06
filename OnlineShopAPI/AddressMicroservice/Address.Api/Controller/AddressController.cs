@@ -27,7 +27,21 @@ namespace Address.Api.Controller
         {
             try
             {
-                await _addressService.AddAddress(request.CustomerName, request.UnitStreet, request.City, request.State, request.Zipcode, request.AccountId);
+                var token = "";
+
+                if (Request.Headers.ContainsKey("Authorization"))
+                {
+                    var jwt = (Request.Headers.FirstOrDefault(s => s.Key.Equals("Authorization"))).Value;
+
+                    if (jwt.Count <= 0)
+                    {
+                        return StatusCode(400);
+                    }
+
+                    token = jwt[0].Replace("Bearer ", "");
+                }
+
+                await _addressService.AddAddress(request.CustomerName, request.UnitStreet, request.City, request.State, request.Zipcode, request.AccountId, token);
 
                 return StatusCode(201);
             }

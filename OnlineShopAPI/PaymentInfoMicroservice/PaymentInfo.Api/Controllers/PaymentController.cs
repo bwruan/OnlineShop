@@ -25,7 +25,21 @@ namespace PaymentInfo.Api.Controllers
         {
             try
             {
-                await _paymentService.AddPayment(request.NameOnCard, request.CardNumber, request.SecurityCode, request.ExpDate, request.CardTypeId, request.AccountId);
+                var token = "";
+
+                if (Request.Headers.ContainsKey("Authorization"))
+                {
+                    var jwt = (Request.Headers.FirstOrDefault(s => s.Key.Equals("Authorization"))).Value;
+
+                    if (jwt.Count <= 0)
+                    {
+                        return StatusCode(400);
+                    }
+
+                    token = jwt[0].Replace("Bearer ", "");
+                }
+
+                await _paymentService.AddPayment(request.NameOnCard, request.CardNumber, request.SecurityCode, request.ExpDate, request.CardTypeId, request.AccountId, token);
 
                 return StatusCode(201);
             }

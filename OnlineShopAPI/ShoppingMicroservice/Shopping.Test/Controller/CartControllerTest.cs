@@ -27,10 +27,20 @@ namespace Shopping.Test.Controller
         [Test]
         public async Task AddToCart_Success()
         {
-            _cartService.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>()))
+            var httpContext = new DefaultHttpContext();
+
+            httpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+
+            _cartService.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
-            var controller = new CartController(_cartService.Object);
+            var controller = new CartController(_cartService.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = httpContext
+                }
+            };
 
             var response = await controller.AddToCart(new AddToCartRequest()
             {
@@ -49,10 +59,20 @@ namespace Shopping.Test.Controller
         [Test]
         public async Task AddToCart_InternalServerErrpr()
         {
-            _cartService.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>()))
+            var httpContext = new DefaultHttpContext();
+
+            httpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+
+            _cartService.Setup(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>(), It.IsAny<string>()))
                 .ThrowsAsync(new Exception());
 
-            var controller = new CartController(_cartService.Object);
+            var controller = new CartController(_cartService.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = httpContext
+                }
+            };
 
             var response = await controller.AddToCart(new AddToCartRequest()
             {

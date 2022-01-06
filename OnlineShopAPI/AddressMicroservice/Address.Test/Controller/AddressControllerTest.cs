@@ -26,10 +26,20 @@ namespace Address.Test.Controller
         [Test]
         public async Task AddAddress_Success()
         {
-            _addressService.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
+            var httpContext = new DefaultHttpContext();
+
+            httpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+
+            _addressService.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
-            var controller = new AddressController(_addressService.Object);
+            var controller = new AddressController(_addressService.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = httpContext
+                }
+            };
 
             var response = await controller.AddAddress(new AddAddressRequest()
             {
@@ -52,10 +62,20 @@ namespace Address.Test.Controller
         [Test]
         public async Task AddAddress_InternalServerError()
         {
-            _addressService.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()))
+            var httpContext = new DefaultHttpContext();
+
+            httpContext.Request.Headers["Authorization"] = "Bearer testtoken";
+
+            _addressService.Setup(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<string>()))
                 .ThrowsAsync(new Exception());
 
-            var controller = new AddressController(_addressService.Object);
+            var controller = new AddressController(_addressService.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = httpContext
+                }
+            };
 
             var response = await controller.AddAddress(new AddAddressRequest()
             {

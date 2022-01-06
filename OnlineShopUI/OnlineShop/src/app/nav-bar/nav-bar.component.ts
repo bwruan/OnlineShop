@@ -86,7 +86,7 @@ export class NavBarComponent implements OnInit {
       localStorage.clear();
       this.router.navigate(["/"]);
     }, err =>{
-      this.showMessage = "Unable to log out: " + err.error;
+      console.log(err.error);
     });
   }
 

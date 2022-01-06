@@ -20,7 +20,7 @@ namespace Shopping.Domain.Service
             _mapper = mapper;
         }
 
-        public async Task AddToCart(long accountId, long itemId, int amount)
+        public async Task AddToCart(long accountId, long itemId, int amount, string token)
         {
             if (itemId <= 0)
             {

@@ -31,7 +31,7 @@ namespace PaymentInfo.Test.Service
 
             var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
-            await paymentService.AddPayment("Test User", "1234567898765432", "123", "10/2023", 1, 1);
+            await paymentService.AddPayment("Test User", "1234567898765432", "123", "10/2023", 1, 1, "SecretKey6196BRuan");
 
             _paymentRepository.Verify(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()), Times.Once);
         }
@@ -44,7 +44,7 @@ namespace PaymentInfo.Test.Service
 
             var paymentService = new PaymentService(_paymentRepository.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => paymentService.AddPayment("", "", "", "10/2023", 1, 1));
+            Assert.ThrowsAsync<ArgumentException>(() => paymentService.AddPayment("", "", "", "10/2023", 1, 1, "SecretKey6196BRuan"));
         }
 
         [Test]

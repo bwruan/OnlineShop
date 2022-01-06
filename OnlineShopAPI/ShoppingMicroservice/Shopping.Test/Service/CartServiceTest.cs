@@ -33,7 +33,7 @@ namespace Shopping.Test.Service
 
             var cartService = new CartService(_cartRepository.Object, _itemRepository.Object, _mapper.Object);
 
-            await cartService.AddToCart(1,1, 1);
+            await cartService.AddToCart(1, 1, 1, "SecretKey6196BRuan");
 
             _cartRepository.Verify(c => c.AddToCart(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<int>()), Times.Once);
         }
@@ -46,7 +46,7 @@ namespace Shopping.Test.Service
 
             var cartService = new CartService(_cartRepository.Object, _itemRepository.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => cartService.AddToCart(0, 0, 0));
+            Assert.ThrowsAsync<ArgumentException>(() => cartService.AddToCart(0, 0, 0, "SecretKey6196BRuan"));
         }
 
         [Test]

@@ -31,6 +31,7 @@ export class UserAccountService {
         });
 
         let accountId = Number(localStorage.getItem("accountId"));
+        
         return this._http.patch(this.baseUrl + "/userAccount/logout/" + accountId, {headers: header});
     }
 

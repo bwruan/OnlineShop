@@ -25,7 +25,21 @@ namespace Shopping.Api.Controller
         {
             try
             {
-                await _cartService.AddToCart(request.AccountId, request.ItemId, request.Amount);
+                var token = "";
+
+                if (Request.Headers.ContainsKey("Authorization"))
+                {
+                    var jwt = (Request.Headers.FirstOrDefault(s => s.Key.Equals("Authorization"))).Value;
+
+                    if (jwt.Count <= 0)
+                    {
+                        return StatusCode(400);
+                    }
+
+                    token = jwt[0].Replace("Bearer ", "");
+                }
+
+                await _cartService.AddToCart(request.AccountId, request.ItemId, request.Amount, token);
 
                 return StatusCode(201);
             }
@@ -78,6 +92,7 @@ namespace Shopping.Api.Controller
         }
 
         [HttpPatch("calculate/{accountId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> CalculateTotalCost(long accountId)
         {
             try

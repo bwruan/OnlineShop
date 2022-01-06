@@ -16,7 +16,12 @@ export class AddressService {
     constructor(private _http: HttpClient){}
 
     addAddress(newAddress: AddAddressRequest): Observable<any>{
-        return this._http.post(this.baseUrl + "/address/addAddress", newAddress);
+        let token = localStorage.getItem("token");
+        let header = new HttpHeaders({
+            "Authorization": "Bearer "+ token
+        });
+
+        return this._http.post(this.baseUrl + "/address/addAddress", newAddress, {headers: header});
     }
 
     getAddressesByAccountId(): Observable<Address[]>{

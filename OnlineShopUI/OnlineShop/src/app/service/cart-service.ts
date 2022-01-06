@@ -15,7 +15,12 @@ export class CartService {
     constructor(private _http: HttpClient){}
 
     addToCart(addItem: AddToCartRequest): Observable<any>{
-        return this._http.post(this.baseUrl + "/cart/addToCart", addItem);
+        let token = localStorage.getItem("token");
+        let header = new HttpHeaders({
+            "Authorization": "Bearer "+ token
+        });
+
+        return this._http.post(this.baseUrl + "/cart/addToCart", addItem, {headers: header});
     }
 
     getItemsInCartByAccountId(): Observable<Cart[]>{

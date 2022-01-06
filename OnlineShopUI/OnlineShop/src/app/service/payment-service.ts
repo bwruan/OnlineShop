@@ -16,7 +16,12 @@ export default class PaymentService {
     constructor(private _http: HttpClient){}
 
     addPayment(newPayment: AddPaymentRequest): Observable<any>{
-        return this._http.post(this.baseUrl + "/payment/addPayment", newPayment);
+        let token = localStorage.getItem("token");
+        let header = new HttpHeaders({
+            "Authorization": "Bearer "+ token
+        });
+
+        return this._http.post(this.baseUrl + "/payment/addPayment", newPayment, {headers: header});
     }
 
     getPaymentByPaymentId(paymentId: number): Observable<Payment>{
@@ -33,6 +38,7 @@ export default class PaymentService {
         let header = new HttpHeaders({
             "Authorization": "Bearer "+ token
         });
+        
         let accountId = Number(localStorage.getItem("accountId"));
         
         return this._http.get<Payment[]>(this.baseUrl + "/payment/paymentList/" + accountId, {headers: header});

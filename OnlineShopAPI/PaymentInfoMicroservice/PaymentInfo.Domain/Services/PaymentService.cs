@@ -18,7 +18,7 @@ namespace PaymentInfo.Domain.Services
             _mapper = mapper;
         }
 
-        public async Task AddPayment(string name, string cardNum, string securtiyCode, string expDate, long cardTypeId, long accountId)
+        public async Task AddPayment(string name, string cardNum, string securtiyCode, string expDate, long cardTypeId, long accountId, string token)
         {
             if (string.IsNullOrEmpty(name))
             {

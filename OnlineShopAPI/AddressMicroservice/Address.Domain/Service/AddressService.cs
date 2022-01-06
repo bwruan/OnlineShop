@@ -20,7 +20,7 @@ namespace Address.Domain.Service
             _mapper = mapper;
         }
 
-        public async Task AddAddress(string customer, string unitStreet, string city, string state, string zipcode, long accountId)
+        public async Task AddAddress(string customer, string unitStreet, string city, string state, string zipcode, long accountId, string token)
         {
             if (string.IsNullOrEmpty(customer))
             {

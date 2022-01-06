@@ -26,7 +26,7 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task AddPayment_Success()
         {
-            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
+            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
             var controller = new PaymentController(_paymentService.Object);
@@ -52,7 +52,7 @@ namespace PaymentInfo.Test.Controller
         [Test]
         public async Task AddPayment_InternalServerError()
         {
-            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>()))
+            _paymentService.Setup(p => p.AddPayment(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<long>(), It.IsAny<string>()))
                 .ThrowsAsync(new Exception());
 
             var controller = new PaymentController(_paymentService.Object);

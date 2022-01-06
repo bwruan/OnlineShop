@@ -35,7 +35,7 @@ namespace Address.Test.Service
 
             var addressService = new AddressService(_addressRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            await addressService.AddAddress("Test User", "123 A St", "CityTown", "AA", "99999", 1);
+            await addressService.AddAddress("Test User", "123 A St", "CityTown", "AA", "99999", 1, "SecretKey6196BRuan");
 
             _addressRepository.Verify(a => a.AddAddress(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>()), Times.Once);
         }
@@ -48,7 +48,7 @@ namespace Address.Test.Service
 
             var addressService = new AddressService(_addressRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => addressService.AddAddress("Test User", "", "CityTown", "AA", "99999", 1));
+            Assert.ThrowsAsync<ArgumentException>(() => addressService.AddAddress("Test User", "", "CityTown", "AA", "99999", 1, "SecretKey6196BRuan"));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Address.Test.Service
 
             var addressService = new AddressService(_addressRepository.Object, _userAccountService.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(() => addressService.AddAddress("Test User", null, "CityTown", "AA", "99999", 1));
+            Assert.ThrowsAsync<ArgumentException>(() => addressService.AddAddress("Test User", null, "CityTown", "AA", "99999", 1, "SecretKey6196BRuan"));
         }
 
         [Test]

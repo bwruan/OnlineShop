@@ -107,15 +107,13 @@ export class YourAddressComponent implements OnInit {
     this.editForm.reset();
   }
 
-  updateAddress(){
-    this.addressObj.addressId = parseInt(this.route.snapshot.paramMap.get('id'));
-
+  updateAddress(){    
     this.addressService.updateAddress(new UpdateAddressRequest(this.addressObj.addressId, this.addressObj.customerName, this.addressObj.unitStreet, this.addressObj.city, 
       this.addressObj.state, this.addressObj.zipcode))
       .subscribe(res => {
         location.reload();
       }, err => {
-        this.showMessage = err.error;
+        console.log(err.error);
       });
   }
 

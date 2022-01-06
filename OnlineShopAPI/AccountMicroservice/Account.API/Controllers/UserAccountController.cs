@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Account.API.Models;
@@ -106,6 +107,7 @@ namespace Account.API.Controllers
 
         [HttpPatch]
         [Route("logout/{accountId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> LogOut(long accountId)
         {
             try

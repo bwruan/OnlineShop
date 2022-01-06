@@ -56,7 +56,7 @@ export class YourPaymentComponent implements OnInit {
     .subscribe(res => {
       this.paymentList = res;
     }, err => {
-      this.showMessage = "Unable to grab payments.";
+      console.log(err.error);
     });
   }
 
@@ -104,6 +104,7 @@ export class YourPaymentComponent implements OnInit {
       let dateArr = res.expDate.split("/");
 
       this.paymentObj.accountId = Number(localStorage.getItem("accountId"));
+      this.paymentObj.paymentId = res.paymentId;
       this.paymentObj.cardNumber = res.cardNumber;
       this.paymentObj.cardTypeId = res.cardTypeId;
       this.paymentObj.expMonth = dateArr[0];
@@ -131,11 +132,11 @@ export class YourPaymentComponent implements OnInit {
 
   updatePayment(){
     this.paymentService.updatePayment(new UpdatePaymentRequest(this.paymentObj.paymentId, this.paymentObj.nameOnCard, this.paymentObj.cardNumber, this.paymentObj.securityCode, 
-      this.paymentObj.expMonth + this.paymentObj.expYear, this.paymentObj.cardTypeId))
+      this.paymentObj.expMonth + "/1/" + this.paymentObj.expYear, this.paymentObj.cardTypeId))
       .subscribe(res => {
         location.reload();
       }, err => {
-        this.showMessage = err.error;
+        console.log(err.error);
       });
   }
 
