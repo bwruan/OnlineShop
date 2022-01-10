@@ -18,6 +18,7 @@ export class NavBarComponent implements OnInit {
   
   signInModalState: boolean;
   signUpModalState: boolean;
+  isLoading: boolean;
   showMessage: any;
   errorMsgStyle: any = {
     color: "red",
@@ -65,6 +66,8 @@ export class NavBarComponent implements OnInit {
   }
 
   login(){
+    this.isLoading = true;
+
     this.userAccountService.logIn(new LoginRequest(this.loginObj.email, this.loginObj.password))
     .subscribe(res => {
       this.showMessage = undefined;
@@ -74,6 +77,8 @@ export class NavBarComponent implements OnInit {
       localStorage.setItem("accountId", res.accountId);
 
       this.closeSignInModal();
+
+      this.isLoading = false;
       this.router.navigate(["/"]);
     }, err =>{
       this.showMessage = "Unable to log in: " + err.error;      
@@ -81,9 +86,12 @@ export class NavBarComponent implements OnInit {
   }
 
   logout(){
+    this.isLoading = true;
+
     this.userAccountService.logOut()
     .subscribe(res => {
       localStorage.clear();
+      this.isLoading = false;
       this.router.navigate(["/"]);
     }, err =>{
       console.log(err.error);
@@ -91,6 +99,8 @@ export class NavBarComponent implements OnInit {
   }
 
   signUp(){
+    this.isLoading = true;
+
     this.userAccountService.addAccount(new AddAccountRequest(this.signUpObj.accountId, this.signUpObj.firstName + " " + this.signUpObj.lastName, this.signUpObj.email, this.signUpObj.password))
     .subscribe(res => {
       this.loginObj.email = this.signUpObj.email;
@@ -100,11 +110,12 @@ export class NavBarComponent implements OnInit {
       .subscribe(res => {
         this.showMessage = undefined;
 
-      localStorage.setItem("token", res.token);
-      localStorage.setItem("email", this.loginObj.email);
-      localStorage.setItem("accountId", res.accountId);
-
-      location.reload();
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("email", this.loginObj.email);
+        localStorage.setItem("accountId", res.accountId);
+        
+        this.isLoading = false;
+        location.reload();
       })
     }, err => {
       this.showMessage = err.error;

@@ -22,7 +22,7 @@
               </svg>
               Account
             </a>
-            <a class="nav-link col-5" id="logOut" style="font-size: small; color: lightslategray;" (click)="logout()">Sign Out</a>
+            <a class="nav-link col-5" id="logOut" style="font-size: small; color: lightslategray;" (click)="logout()" [ngStyle]="{'cursor': isLoading ? 'wait' : 'default'}">Sign Out</a>
         </div>
     </div>
     <div class="d-flex justify-content-center">
@@ -84,14 +84,14 @@
                             </div>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-secondary" style="font-size: small;">SUBMIT</button>
+                        <button type="submit" class="btn btn-secondary" style="font-size: small;" [ngStyle]="{'cursor': isLoading ? 'wait' : 'default'}">SUBMIT</button>
                     </div>
                 </div>
                   <hr>
                   <div class="d-grid gap-2 col-8 mx-auto">
                     <h2 class="text-center" style="font-family:'Courier New', Courier, monospace">Sign Up</h2>
                     <p class="text-center" style="font-size: small; color: grey;">Hello! It is quick and easy to set up an account!</p>
-                    <button type="button" class="btn btn-outline-dark" style="font-size: small;" (click)="openSignUpModal()">CREATE AN ACCOUNT</button>
+                    <button type="button" class="btn btn-outline-dark" style="font-size: small;" (click)="openSignUpModal()" [ngStyle]="{'cursor': isLoading ? 'wait' : 'default'}">CREATE AN ACCOUNT</button>
                   </div>
                   <br>
             </div>
