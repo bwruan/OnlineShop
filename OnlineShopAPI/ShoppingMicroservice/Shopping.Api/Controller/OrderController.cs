@@ -79,7 +79,21 @@ namespace Shopping.Api.Controller
         {
             try
             {
-                await _orderService.PurchaseOrder(request.AccountId);
+                var token = "";
+
+                if (Request.Headers.ContainsKey("Authorization"))
+                {
+                    var jwt = (Request.Headers.FirstOrDefault(s => s.Key.Equals("Authorization"))).Value;
+
+                    if (jwt.Count <= 0)
+                    {
+                        return StatusCode(400);
+                    }
+
+                    token = jwt[0].Replace("Bearer ", "");
+                }
+
+                await _orderService.PurchaseOrder(request.AccountId, token);
 
                 return StatusCode(201);
             }

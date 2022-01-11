@@ -81,7 +81,7 @@ namespace Shopping.Test.Service
 
             var orderService = new OrderService(_ordersRepository.Object, _itemRepository.Object, _mapper.Object);
 
-            await orderService.PurchaseOrder(1);
+            await orderService.PurchaseOrder(1, "SecretKey6196BRuan");
 
             _ordersRepository.Verify(o => o.PurchaseOrder(It.IsAny<long>()), Times.Once);
         }
@@ -94,7 +94,7 @@ namespace Shopping.Test.Service
 
             var orderService = new OrderService(_ordersRepository.Object, _itemRepository.Object, _mapper.Object);
 
-            Assert.ThrowsAsync<Exception>(() => orderService.PurchaseOrder(0));
+            Assert.ThrowsAsync<Exception>(() => orderService.PurchaseOrder(0, "SecretKey6196BRuan"));
         }
     }
 }

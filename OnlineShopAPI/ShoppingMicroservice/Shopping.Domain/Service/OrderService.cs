@@ -57,7 +57,7 @@ namespace Shopping.Domain.Service
             return orders;
         }
 
-        public async Task PurchaseOrder(long accountId)
+        public async Task PurchaseOrder(long accountId, string token)
         {
             await _ordersRepository.PurchaseOrder(accountId);
         }

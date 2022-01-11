@@ -139,7 +139,7 @@ namespace Shopping.Test.Controller
         [Test]
         public async Task PurchaseOrder_Success()
         {
-            _orderService.Setup(o => o.PurchaseOrder(It.IsAny<long>()))
+            _orderService.Setup(o => o.PurchaseOrder(It.IsAny<long>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
             var controller = new OrderController(_orderService.Object);
@@ -160,7 +160,7 @@ namespace Shopping.Test.Controller
         [Test]
         public async Task PurchaseOrder_InternalServerError()
         {
-            _orderService.Setup(o => o.PurchaseOrder(It.IsAny<long>()))
+            _orderService.Setup(o => o.PurchaseOrder(It.IsAny<long>(), It.IsAny<string>()))
                 .ThrowsAsync(new Exception());
 
             var controller = new OrderController(_orderService.Object);

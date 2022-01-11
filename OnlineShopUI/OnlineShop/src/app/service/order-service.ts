@@ -35,6 +35,11 @@ export class OrderService {
     }
 
     purchaseOrder(newOrder: PurchaseOrderRequest){
-        return this._http.post(this.baseUrl + "/order/purchase",newOrder);
+        let token = localStorage.getItem("token");
+        let header = new HttpHeaders({
+            "Authorization": "Bearer "+ token
+        });
+
+        return this._http.post(this.baseUrl + "/order/purchase",newOrder, {headers: header});
     }
 }
